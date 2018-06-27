@@ -1,7 +1,5 @@
 package com.mobilecompany.dto;
 
-import com.mobilecompany.entities.Option;
-
 import java.math.BigDecimal;
 
 public class OptionDto {
@@ -10,19 +8,6 @@ public class OptionDto {
     private String name;
     private BigDecimal price;
     private BigDecimal connectionCost;
-
-    public OptionDto() { }
-
-    public OptionDto(Option option) {
-        convertToDto(option);
-    }
-
-    public void convertToDto(Option entity) {
-        this.id = entity.getId();
-        this.name = entity.getName();
-        this.price = entity.getPrice();
-        this.connectionCost = entity.getConnectionCost();
-        }
 
     public Integer getId() {
         return id;
