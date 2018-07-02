@@ -12,6 +12,8 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <class>com.mobilecompany.entities.Option</class>
+        <class>com.mobilecompany.entities.Users</class>
+        <class>com.mobilecompany.entities.Tariffs</class>
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>

@@ -1,10 +1,8 @@
 package com.mobilecompany.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name="options")
@@ -19,8 +17,22 @@ public class Option {
     @Column(name="price")
     private BigDecimal price;
 
-    @Column(name="connectionCost")
+    @Column(name="connectionPrice")
     private BigDecimal connectionCost;
+
+    @ManyToMany
+    @JoinTable(name = "availableoptions",
+            joinColumns = @JoinColumn(name = "optionId"),
+            inverseJoinColumns = @JoinColumn(name = "tariffId"))
+    private List<Tariffs> tariffs;
+
+    public List<Tariffs> getTariffs() {
+        return tariffs;
+    }
+
+    public void setTariffs(List<Tariffs> tariffs) {
+        this.tariffs = tariffs;
+    }
 
     public Option() {}
 

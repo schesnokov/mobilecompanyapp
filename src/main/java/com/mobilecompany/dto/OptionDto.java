@@ -9,6 +9,16 @@ public class OptionDto {
     private BigDecimal price;
     private BigDecimal connectionCost;
 
+    public OptionDto() {
+    }
+
+    public OptionDto(Integer id, String name, BigDecimal price, BigDecimal connectionCost) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.connectionCost = connectionCost;
+    }
+
     public Integer getId() {
         return id;
     }

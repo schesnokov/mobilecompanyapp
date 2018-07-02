@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class OptionServiceImpl implements OptionService {
 
     private OptionDao optionDao;
-
     private ModelMapper mapper;
 
     @Autowired
