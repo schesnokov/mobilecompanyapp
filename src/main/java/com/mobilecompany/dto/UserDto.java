@@ -2,7 +2,7 @@ package com.mobilecompany.dto;
 
 import java.sql.Date;
 
-public class UsersDto {
+public class UserDto {
 
     private int id;
     private String firstName;
@@ -14,10 +14,25 @@ public class UsersDto {
     private String password;
     private byte isBlocked;
 
+
+    public UserDto() {
+    }
+
+    public UserDto(int id, String firstName, String secondName, Date dateOfBirth, String passportNumber, String adress, String email, String password, byte isBlocked) {
+        this.id = id;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.dateOfBirth = dateOfBirth;
+        this.passportNumber = passportNumber;
+        this.adress = adress;
+        this.email = email;
+        this.password = password;
+        this.isBlocked = isBlocked;
+    }
+
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -25,7 +40,6 @@ public class UsersDto {
     public String getFirstName() {
         return firstName;
     }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -33,7 +47,6 @@ public class UsersDto {
     public String getSecondName() {
         return secondName;
     }
-
     public void setSecondName(String secondName) {
         this.secondName = secondName;
     }
@@ -41,7 +54,6 @@ public class UsersDto {
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
-
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
@@ -49,7 +61,6 @@ public class UsersDto {
     public String getPassportNumber() {
         return passportNumber;
     }
-
     public void setPassportNumber(String passportNumber) {
         this.passportNumber = passportNumber;
     }
@@ -57,7 +68,6 @@ public class UsersDto {
     public String getAdress() {
         return adress;
     }
-
     public void setAdress(String adress) {
         this.adress = adress;
     }
@@ -65,7 +75,6 @@ public class UsersDto {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -73,7 +82,6 @@ public class UsersDto {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -81,23 +89,8 @@ public class UsersDto {
     public byte getIsBlocked() {
         return isBlocked;
     }
-
     public void setIsBlocked(byte isBlocked) {
         this.isBlocked = isBlocked;
     }
 
-    public UsersDto() {
-    }
-
-    public UsersDto(int id, String firstName, String secondName, Date dateOfBirth, String passportNumber, String adress, String email, String password, byte isBlocked) {
-        this.id = id;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.dateOfBirth = dateOfBirth;
-        this.passportNumber = passportNumber;
-        this.adress = adress;
-        this.email = email;
-        this.password = password;
-        this.isBlocked = isBlocked;
-    }
 }

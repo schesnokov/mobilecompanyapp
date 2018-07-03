@@ -1,8 +1,8 @@
 package com.mobilecompany.services.api;
 
-import com.mobilecompany.dto.UsersDto;
+import com.mobilecompany.dto.UserDto;
 
 public interface UsersService {
-    UsersDto getEntity(Integer id);
+    UserDto getEntity(Integer id);
     String getAllUsers();
 }

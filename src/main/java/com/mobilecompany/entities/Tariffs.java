@@ -21,39 +21,11 @@ public class Tariffs {
 
     public Tariffs() {}
 
-    public Tariffs(int id, String name, BigDecimal price, Set<Option> options) {
+    public Tariffs(int id, String name, BigDecimal price, Set<Options> options) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.options = options;
-    }
-
-    @ManyToMany(targetEntity = Option.class,
-                cascade = CascadeType.ALL,
-                fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "availableOptions",
-            joinColumns = @JoinColumn(name = "tariffId"),
-            inverseJoinColumns = @JoinColumn(name = "optionId")
-    )
-    private Set<Option> options = new HashSet<>();
-
-    public Set<Option> getOptions() {
-        return options;
-    }
-
-    public void setOptions(Set<Option> options) {
-        this.options = options;
-    }
-
-    public void addOption(Option option) {
-        options.add(option);
-        option.getTariffs().add(this);
-    }
-
-    public void removeOption(Option option) {
-        options.remove(option);
-        option.getTariffs().remove(this);
     }
 
     public int getId() {
@@ -75,6 +47,34 @@ public class Tariffs {
     }
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    @ManyToMany(targetEntity = Options.class,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "availableOptions",
+            joinColumns = @JoinColumn(name = "tariffId"),
+            inverseJoinColumns = @JoinColumn(name = "optionId")
+    )
+    private Set<Options> options = new HashSet<>();
+
+    public Set<Options> getOptions() {
+        return options;
+    }
+
+    public void setOptions(Set<Options> options) {
+        this.options = options;
+    }
+
+    public void addOption(Options option) {
+        options.add(option);
+        option.getTariffs().add(this);
+    }
+
+    public void removeOption(Options option) {
+        options.remove(option);
+        option.getTariffs().remove(this);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class Tariffs {
     @Override
     public String toString() {
         String optionString = "";
-        for (Option option : options) {
+        for (Options option : options) {
             optionString = optionString + option;
         }
         return "Tariffs{" +

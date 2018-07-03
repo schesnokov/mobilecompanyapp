@@ -25,9 +25,9 @@ public class IndexController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
-        model.addAttribute("msg", optionService.getEntity(1).getName());
         model.addAttribute("users", usersService.getAllUsers());
         model.addAttribute("tariffs", tariffsService.getAllTariffs());
+        model.addAttribute("options", optionService.getAllOptions());
         return "index";
     }
 }

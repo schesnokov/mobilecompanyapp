@@ -3,53 +3,63 @@ package com.mobilecompany.entities;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
+@Entity(name = "Contracts")
+@Table(name = "contracts")
 public class Contracts {
-    private int id;
-    private String number;
-    private BigDecimal balance;
-    private byte isBlocked;
-    private Users usersByClient;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "number")
+    private String number;
+
+    @Column(name = "balance")
+    private BigDecimal balance;
+
+    @Column(name = "isBlocked")
+    private byte isBlocked;
+
+    public Contracts() {
+    }
+
+    public Contracts(int id, String number, BigDecimal balance, byte isBlocked) {
+        this.id = id;
+        this.number = number;
+        this.balance = balance;
+        this.isBlocked = isBlocked;
+    }
+
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "number", nullable = false, length = 12)
     public String getNumber() {
         return number;
     }
-
     public void setNumber(String number) {
         this.number = number;
     }
 
-    @Basic
-    @Column(name = "balance", nullable = false, precision = 2)
     public BigDecimal getBalance() {
         return balance;
     }
-
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
-    @Basic
-    @Column(name = "isBlocked", nullable = false)
     public byte getIsBlocked() {
         return isBlocked;
     }
-
     public void setIsBlocked(byte isBlocked) {
         this.isBlocked = isBlocked;
     }
+
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -73,15 +83,5 @@ public class Contracts {
         result = 31 * result + (balance != null ? balance.hashCode() : 0);
         result = 31 * result + (int) isBlocked;
         return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "client", referencedColumnName = "id", nullable = false)
-    public Users getUsersByClient() {
-        return usersByClient;
-    }
-
-    public void setUsersByClient(Users usersByClient) {
-        this.usersByClient = usersByClient;
     }
 }

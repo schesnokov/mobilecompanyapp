@@ -22,7 +22,6 @@ public class OptionDto {
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -30,7 +29,6 @@ public class OptionDto {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -38,7 +36,6 @@ public class OptionDto {
     public BigDecimal getPrice() {
         return price;
     }
-
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
@@ -46,7 +43,6 @@ public class OptionDto {
     public BigDecimal getConnectionCost() {
         return connectionCost;
     }
-
     public void setConnectionCost(BigDecimal connectionCost) {
         this.connectionCost = connectionCost;
     }

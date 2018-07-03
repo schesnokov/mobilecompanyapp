@@ -1,7 +1,7 @@
 package com.mobilecompany.services.impl;
 
 import com.mobilecompany.dao.api.UsersDao;
-import com.mobilecompany.dto.UsersDto;
+import com.mobilecompany.dto.UserDto;
 import com.mobilecompany.entities.Users;
 import com.mobilecompany.services.api.UsersService;
 import org.modelmapper.ModelMapper;
@@ -24,11 +24,12 @@ public class UsersServiceImpl implements UsersService{
 
     @Override
     @Transactional(readOnly = true)
-    public UsersDto getEntity(Integer id) {
+    public UserDto getEntity(Integer id) {
         Users usersEntity = usersDao.read(id);
-        return mapper.map(usersEntity, UsersDto.class);
+        return mapper.map(usersEntity, UserDto.class);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public String getAllUsers() {
         List<Users> users = usersDao.findAllUsers();

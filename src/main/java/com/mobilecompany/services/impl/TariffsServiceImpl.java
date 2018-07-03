@@ -7,6 +7,7 @@ import com.mobilecompany.services.api.TariffsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,12 +24,14 @@ public class TariffsServiceImpl implements TariffsService {
     }
 
     @Override
+    @Transactional
     public TariffDto getEntity(Integer id) {
         Tariffs tariffs = tariffDao.read(id);
         return mapper.map(tariffs, TariffDto.class);
     }
 
     @Override
+    @Transactional
     public String getAllTariffs() {
         List<Tariffs> tariffsList = tariffDao.findAllTariffs();
         String result = "";

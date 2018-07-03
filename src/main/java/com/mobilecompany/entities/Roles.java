@@ -4,31 +4,16 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name="Roles")
+@Entity(name = "Roles")
+@Table(name="roles")
 public class Roles {
-    private int id;
-    private String name;
 
     @Id
-    @Column(name = "id", nullable = false)
-    public int getId() {
-        return id;
-    }
+    @Column(name = "id")
+    private int id;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Basic
-    @Column(name = "name", nullable = false, length = 32)
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    @Column(name = "name")
+    private String name;
 
     public Roles() {
     }
@@ -38,9 +23,23 @@ public class Roles {
         this.name = name;
     }
 
-    private Set<Users> users = new HashSet<>();
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @OneToMany(mappedBy = "roles", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Users> users = new HashSet<>();
+
     public Set<Users> getUsers() {
         return this.users;
     }

@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "Option")
+@Entity(name = "Options")
 @Table(name="options")
-public class Option {
+public class Options {
 
     @Id
     @Column(name="id")
@@ -22,28 +22,14 @@ public class Option {
     @Column(name="connectionCost")
     private BigDecimal connectionCost;
 
-    public Option() {}
+    public Options() {}
 
-    public Option(int id, String name, BigDecimal price, BigDecimal connectionCost) {
+    public Options(int id, String name, BigDecimal price, BigDecimal connectionCost) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.connectionCost = connectionCost;
     }
-
-    @ManyToMany(cascade = CascadeType.ALL,
-                targetEntity = Tariffs.class,
-                mappedBy = "options")
-    private Set<Tariffs> tariffs = new HashSet<>();
-
-    public Set<Tariffs> getTariffs() {
-        return tariffs;
-    }
-
-    public void setTariffs(Set<Tariffs> tariffs) {
-        this.tariffs = tariffs;
-    }
-
 
     public int getId() {
         return id;
@@ -74,9 +60,22 @@ public class Option {
         this.connectionCost = connectionCost;
     }
 
+    @ManyToMany(cascade = CascadeType.ALL,
+                targetEntity = Tariffs.class,
+                mappedBy = "options")
+    private Set<Tariffs> tariffs = new HashSet<>();
+
+    public Set<Tariffs> getTariffs() {
+        return tariffs;
+    }
+
+    public void setTariffs(Set<Tariffs> tariffs) {
+        this.tariffs = tariffs;
+    }
+
     @Override
     public String toString() {
-        return "Option{" +
+        return "Options{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
