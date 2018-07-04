@@ -2,6 +2,8 @@ package com.mobilecompany.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "Users")
 @Table(name="users")
@@ -121,6 +123,26 @@ public class Users {
 
     public void setRoles(Roles role) {
         this.roles = role;
+    }
+
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Contracts> contracts = new HashSet<>();
+
+    public Set<Contracts> getContracts() {
+        return this.contracts;
+    }
+
+    public void setContracts(Set<Contracts> contracts) {
+        this.contracts = contracts;
+    }
+
+    public void addContracts(Contracts contracts) {
+        contracts.setContracts(this);
+        getContracts().add(contracts);
+    }
+
+    public void removeContracts(Contracts contracts) {
+        getContracts().remove(contracts);
     }
 
     @Override

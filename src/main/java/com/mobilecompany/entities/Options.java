@@ -22,6 +22,9 @@ public class Options {
     @Column(name="connectionCost")
     private BigDecimal connectionCost;
 
+    @Column(name = "description")
+    private String description;
+
     public Options() {}
 
     public Options(int id, String name, BigDecimal price, BigDecimal connectionCost) {
@@ -60,6 +63,9 @@ public class Options {
         this.connectionCost = connectionCost;
     }
 
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
     @ManyToMany(cascade = CascadeType.ALL,
                 targetEntity = Tariffs.class,
                 mappedBy = "options")
@@ -80,6 +86,7 @@ public class Options {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", connectionCost=" + connectionCost +
+                ", description=" + description +
                 '}';
     }
 }

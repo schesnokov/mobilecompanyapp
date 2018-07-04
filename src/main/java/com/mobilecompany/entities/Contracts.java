@@ -58,8 +58,17 @@ public class Contracts {
         this.isBlocked = isBlocked;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "client")
+    private Users users;
 
+    public Users getUsers() {
+        return users;
+    }
 
+    public void setUsers(Users users) {
+        this.users = users;
+    }
 
     @Override
     public boolean equals(Object o) {

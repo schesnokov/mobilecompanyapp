@@ -19,6 +19,9 @@ public class Tariffs {
     @Column(name = "price")
     private BigDecimal price;
 
+    @Column(name = "description")
+    private String description;
+
     public Tariffs() {}
 
     public Tariffs(int id, String name, BigDecimal price, Set<Options> options) {
@@ -48,6 +51,9 @@ public class Tariffs {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
     @ManyToMany(targetEntity = Options.class,
             cascade = CascadeType.ALL,
@@ -109,6 +115,7 @@ public class Tariffs {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", description=" + description +
                 ", options=" + optionString +
                 '}';
     }
