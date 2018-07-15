@@ -35,7 +35,7 @@ public class Users {
     private String password;
 
     @Column(name = "isBlocked")
-    private byte isBlocked;
+    private int isBlocked;
 
     public Users() {
     }
@@ -106,10 +106,10 @@ public class Users {
         this.password = password;
     }
 
-    public byte getIsBlocked() {
+    public int getIsBlocked() {
         return isBlocked;
     }
-    public void setIsBlocked(byte isBlocked) {
+    public void setIsBlocked(int isBlocked) {
         this.isBlocked = isBlocked;
     }
 
@@ -137,7 +137,7 @@ public class Users {
     }
 
     public void addContracts(Contracts contracts) {
-        contracts.setContracts(this);
+        contracts.setUsers(this);
         getContracts().add(contracts);
     }
 

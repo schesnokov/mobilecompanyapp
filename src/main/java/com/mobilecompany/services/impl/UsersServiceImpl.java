@@ -1,7 +1,9 @@
 package com.mobilecompany.services.impl;
 
+import com.mobilecompany.dao.api.RoleDao;
 import com.mobilecompany.dao.api.UsersDao;
 import com.mobilecompany.dto.UserDto;
+import com.mobilecompany.entities.Roles;
 import com.mobilecompany.entities.Users;
 import com.mobilecompany.services.api.UsersService;
 import org.modelmapper.ModelMapper;
@@ -15,10 +17,12 @@ import java.util.List;
 public class UsersServiceImpl implements UsersService{
     private UsersDao usersDao;
     private ModelMapper mapper;
+    private RoleDao roleDao;
 
     @Autowired
-    public UsersServiceImpl(UsersDao usersDao) {
+    public UsersServiceImpl(UsersDao usersDao, RoleDao roleDao) {
         this.usersDao = usersDao;
+        this.roleDao = roleDao;
         mapper = new ModelMapper();
     }
 
@@ -43,5 +47,13 @@ public class UsersServiceImpl implements UsersService{
             }
         }
         return result;
+    }
+
+    @Override
+    @Transactional
+    public void createUser(Users user) {
+        Roles role = roleDao.getRoleByName("user");
+        user.setRoles(role);
+        usersDao.create(user);
     }
 }

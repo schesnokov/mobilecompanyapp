@@ -1,7 +1,6 @@
 package com.mobilecompany.services.impl;
 
 import com.mobilecompany.dao.api.TariffDao;
-import com.mobilecompany.dto.TariffDto;
 import com.mobilecompany.entities.Tariffs;
 import com.mobilecompany.services.api.TariffsService;
 import org.modelmapper.ModelMapper;
@@ -25,23 +24,27 @@ public class TariffsServiceImpl implements TariffsService {
 
     @Override
     @Transactional
-    public TariffDto getEntity(Integer id) {
+    public Tariffs getEntity(Integer id) {
         Tariffs tariffs = tariffDao.read(id);
-        return mapper.map(tariffs, TariffDto.class);
+        return tariffs;
     }
 
     @Override
     @Transactional
-    public String getAllTariffs() {
+    public List<Tariffs> getAllTariffs() {
         List<Tariffs> tariffsList = tariffDao.findAllTariffs();
-        String result = "";
-        for (Tariffs tariff : tariffsList) {
-            if (tariff.getOptions() != null) {
-                result = result + " " + tariff + "\n";
-            } else {
-                result = result + " " + tariff.getName() +  " tariff have no options" + "\n";
-            }
-        }
-        return result;
+        return tariffsList;
+    }
+
+    @Override
+    @Transactional
+    public void deleteTariff(Integer id) {
+        tariffDao.delete(id);
+    }
+
+    @Override
+    @Transactional
+    public void addTariff(Tariffs tariffs) {
+        tariffDao.create(tariffs);
     }
 }

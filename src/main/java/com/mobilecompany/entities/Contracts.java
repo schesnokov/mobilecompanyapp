@@ -63,11 +63,23 @@ public class Contracts {
     private Users users;
 
     public Users getUsers() {
-        return users;
+        return this.users;
     }
 
     public void setUsers(Users users) {
         this.users = users;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tariff")
+    private Tariffs tariff;
+
+    public Tariffs getTariff() {
+        return tariff;
+    }
+
+    public void setTariff(Tariffs tariff) {
+        this.tariff = tariff;
     }
 
     @Override
@@ -92,5 +104,17 @@ public class Contracts {
         result = 31 * result + (balance != null ? balance.hashCode() : 0);
         result = 31 * result + (int) isBlocked;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Contracts{" +
+                "id=" + id +
+                ", number='" + number + '\'' +
+                ", balance=" + balance +
+                ", isBlocked=" + isBlocked +
+                ", users=" + users +
+                ", tariff=" + tariff +
+                '}';
     }
 }

@@ -83,6 +83,17 @@ public class Tariffs {
         option.getTariffs().remove(this);
     }
 
+    @OneToOne(mappedBy = "tariff")
+    private Contracts contract;
+
+    public Contracts getContract() {
+        return contract;
+    }
+
+    public void setContract(Contracts contract) {
+        this.contract = contract;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
