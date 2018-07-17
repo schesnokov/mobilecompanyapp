@@ -7,4 +7,5 @@ public interface UsersService {
     UserDto getEntity(Integer id);
     String getAllUsers();
     void createUser(Users user);
+    Users findByEmail(String email);
 }

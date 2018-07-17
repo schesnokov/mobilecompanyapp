@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@ page isELIgnored="false" %>
 
 <!DOCTYPE html>
@@ -50,12 +52,26 @@
             <li>
               <a href="account">Personal account</a>
             </li>
-            <li>
-              <a href="adminPanel">Admin panel</a>
-            </li>
+            <security:authorize access="hasRole('ROLE_ADMIN')">
+              <li>
+                <a href="adminPanel">Admin panel</a>
+              </li>
+            </security:authorize>
+            <c:if test="${pageContext.request.userPrincipal.name == null}">
             <li class="active">
-              <a href="login">Login</a>
+                    <a href="login" class="link link_header">Login</a>
             </li>
+            </c:if>
+            <c:if test="${pageContext.request.userPrincipal.name != null}">
+            <li>
+                <form id="logoutForm" method="post" action="/logout">
+                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+            </li>
+            <li>
+                <a class="link link_header" onclick="document.forms['logoutForm'].submit()">Logout</a>
+            </li>
+            </c:if>
           </ul>
         </div>
         <!-- </div> -->
@@ -67,6 +83,36 @@
         <div class="row">
           <div class="col-lg-12">
             <h2 class="pageTitle">Login</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="content">
+      <div class="container content">
+        <hr class="margin-bottom-50">
+        <div class="row">
+          <div class="col-sm-4 info-blocks">
+            <div class="info-blocks-in">
+              <form action="/login" method='POST'>
+                <h2>Sign in</h2>
+                  <dt>
+                    E-mail
+                  </dt>
+                  <dd>
+                    <input name="email" id="email" placeholder="E-mail">
+                    <p>Enter email.</p>
+                  </dd>
+                  <dt>
+                    Password
+                  </dt>
+                  <dd>
+                    <input type="password" name="password" id="password"
+                           placeholder="Password*">
+                    <p>Enter password.</p>
+                  </dd>
+                <input type='submit' value='Sign in'>
+              </form>
+            </div>
           </div>
         </div>
       </div>

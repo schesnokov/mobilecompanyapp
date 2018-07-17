@@ -56,4 +56,10 @@ public class UsersServiceImpl implements UsersService{
         user.setRoles(role);
         usersDao.create(user);
     }
+
+    @Override
+    @Transactional
+    public Users findByEmail(String email) {
+        return usersDao.getByEmail(email);
+    }
 }

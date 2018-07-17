@@ -40,4 +40,10 @@ public class OptionServiceImpl implements OptionService {
         }
         return result;
     }
+
+    @Override
+    @Transactional
+    public void addOption(Options option) {
+        optionDao.create(option);
+    }
 }

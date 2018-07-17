@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@ page isELIgnored="false" %>
 
 <!DOCTYPE html>
@@ -50,12 +52,26 @@
             <li class="active">
               <a href="/account">Personal account</a>
             </li>
-            <li>
-              <a href="/adminPanel">Admin panel</a>
-            </li>
-            <li>
-              <a href="login">Login</a>
-            </li>
+            <security:authorize access="hasRole('ROLE_ADMIN')">
+              <li>
+                <a href="adminPanel">Admin panel</a>
+              </li>
+            </security:authorize>
+            <c:if test="${pageContext.request.userPrincipal.name == null}">
+              <li>
+                <a href="login" class="link link_header">Login</a>
+              </li>
+            </c:if>
+            <c:if test="${pageContext.request.userPrincipal.name != null}">
+              <li>
+                <form id="logoutForm" method="post" action="/logout">
+                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+              </li>
+              <li>
+                <a class="link link_header" onclick="document.forms['logoutForm'].submit()">Logout</a>
+              </li>
+            </c:if>
           </ul>
         </div>
         <!-- </div> -->

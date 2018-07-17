@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@ page isELIgnored="false" %>
 
 <!DOCTYPE html>
@@ -56,12 +58,26 @@
                     <li>
                         <a href="account">Personal account</a>
                     </li>
-                    <li  class="active">
-                        <a href="adminPanel">Admin panel</a>
-                    </li>
-                    <li>
-                        <a href="login">Login</a>
-                    </li>
+                    <security:authorize access="hasRole('ROLE_ADMIN')">
+                        <li>
+                            <a href="adminPanel">Admin panel</a>
+                        </li>
+                    </security:authorize>
+                    <c:if test="${pageContext.request.userPrincipal.name == null}">
+                        <li>
+                            <a href="login" class="link link_header">Login</a>
+                        </li>
+                    </c:if>
+                    <c:if test="${pageContext.request.userPrincipal.name != null}">
+                        <li>
+                            <form id="logoutForm" method="post" action="/logout">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            </form>
+                        </li>
+                        <li>
+                            <a class="link link_header" onclick="document.forms['logoutForm'].submit()">Logout</a>
+                        </li>
+                    </c:if>
                 </ul>
             </div>
             <!-- </div> -->
@@ -111,9 +127,53 @@
                     </dd>
                     </dl>
                 <input type='submit' value='Add new tariff'>
+                    <form action="/addOption/${option}" method='GET'>
+                        <h2>Add Option</h2>
+                        <dl class="dl_class">
+                            <dt>
+                                Option
+                            </dt>
+                            <dd>
+                                <input type='text' name="optionName" id="optionName"
+                                       placeholder="Option Name">
+                                <p>Enter option name</p>
+                            </dd>
+                            <dt>
+                                Option Description
+                            </dt>
+                            <dd>
+                                <input type="text" name="optionDescription" id="optionDescription"
+                                       placeholder="Option Description">
+                                <p>Enter option description</p>
+                            </dd>
+                            <dt>
+                                Price
+                            </dt>
+                            <dd>
+                                <input type="text" name="optionPrice" id="optionPrice"
+                                       placeholder="Option Price">
+                                <p>Enter option price</p>
+                            </dd>
+                            <dt>
+                                Connection cost
+                            </dt>
+                            <dd>
+                                <input type="text" name="connectionCost" id="connectionCost"
+                                       placeholder="Connection cost">
+                                <p>Enter connection cost</p>
+                            </dd>
+                        </dl>
+                        <input type='submit' value='Add new option'>
+                    </form>
             </form>
                     </div>
                 </div>
+
+                <div class="col-sm-4 info-blocks">
+                    <div class="info-blocks-in">
+                    </div>
+                </div>
+
                 <div class="col-sm-4 info-blocks">
                     <div class="info-blocks-in">
             <form action="/registration/${user}" method='GET'>

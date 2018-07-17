@@ -10,4 +10,5 @@ public interface UsersDao {
     void update(Integer id);
     void delete(Integer id);
     List<Users> findAllUsers();
+    Users getByEmail(String email);
 }
