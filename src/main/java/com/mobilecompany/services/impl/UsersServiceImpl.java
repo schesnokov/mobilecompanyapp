@@ -52,7 +52,7 @@ public class UsersServiceImpl implements UsersService{
     @Override
     @Transactional
     public void createUser(Users user) {
-        Roles role = roleDao.getRoleByName("user");
+        Roles role = roleDao.getRoleByName("ROLE_USER");
         user.setRoles(role);
         usersDao.create(user);
     }
