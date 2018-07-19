@@ -78,6 +78,35 @@
       </div>
     </header>
     <!-- end header -->
+    <section id="inner-headline">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h2 class="pageTitle">Personal Account</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="content">
+      <div class="container content">
+        <hr class="margin-bottom-50">
+        <div class="row">
+          <div class="col-sm-4 info-blocks" style="width:800px;">
+            <div class="info-blocks-in" >
+              <h2> First name: </h2> <h3>${customer.firstName}</h3> <br />
+              <h2> Second name: </h2><h3>${customer.secondName}</h3> <br />
+              <h2>  E-mail: </h2> <h3>${customer.email}</h3> <br />
+              <h2>  Date of birth: </h2><h3>${customer.dateOfBirth}</h3> <br />
+              <h2>  Account status: </h2> <h3> <c:choose>
+                                        <c:when test="${customer.isBlocked=='0'}"> Active <br /> </c:when>
+                                        <c:otherwise>Blocked <br /></c:otherwise>
+                                     </c:choose>
+                                </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <div id="sub-footer">
       <div class="container">

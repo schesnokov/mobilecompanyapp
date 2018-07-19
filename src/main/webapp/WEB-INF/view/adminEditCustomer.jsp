@@ -110,7 +110,7 @@
                                                placeholder="${customer.passportNumber}">
                                         <p>New Passport Data</p>
                                     </dd>
-                                    <dt>Adress
+                                    <dt>Address
                                     </dt>
                                     <dd>
                                         <form:input type='text' path="adress" />

@@ -1,11 +1,13 @@
 package com.mobilecompany.controllers;
 
+import com.mobilecompany.entities.Users;
 import com.mobilecompany.services.api.OptionService;
 import com.mobilecompany.services.api.TariffsService;
 import com.mobilecompany.services.api.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,4 +40,8 @@ public class CustomerController {
         return "/adminEditCustomer";
     }
 
+    @RequestMapping(value = "/saveEditedCustomer")
+    public String saveEditedCustomer(@ModelAttribute("customer") Users user){
+        return "/customerPage";
+    }
 }
