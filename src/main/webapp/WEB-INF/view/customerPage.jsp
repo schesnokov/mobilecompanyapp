@@ -7,6 +7,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -89,7 +90,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="pageTitle">Administration panel</h2>
+                    <h2 class="pageTitle">Customer edit page</h2>
                 </div>
             </div>
         </div>
@@ -98,149 +99,42 @@
         <div class="container content">
             <hr class="margin-bottom-50">
             <div class="row">
-                <div class="col-sm-4 info-blocks">
-                    <div class="info-blocks-in">
-                <form action="/addTariff/${tariff}" method='GET'>
-                <h2>Add Tariff</h2>
-                <dl class="dl_class">
-                    <dt>
-                        Tariff
-                    </dt>
-                    <dd>
-                        <input type='text' name="tariffName" id="tariffName"
-                               placeholder="Tariff Name">
-                        <p>Enter tariff name</p>
-                    </dd>
-                    <dt>
-                        Tariff Description
-                    </dt>
-                    <dd>
-                        <input type="text" name="tariffDescription" id="tariffDescription"
-                               placeholder="Tariff Description">
-                        <p>Enter tariff description</p>
-                    </dd>
-                    <dt>
-                        Price
-                    </dt>
-                    <dd>
-                        <input type="text" name="tariffPrice" id="tariffPrice"
-                               placeholder="Tariff Price">
-                        <p>Enter tariff price</p>
-                    </dd>
-                    </dl>
-                <input type='submit' value='Add new tariff'>
-                    <form action="/addOption/${option}" method='GET'>
-                        <h2>Add Option</h2>
-                        <dl class="dl_class">
-                            <dt>
-                                Option
-                            </dt>
-                            <dd>
-                                <input type='text' name="optionName" id="optionName"
-                                       placeholder="Option Name">
-                                <p>Enter option name</p>
-                            </dd>
-                            <dt>
-                                Option Description
-                            </dt>
-                            <dd>
-                                <input type="text" name="optionDescription" id="optionDescription"
-                                       placeholder="Option Description">
-                                <p>Enter option description</p>
-                            </dd>
-                            <dt>
-                                Price
-                            </dt>
-                            <dd>
-                                <input type="text" name="optionPrice" id="optionPrice"
-                                       placeholder="Option Price">
-                                <p>Enter option price</p>
-                            </dd>
-                            <dt>
-                                Connection cost
-                            </dt>
-                            <dd>
-                                <input type="text" name="connectionCost" id="connectionCost"
-                                       placeholder="Connection cost">
-                                <p>Enter connection cost</p>
-                            </dd>
-                        </dl>
-                        <input type='submit' value='Add new option'>
-                    </form>
-                </form>
+                <div class="col-sm-4 info-blocks" style="width:800px;">
+                    <div class="info-blocks-in" >
+                        <table class="table table-light table-hover text-center m-2">
+                            <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Second Name</th>
+                                <th scope="col">Birth Date</th>
+                                <th scope="col">Passport Number</th>
+                                <th scope="col">Adress</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Blocked</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="customerVar" items="#{customersList}">
+                                <tr>
+                                    <td><c:out value="${customerVar.firstName}"/></td>
+                                    <td><c:out value="${customerVar.secondName}"/></td>
+                                    <td><c:out value="${customerVar.dateOfBirth}"/></td>
+                                    <td><c:out value="${customerVar.passportNumber}"/></td>
+                                    <td><c:out value="${customerVar.adress}"/></td>
+                                    <td><c:out value="${customerVar.email}"/></td>
+                                    <td><c:out value="${customerVar.isBlocked}"/></td>
+                                    <td>
+                                        <a class="btn btn-block text-uppercase btn-success"
+                                           href="<c:url value="/admin/editCustomer/${customerVar.id}"/>">edit</a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
-                <div class="col-sm-4 info-blocks">
-                    <div class="info-blocks-in">
-                        <form action="customerPage" method="GET">
-                            <input type='submit' class="btn btn-primary btn-lg btn-block" value='Edit Customers'>
-                        </form>
                     </div>
                 </div>
-
-                <div class="col-sm-4 info-blocks">
-                    <div class="info-blocks-in">
-                        <form action="/registration" method='GET'>
-                            <h2>Registration</h2>
-                                <dl class="dl_class">
-                    <dt>
-                        First Name
-                    </dt>
-                    <dd>
-                        <input type='text' name="firstName" id="firstName"
-                               placeholder="First Name">
-                        <p>Enter your name</p>
-                    </dd>
-                    <dt>Second Name
-                    </dt>
-                    <dd>
-                        <input type='text' name="secondName" id="secondName"
-                               placeholder="Second Name">
-                        <p>Second Name</p>
-                    </dd>
-                    <dt>Birth Date
-                    </dt>
-                    <dd>
-                        <input type='text' name="dateOfBirth" id="dateOfBirth"
-                               placeholder="yyyy-mm-dd">
-                        <p>Birth Date</p>
-                    </dd>
-                    <dt>Passport
-                    </dt>
-                    <dd>
-                        <input type='text' name="passport" id="passport"
-                               placeholder="Passport Data">
-                        <p>Passport Data</p>
-                    </dd>
-                    <dt>Adress
-                    </dt>
-                    <dd>
-                        <input type='text' name="adress" id="adress"
-                               placeholder="Adress">
-                        <p>Adress</p>
-                    </dd>
-                    <dt>E-mail
-                    </dt>
-                    <dd>
-                        <input type='text' name="email" id="email"
-                               placeholder="E-mail">
-                        <p>E-mail</p>
-                    </dd>
-                    <dt>Password
-                    </dt>
-                    <dd>
-                        <input type='text' name="password" id="password"
-                               placeholder="Password">
-                        <p>Password</p>
-                    </dd>
-                </dl>
-                <input type='submit' value='Confirm'>
-            </form>
-                    </div>
-                </div>
-        </div>
-        </div>
     </section>
     <div id="sub-footer">
         <div class="container">
@@ -264,7 +158,7 @@
             </div>
         </div>
     </div>
-    </footer>
+</footer>
 </div>
 <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
 <!-- javascript
@@ -282,4 +176,4 @@
 <script src="/res/js/custom.js"></script>
 
 </body>
-</html>
+        </html>

@@ -32,14 +32,9 @@ public class OptionServiceImpl implements OptionService {
 
     @Override
     @Transactional(readOnly = true)
-    public String getAllOptions() {
-        List<Options> optionsList = optionDao.findAllOptions();
-        String result = "";
-        for (Options option : optionsList) {
-            result = result + " " + option;
+    public List<Options> getAllOptions() {
+        return optionDao.findAllOptions();
         }
-        return result;
-    }
 
     @Override
     @Transactional

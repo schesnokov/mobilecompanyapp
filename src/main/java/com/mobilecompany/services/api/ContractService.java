@@ -1,8 +1,11 @@
 package com.mobilecompany.services.api;
 
-import com.mobilecompany.dto.ContractDto;
+import com.mobilecompany.entities.Contracts;
+
+import java.util.List;
 
 public interface ContractService {
-    ContractDto getEntity(Integer id);
-    String getAllContracts();
+    Contracts getEntity(Integer id);
+    List<Contracts> getAllContracts();
+    void create(Contracts contract);
 }

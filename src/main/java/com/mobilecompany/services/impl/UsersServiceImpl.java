@@ -2,7 +2,6 @@ package com.mobilecompany.services.impl;
 
 import com.mobilecompany.dao.api.RoleDao;
 import com.mobilecompany.dao.api.UsersDao;
-import com.mobilecompany.dto.UserDto;
 import com.mobilecompany.entities.Roles;
 import com.mobilecompany.entities.Users;
 import com.mobilecompany.services.api.UsersService;
@@ -28,25 +27,14 @@ public class UsersServiceImpl implements UsersService{
 
     @Override
     @Transactional(readOnly = true)
-    public UserDto getEntity(Integer id) {
-        Users usersEntity = usersDao.read(id);
-        return mapper.map(usersEntity, UserDto.class);
+    public Users getEntity(Integer id) {
+        return usersDao.read(id);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public String getAllUsers() {
-        List<Users> users = usersDao.findAllUsers();
-        String result = "";
-        for (Users user : users) {
-            if (user.getRoles() != null) {
-                result = result + " " + user + "\n";
-            } else {
-                result = result + " " + user.getFirstName() + " " + user.getSecondName()
-                        + " user have no role" + "\n";
-            }
-        }
-        return result;
+    public List<Users> getAllUsers() {
+        return usersDao.findAllUsers();
     }
 
     @Override
@@ -61,5 +49,11 @@ public class UsersServiceImpl implements UsersService{
     @Transactional
     public Users findByEmail(String email) {
         return usersDao.getByEmail(email);
+    }
+
+    @Override
+    @Transactional
+    public void update(Users user) {
+        usersDao.update(user.getId());
     }
 }

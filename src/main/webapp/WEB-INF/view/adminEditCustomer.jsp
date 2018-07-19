@@ -7,6 +7,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -89,7 +90,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="pageTitle">Administration panel</h2>
+                    <h2 class="pageTitle">Customer edit page</h2>
                 </div>
             </div>
         </div>
@@ -98,148 +99,56 @@
         <div class="container content">
             <hr class="margin-bottom-50">
             <div class="row">
-                <div class="col-sm-4 info-blocks">
-                    <div class="info-blocks-in">
-                <form action="/addTariff/${tariff}" method='GET'>
-                <h2>Add Tariff</h2>
-                <dl class="dl_class">
-                    <dt>
-                        Tariff
-                    </dt>
-                    <dd>
-                        <input type='text' name="tariffName" id="tariffName"
-                               placeholder="Tariff Name">
-                        <p>Enter tariff name</p>
-                    </dd>
-                    <dt>
-                        Tariff Description
-                    </dt>
-                    <dd>
-                        <input type="text" name="tariffDescription" id="tariffDescription"
-                               placeholder="Tariff Description">
-                        <p>Enter tariff description</p>
-                    </dd>
-                    <dt>
-                        Price
-                    </dt>
-                    <dd>
-                        <input type="text" name="tariffPrice" id="tariffPrice"
-                               placeholder="Tariff Price">
-                        <p>Enter tariff price</p>
-                    </dd>
-                    </dl>
-                <input type='submit' value='Add new tariff'>
-                    <form action="/addOption/${option}" method='GET'>
-                        <h2>Add Option</h2>
-                        <dl class="dl_class">
-                            <dt>
-                                Option
-                            </dt>
-                            <dd>
-                                <input type='text' name="optionName" id="optionName"
-                                       placeholder="Option Name">
-                                <p>Enter option name</p>
-                            </dd>
-                            <dt>
-                                Option Description
-                            </dt>
-                            <dd>
-                                <input type="text" name="optionDescription" id="optionDescription"
-                                       placeholder="Option Description">
-                                <p>Enter option description</p>
-                            </dd>
-                            <dt>
-                                Price
-                            </dt>
-                            <dd>
-                                <input type="text" name="optionPrice" id="optionPrice"
-                                       placeholder="Option Price">
-                                <p>Enter option price</p>
-                            </dd>
-                            <dt>
-                                Connection cost
-                            </dt>
-                            <dd>
-                                <input type="text" name="connectionCost" id="connectionCost"
-                                       placeholder="Connection cost">
-                                <p>Enter connection cost</p>
-                            </dd>
-                        </dl>
-                        <input type='submit' value='Add new option'>
-                    </form>
-                </form>
-                    </div>
-                </div>
-
-                <div class="col-sm-4 info-blocks">
-                    <div class="info-blocks-in">
-                        <form action="customerPage" method="GET">
-                            <input type='submit' class="btn btn-primary btn-lg btn-block" value='Edit Customers'>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="col-sm-4 info-blocks">
-                    <div class="info-blocks-in">
-                        <form action="/registration" method='GET'>
-                            <h2>Registration</h2>
+                <div class="col-sm-4 info-blocks" style="width:800px;">
+                    <div class="info-blocks-in" >
+                        <form:form id="formEditCustomer" commandName="customer" method="post" action="/saveEditedCustomer">
                                 <dl class="dl_class">
-                    <dt>
-                        First Name
-                    </dt>
-                    <dd>
-                        <input type='text' name="firstName" id="firstName"
-                               placeholder="First Name">
-                        <p>Enter your name</p>
-                    </dd>
-                    <dt>Second Name
-                    </dt>
-                    <dd>
-                        <input type='text' name="secondName" id="secondName"
-                               placeholder="Second Name">
-                        <p>Second Name</p>
-                    </dd>
-                    <dt>Birth Date
-                    </dt>
-                    <dd>
-                        <input type='text' name="dateOfBirth" id="dateOfBirth"
-                               placeholder="yyyy-mm-dd">
-                        <p>Birth Date</p>
-                    </dd>
-                    <dt>Passport
-                    </dt>
-                    <dd>
-                        <input type='text' name="passport" id="passport"
-                               placeholder="Passport Data">
-                        <p>Passport Data</p>
-                    </dd>
-                    <dt>Adress
-                    </dt>
-                    <dd>
-                        <input type='text' name="adress" id="adress"
-                               placeholder="Adress">
-                        <p>Adress</p>
-                    </dd>
-                    <dt>E-mail
-                    </dt>
-                    <dd>
-                        <input type='text' name="email" id="email"
-                               placeholder="E-mail">
-                        <p>E-mail</p>
-                    </dd>
-                    <dt>Password
-                    </dt>
-                    <dd>
-                        <input type='text' name="password" id="password"
-                               placeholder="Password">
-                        <p>Password</p>
-                    </dd>
-                </dl>
-                <input type='submit' value='Confirm'>
-            </form>
+                                    <dt>Passport
+                                    </dt>
+                                    <dd>
+                                        <form:input type='text' path="passportNumber" />
+                                               placeholder="${customer.passportNumber}">
+                                        <p>New Passport Data</p>
+                                    </dd>
+                                    <dt>Adress
+                                    </dt>
+                                    <dd>
+                                        <form:input type='text' path="adress" />
+                                                placeholder="${customer.adress}">
+                                        <p>New address</p>
+                                    </dd>
+                                    <dt>E-mail
+                                    </dt>
+                                    <dd>
+                                        <form:input type='text' path="email" />
+                                        placeholder="${customer.email}">
+                                        <p>New e-mail</p>
+                                    </dd>
+                                    <dt>Password
+                                    </dt>
+                                    <dd>
+                                        <form:input type='text' path="password" />
+                                               placeholder="Password">
+                                        <p>New password</p>
+                                    </dd>
+                                    <select name="tariffName">
+                                        <option>Choose tariff</option>
+                                        <c:forEach var="tariffVar" items="#{tariffList}">
+                                            <form:option value="${tariffVar.name}">${tariffVar.name}</form:option>
+                                        </c:forEach>
+                                    </select>
+                                    <select name="optionName">
+                                        <option>Choose options</option>
+                                        <c:forEach var="optionVar" items="#{optionsList}">
+                                            <form:option value="${optionVar.name}">${optionVar.name}</form:option>
+                                        </c:forEach>
+                                    </select>
+                                </dl>
+                                <input type='submit' value='Confirm'/>
+                        </form:form>
                     </div>
                 </div>
-        </div>
+            </div>
         </div>
     </section>
     <div id="sub-footer">

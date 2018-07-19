@@ -18,7 +18,7 @@ public class AboutController {
     }
 
     @RequestMapping(value = "/about", method = RequestMethod.GET)
-    public String index(Model model) {
+    public String about(Model model) {
         model.addAttribute("tariffList", tariffsService.getAllTariffs());
         return "/about";
     }

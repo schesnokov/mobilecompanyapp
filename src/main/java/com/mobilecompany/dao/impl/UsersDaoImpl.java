@@ -29,7 +29,6 @@ public class UsersDaoImpl implements UsersDao {
     public void update(Integer id) {
         Users user = entityManager.find(Users.class, id);
         entityManager.detach(user);
-        user.setFirstName("New name");
         entityManager.merge(user);
     }
 
