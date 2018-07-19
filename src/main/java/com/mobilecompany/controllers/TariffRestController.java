@@ -1,7 +1,7 @@
 package com.mobilecompany.controllers;
 
-import com.mobilecompany.entities.Tariffs;
-import com.mobilecompany.services.api.TariffsService;
+import com.mobilecompany.entities.Tariff;
+import com.mobilecompany.services.api.TariffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,16 +13,16 @@ import java.math.BigDecimal;
 
 @Controller
 public class TariffRestController {
-    private TariffsService tariffsService;
+    private TariffService tariffService;
 
     @Autowired
-    public  TariffRestController(TariffsService tariffsService) {
-        this.tariffsService = tariffsService;
+    public  TariffRestController(TariffService tariffService) {
+        this.tariffService = tariffService;
     }
 
     @RequestMapping(value = "/deleteTariff/{id}", method = RequestMethod.GET)
     public String deleteTariff(@PathVariable Integer id) {
-        tariffsService.deleteTariff(id);
+        tariffService.deleteTariff(id);
         return "redirect: ../tariffs";
     }
 
@@ -30,11 +30,11 @@ public class TariffRestController {
     public String addTariff(@RequestParam("tariffName") String tariffName,
                             @RequestParam("tariffDescription") String tariffDescription,
                             @RequestParam("tariffPrice") BigDecimal tariffPrice) {
-        Tariffs tariff = new Tariffs();
+        Tariff tariff = new Tariff();
         tariff.setName(tariffName);
         tariff.setDescription(tariffDescription);
         tariff.setPrice(tariffPrice);
-        tariffsService.addTariff(tariff);
+        tariffService.addTariff(tariff);
         return "redirect: /tariffs";
     }
 }

@@ -2,7 +2,7 @@ package com.mobilecompany.services.impl;
 
 import com.mobilecompany.dao.api.OptionDao;
 import com.mobilecompany.dto.OptionDto;
-import com.mobilecompany.entities.Options;
+import com.mobilecompany.entities.Option;
 import com.mobilecompany.services.api.OptionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +26,19 @@ public class OptionServiceImpl implements OptionService {
     @Override
     @Transactional(readOnly = true)
     public OptionDto getEntity(Integer id) {
-        Options optionEntity = optionDao.read(id);
+        Option optionEntity = optionDao.read(id);
         return mapper.map(optionEntity, OptionDto.class);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Options> getAllOptions() {
+    public List<Option> getAllOptions() {
         return optionDao.findAllOptions();
         }
 
     @Override
     @Transactional
-    public void addOption(Options option) {
+    public void addOption(Option option) {
         optionDao.create(option);
     }
 }

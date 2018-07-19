@@ -1,12 +1,12 @@
 package com.mobilecompany.services.api;
 
 import com.mobilecompany.dto.OptionDto;
-import com.mobilecompany.entities.Options;
+import com.mobilecompany.entities.Option;
 
 import java.util.List;
 
 public interface OptionService {
     OptionDto getEntity(Integer id);
-    List<Options> getAllOptions();
-    void addOption(Options option);
+    List<Option> getAllOptions();
+    void addOption(Option option);
 }

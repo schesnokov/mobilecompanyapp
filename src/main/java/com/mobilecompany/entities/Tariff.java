@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "Tariffs")
+@Entity(name = "Tariff")
 @Table(name = "tariffs")
-public class Tariffs {
+public class Tariff {
 
     @Id
     @Column(name = "id")
@@ -22,9 +22,9 @@ public class Tariffs {
     @Column(name = "description")
     private String description;
 
-    public Tariffs() {}
+    public Tariff() {}
 
-    public Tariffs(int id, String name, BigDecimal price, Set<Options> options) {
+    public Tariff(int id, String name, BigDecimal price, Set<Option> options) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -55,7 +55,7 @@ public class Tariffs {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    @ManyToMany(targetEntity = Options.class,
+    @ManyToMany(targetEntity = Option.class,
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     @JoinTable(
@@ -63,34 +63,34 @@ public class Tariffs {
             joinColumns = @JoinColumn(name = "tariffId"),
             inverseJoinColumns = @JoinColumn(name = "optionId")
     )
-    private Set<Options> options = new HashSet<>();
+    private Set<Option> options = new HashSet<>();
 
-    public Set<Options> getOptions() {
+    public Set<Option> getOptions() {
         return options;
     }
 
-    public void setOptions(Set<Options> options) {
+    public void setOptions(Set<Option> options) {
         this.options = options;
     }
 
-    public void addOption(Options option) {
+    public void addOption(Option option) {
         options.add(option);
         option.getTariffs().add(this);
     }
 
-    public void removeOption(Options option) {
+    public void removeOption(Option option) {
         options.remove(option);
         option.getTariffs().remove(this);
     }
 
     @OneToOne(mappedBy = "tariff")
-    private Contracts contract;
+    private Contract contract;
 
-    public Contracts getContract() {
+    public Contract getContract() {
         return contract;
     }
 
-    public void setContract(Contracts contract) {
+    public void setContract(Contract contract) {
         this.contract = contract;
     }
 
@@ -99,11 +99,11 @@ public class Tariffs {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Tariffs tariffs = (Tariffs) o;
+        Tariff tariff = (Tariff) o;
 
-        if (id != tariffs.id) return false;
-        if (name != null ? !name.equals(tariffs.name) : tariffs.name != null) return false;
-        if (price != null ? !price.equals(tariffs.price) : tariffs.price != null) return false;
+        if (id != tariff.id) return false;
+        if (name != null ? !name.equals(tariff.name) : tariff.name != null) return false;
+        if (price != null ? !price.equals(tariff.price) : tariff.price != null) return false;
 
         return true;
     }
@@ -119,10 +119,10 @@ public class Tariffs {
     @Override
     public String toString() {
         String optionString = "";
-        for (Options option : options) {
+        for (Option option : options) {
             optionString = optionString + option;
         }
-        return "Tariffs{" +
+        return "Tariff{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +

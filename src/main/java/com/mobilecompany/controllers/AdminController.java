@@ -1,6 +1,6 @@
 package com.mobilecompany.controllers;
 
-import com.mobilecompany.services.api.UsersService;
+import com.mobilecompany.services.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class AdminController {
 
-    private UsersService usersService;
+    private UserService userService;
 
     @Autowired
-    public AdminController(UsersService usersService) {
-        this.usersService = usersService;
+    public AdminController(UserService userService) {
+        this.userService = userService;
     }
 
     @RequestMapping(value = "/adminPanel", method = RequestMethod.GET)
     public String tariffs(Model model) {
-        model.addAttribute("customerList", usersService.getAllUsers());
+        model.addAttribute("customerList", userService.getAllUsers());
         return "/adminPanel";
     }
 }

@@ -1,6 +1,6 @@
 package com.mobilecompany.controllers;
 
-import com.mobilecompany.services.api.TariffsService;
+import com.mobilecompany.services.api.TariffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class AboutController {
 
-    private TariffsService tariffsService;
+    private TariffService tariffService;
 
     @Autowired
-    public AboutController(TariffsService tariffsService) {
-        this.tariffsService = tariffsService;
+    public AboutController(TariffService tariffService) {
+        this.tariffService = tariffService;
     }
 
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String about(Model model) {
-        model.addAttribute("tariffList", tariffsService.getAllTariffs());
+        model.addAttribute("tariffList", tariffService.getAllTariffs());
         return "/about";
     }
 }

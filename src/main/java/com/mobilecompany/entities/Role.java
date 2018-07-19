@@ -4,9 +4,9 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "Roles")
+@Entity(name = "Role")
 @Table(name="roles")
-public class Roles {
+public class Role {
 
     @Id
     @Column(name = "id")
@@ -15,10 +15,10 @@ public class Roles {
     @Column(name = "name")
     private String name;
 
-    public Roles() {
+    public Role() {
     }
 
-    public Roles(int id, String name) {
+    public Role(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -37,24 +37,24 @@ public class Roles {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "roles", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Users> users = new HashSet<>();
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<User> users = new HashSet<>();
 
-    public Set<Users> getUsers() {
+    public Set<User> getUsers() {
         return this.users;
     }
 
-    public void setUsers(Set<Users> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 
-    public void addUsers(Users users) {
-        users.setRoles(this);
-        getUsers().add(users);
+    public void addUsers(User user) {
+        user.setRole(this);
+        getUsers().add(user);
     }
 
-    public void removeUsers(Users users) {
-        getUsers().remove(users);
+    public void removeUsers(User user) {
+        getUsers().remove(user);
     }
 
     @Override
@@ -62,10 +62,10 @@ public class Roles {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Roles roles = (Roles) o;
+        Role role = (Role) o;
 
-        if (id != roles.id) return false;
-        if (name != null ? !name.equals(roles.name) : roles.name != null) return false;
+        if (id != role.id) return false;
+        if (name != null ? !name.equals(role.name) : role.name != null) return false;
 
         return true;
     }
@@ -79,7 +79,7 @@ public class Roles {
 
     @Override
     public String toString() {
-        return "Roles{" +
+        return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", users=" + users +

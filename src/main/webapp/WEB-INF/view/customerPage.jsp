@@ -50,22 +50,22 @@
                         <a href="/">Home</a>
                     </li>
                     <li>
-                        <a href="about">About Us</a>
+                        <a href="/about">About Us</a>
                     </li>
                     <li>
-                        <a href="tariffs">Our Tariffs</a>
+                        <a href="/tariffs">Our Tariffs</a>
                     </li>
                     <li>
-                        <a href="account">Personal account</a>
+                        <a href="/account">Personal account</a>
                     </li>
                     <security:authorize access="hasRole('ROLE_ADMIN')">
                         <li>
-                            <a href="adminPanel">Admin panel</a>
+                            <a href="/adminPanel">Admin panel</a>
                         </li>
                     </security:authorize>
                     <c:if test="${pageContext.request.userPrincipal.name == null}">
                         <li>
-                            <a href="login" class="link link_header">Login</a>
+                            <a href="/login" class="link link_header">Login</a>
                         </li>
                     </c:if>
                     <c:if test="${pageContext.request.userPrincipal.name != null}">

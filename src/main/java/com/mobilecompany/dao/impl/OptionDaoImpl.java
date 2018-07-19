@@ -1,7 +1,7 @@
 package com.mobilecompany.dao.impl;
 
 import com.mobilecompany.dao.api.OptionDao;
-import com.mobilecompany.entities.Options;
+import com.mobilecompany.entities.Option;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -16,18 +16,18 @@ public class OptionDaoImpl implements OptionDao {
     private EntityManager entityManager;
 
     @Override
-    public void create(Options option) {
+    public void create(Option option) {
         entityManager.persist(option);
     }
 
     @Override
-    public Options read(Integer id) {
-        return entityManager.find(Options.class, id);
+    public Option read(Integer id) {
+        return entityManager.find(Option.class, id);
     }
 
     @Override
     public void update(Integer id) {
-        Options option = entityManager.find(Options.class, id);
+        Option option = entityManager.find(Option.class, id);
         entityManager.detach(option);
         option.setName("NewName");
         option.setPrice(new BigDecimal(20.00));
@@ -37,12 +37,12 @@ public class OptionDaoImpl implements OptionDao {
 
     @Override
     public void delete(Integer id) {
-        Options option = entityManager.find(Options.class, id);
+        Option option = entityManager.find(Option.class, id);
         entityManager.remove(option);
         }
 
     @Override
-    public List<Options> findAllOptions() {
-        return entityManager.createQuery("from Options c").getResultList();
+    public List<Option> findAllOptions() {
+        return entityManager.createQuery("from Option c").getResultList();
     }
 }

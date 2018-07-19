@@ -1,8 +1,8 @@
 package com.mobilecompany.services.impl;
 
 import com.mobilecompany.dao.api.TariffDao;
-import com.mobilecompany.entities.Tariffs;
-import com.mobilecompany.services.api.TariffsService;
+import com.mobilecompany.entities.Tariff;
+import com.mobilecompany.services.api.TariffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,24 +10,24 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class TariffsServiceImpl implements TariffsService {
+public class TariffServiceImpl implements TariffService {
 
     private TariffDao tariffDao;
 
     @Autowired
-    public TariffsServiceImpl(TariffDao tariffDao) {
+    public TariffServiceImpl(TariffDao tariffDao) {
         this.tariffDao = tariffDao;
     }
 
     @Override
     @Transactional
-    public Tariffs getEntity(Integer id) {
+    public Tariff getTariff(Integer id) {
         return tariffDao.read(id);
     }
 
     @Override
     @Transactional
-    public List<Tariffs> getAllTariffs() {
+    public List<Tariff> getAllTariffs() {
         return tariffDao.findAllTariffs();
     }
 
@@ -39,7 +39,7 @@ public class TariffsServiceImpl implements TariffsService {
 
     @Override
     @Transactional
-    public void addTariff(Tariffs tariffs) {
-        tariffDao.create(tariffs);
+    public void addTariff(Tariff tariff) {
+        tariffDao.create(tariff);
     }
 }

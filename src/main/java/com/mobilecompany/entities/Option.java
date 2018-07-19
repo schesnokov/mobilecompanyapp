@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "Options")
+@Entity(name = "Option")
 @Table(name="options")
-public class Options {
+public class Option {
 
     @Id
     @Column(name="id")
@@ -25,9 +25,9 @@ public class Options {
     @Column(name = "description")
     private String description;
 
-    public Options() {}
+    public Option() {}
 
-    public Options(int id, String name, BigDecimal price, BigDecimal connectionCost) {
+    public Option(int id, String name, BigDecimal price, BigDecimal connectionCost) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -67,21 +67,21 @@ public class Options {
     public void setDescription(String description) { this.description = description; }
 
     @ManyToMany(cascade = CascadeType.ALL,
-                targetEntity = Tariffs.class,
+                targetEntity = Tariff.class,
                 mappedBy = "options")
-    private Set<Tariffs> tariffs = new HashSet<>();
+    private Set<Tariff> tariffs = new HashSet<>();
 
-    public Set<Tariffs> getTariffs() {
+    public Set<Tariff> getTariffs() {
         return tariffs;
     }
 
-    public void setTariffs(Set<Tariffs> tariffs) {
+    public void setTariffs(Set<Tariff> tariffs) {
         this.tariffs = tariffs;
     }
 
     @Override
     public String toString() {
-        return "Options{" +
+        return "Option{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +

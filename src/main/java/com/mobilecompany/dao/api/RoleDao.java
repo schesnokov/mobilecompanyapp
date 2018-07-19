@@ -1,14 +1,14 @@
 package com.mobilecompany.dao.api;
 
-import com.mobilecompany.entities.Roles;
+import com.mobilecompany.entities.Role;
 
 import java.util.List;
 
 public interface RoleDao {
-    Roles getRoleByName(String roleName);
-    void create(Roles role);
-    Roles read(Integer id);
+    Role getRoleByName(String roleName);
+    void create(Role role);
+    Role read(Integer id);
     void update(Integer id);
     void delete(Integer id);
-    List<Roles> findAllTariffs();
+    List<Role> findAllTariffs();
 }

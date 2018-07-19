@@ -54,12 +54,12 @@
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
               <li>
-                <a href="adminPanel">Admin panel</a>
+                <a href="/adminPanel">Admin panel</a>
               </li>
             </security:authorize>
             <c:if test="${pageContext.request.userPrincipal.name == null}">
               <li>
-                <a href="login" class="link link_header">Login</a>
+                <a href="/login" class="link link_header">Login</a>
               </li>
             </c:if>
             <c:if test="${pageContext.request.userPrincipal.name != null}">

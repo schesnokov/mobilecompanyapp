@@ -1,7 +1,7 @@
 package com.mobilecompany.services.impl;
 
-import com.mobilecompany.dao.impl.UsersDaoImpl;
-import com.mobilecompany.entities.Users;
+import com.mobilecompany.dao.impl.UserDaoImpl;
+import com.mobilecompany.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,19 +17,19 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UsersDaoImpl usersDao;
+    private UserDaoImpl usersDao;
 
     @Autowired
-    public UserDetailsServiceImpl(UsersDaoImpl usersDao) {
+    public UserDetailsServiceImpl(UserDaoImpl usersDao) {
         this.usersDao = usersDao;
     }
 
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) {
-        Users user = usersDao.getByEmail(email);
+        User user = usersDao.getByEmail(email);
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(user.getRoles().getName()));
+        grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
 
          return new org.springframework.security.core.userdetails.
                 User(user.getEmail(), user.getPassword(), grantedAuthorities);

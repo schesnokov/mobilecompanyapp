@@ -3,9 +3,9 @@ package com.mobilecompany.entities;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity(name = "Contracts")
+@Entity(name = "Contract")
 @Table(name = "contracts")
-public class Contracts {
+public class Contract {
 
     @Id
     @Column(name = "id")
@@ -20,10 +20,10 @@ public class Contracts {
     @Column(name = "isBlocked")
     private byte isBlocked;
 
-    public Contracts() {
+    public Contract() {
     }
 
-    public Contracts(int id, String number, BigDecimal balance, byte isBlocked) {
+    public Contract(int id, String number, BigDecimal balance, byte isBlocked) {
         this.id = id;
         this.number = number;
         this.balance = balance;
@@ -60,25 +60,25 @@ public class Contracts {
 
     @ManyToOne
     @JoinColumn(name = "client")
-    private Users users;
+    private User user;
 
-    public Users getUsers() {
-        return this.users;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tariff")
-    private Tariffs tariff;
+    private Tariff tariff;
 
-    public Tariffs getTariff() {
+    public Tariff getTariff() {
         return tariff;
     }
 
-    public void setTariff(Tariffs tariff) {
+    public void setTariff(Tariff tariff) {
         this.tariff = tariff;
     }
 
@@ -87,12 +87,12 @@ public class Contracts {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Contracts contracts = (Contracts) o;
+        Contract contract = (Contract) o;
 
-        if (id != contracts.id) return false;
-        if (isBlocked != contracts.isBlocked) return false;
-        if (number != null ? !number.equals(contracts.number) : contracts.number != null) return false;
-        if (balance != null ? !balance.equals(contracts.balance) : contracts.balance != null) return false;
+        if (id != contract.id) return false;
+        if (isBlocked != contract.isBlocked) return false;
+        if (number != null ? !number.equals(contract.number) : contract.number != null) return false;
+        if (balance != null ? !balance.equals(contract.balance) : contract.balance != null) return false;
 
         return true;
     }
@@ -108,12 +108,12 @@ public class Contracts {
 
     @Override
     public String toString() {
-        return "Contracts{" +
+        return "Contract{" +
                 "id=" + id +
                 ", number='" + number + '\'' +
                 ", balance=" + balance +
                 ", isBlocked=" + isBlocked +
-                ", users=" + users +
+                ", user=" + user +
                 ", tariff=" + tariff +
                 '}';
     }

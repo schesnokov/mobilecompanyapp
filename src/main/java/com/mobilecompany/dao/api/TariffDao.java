@@ -1,13 +1,13 @@
 package com.mobilecompany.dao.api;
 
-import com.mobilecompany.entities.Tariffs;
+import com.mobilecompany.entities.Tariff;
 
 import java.util.List;
 
 public interface TariffDao {
-    void create(Tariffs tariff);
-    Tariffs read(Integer id);
+    void create(Tariff tariff);
+    Tariff read(Integer id);
     void update(Integer id);
     void delete(Integer id);
-    List<Tariffs> findAllTariffs();
+    List<Tariff> findAllTariffs();
 }

@@ -1,9 +1,9 @@
 package com.mobilecompany.controllers;
 
-import com.mobilecompany.entities.Users;
+import com.mobilecompany.entities.User;
 import com.mobilecompany.services.api.OptionService;
-import com.mobilecompany.services.api.TariffsService;
-import com.mobilecompany.services.api.UsersService;
+import com.mobilecompany.services.api.TariffService;
+import com.mobilecompany.services.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,33 +15,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class CustomerController {
 
-    private UsersService usersService;
-    private TariffsService tariffsService;
+    private UserService userService;
+    private TariffService tariffService;
     private OptionService optionService;
 
     @Autowired
-    public CustomerController(UsersService usersService, TariffsService tariffsService, OptionService optionService) {
-        this.usersService = usersService;
-        this.tariffsService = tariffsService;
+    public CustomerController(UserService userService, TariffService tariffService, OptionService optionService) {
+        this.userService = userService;
+        this.tariffService = tariffService;
         this.optionService = optionService;
     }
 
     @RequestMapping(value = "/customerPage", method = RequestMethod.GET)
     public String customers(Model model) {
-        model.addAttribute("customersList", usersService.getAllUsers());
+        model.addAttribute("customersList", userService.getAllUsers());
         return "/customerPage";
     }
 
     @RequestMapping(value = "/admin/editCustomer/{id}")
     public String editCustomer(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("tariffList", tariffsService.getAllTariffs());
-        model.addAttribute("customer", usersService.getEntity(id));
+        model.addAttribute("tariffList", tariffService.getAllTariffs());
+        model.addAttribute("customer", userService.getUser(id));
         model.addAttribute("optionsList", optionService.getAllOptions());
         return "/adminEditCustomer";
     }
 
     @RequestMapping(value = "/saveEditedCustomer")
-    public String saveEditedCustomer(@ModelAttribute("customer") Users user){
+    public String saveEditedCustomer(@ModelAttribute("customer") User user){
         return "/customerPage";
     }
 }

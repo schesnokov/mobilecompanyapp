@@ -2,8 +2,8 @@ package com.mobilecompany.controllers;
 
 import com.mobilecompany.services.api.ContractService;
 import com.mobilecompany.services.api.OptionService;
-import com.mobilecompany.services.api.TariffsService;
-import com.mobilecompany.services.api.UsersService;
+import com.mobilecompany.services.api.TariffService;
+import com.mobilecompany.services.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -11,15 +11,15 @@ import org.springframework.stereotype.Controller;
 public class ContractController {
 
     private ContractService contractService;
-    private UsersService usersService;
-    private TariffsService tariffsService;
+    private UserService userService;
+    private TariffService tariffService;
     private OptionService optionService;
 
     @Autowired
-    public ContractController(ContractService contractService,UsersService usersService,TariffsService tariffsService, OptionService optionService) {
+    public ContractController(ContractService contractService, UserService userService, TariffService tariffService, OptionService optionService) {
         this.contractService = contractService;
-        this.usersService = usersService;
-        this.tariffsService = tariffsService;
+        this.userService = userService;
+        this.tariffService = tariffService;
         this.optionService = optionService;
     }
 

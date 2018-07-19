@@ -76,14 +76,14 @@ error-page*, taglib*, resource-env-ref*, resource-ref*, security-constraint*,
 login-config?, security-role*, env-entry*, ejb-ref*,  ejb-local-ref*)>
 
 <!--
-The auth-constraint element indicates the user roles that should
+The auth-constraint element indicates the user role that should
 be permitted access to this resource collection. The role-name
 used here must either correspond to the role-name of one of the
 security-role elements defined for this web application, or be
 the specially reserved role-name "*" that is a compact syntax for
-indicating all roles in the web application. If both "*" and
-rolenames appear, the container interprets this as all roles.
-If no roles are defined, no user is allowed access to the portion of
+indicating all role in the web application. If both "*" and
+rolenames appear, the container interprets this as all role.
+If no role are defined, no user is allowed access to the portion of
 the web application described by the containing security-constraint.
 The container matches role names case sensitively when determining
 access.
@@ -699,7 +699,7 @@ Example:
 
 <!--
 The role-link element is a reference to a defined security role. The
-role-link element must contain the name of one of the security roles
+role-link element must contain the name of one of the security role
 defined in the security-role elements.
 
 Used in: security-role-ref

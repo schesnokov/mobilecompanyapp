@@ -1,7 +1,7 @@
 package com.mobilecompany.controllers;
 
-import com.mobilecompany.entities.Users;
-import com.mobilecompany.services.api.UsersService;
+import com.mobilecompany.entities.User;
+import com.mobilecompany.services.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,12 +15,12 @@ import java.sql.Date;
 @Controller
 public class AccountRestController {
 
-    private UsersService usersService;
+    private UserService userService;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public  AccountRestController(UsersService usersService) {
-        this.usersService = usersService;
+    public  AccountRestController(UserService userService) {
+        this.userService = userService;
         passwordEncoder = new BCryptPasswordEncoder();
     }
 
@@ -32,7 +32,7 @@ public class AccountRestController {
                           @RequestParam("adress") String adress,
                           @RequestParam("email") String email,
                           @RequestParam("password") String password) {
-        Users user = new Users();
+        User user = new User();
         user.setFirstName(firstName);
         user.setSecondName(secondName);
         user.setDateOfBirth(birthDate);
@@ -41,7 +41,7 @@ public class AccountRestController {
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
         user.setIsBlocked(0);
-        usersService.createUser(user);
+        userService.createUser(user);
         return "redirect: /adminPanel";
     }
 }

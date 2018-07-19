@@ -5,9 +5,9 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "Users")
+@Entity(name = "User")
 @Table(name="users")
-public class Users {
+public class User {
 
     @Id
     @Column(name = "id")
@@ -37,10 +37,10 @@ public class Users {
     @Column(name = "isBlocked")
     private int isBlocked;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(int id, String firstName, String secondName, Date dateOfBirth, String passportNumber, String adress, String email, String password, byte isBlocked) {
+    public User(int id, String firstName, String secondName, Date dateOfBirth, String passportNumber, String adress, String email, String password, byte isBlocked) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -115,34 +115,34 @@ public class Users {
 
     @ManyToOne
     @JoinColumn(name = "role")
-    private Roles roles;
+    private Role role;
 
-    public Roles getRoles() {
-        return this.roles;
+    public Role getRole() {
+        return this.role;
     }
 
-    public void setRoles(Roles role) {
-        this.roles = role;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Contracts> contracts = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Contract> contracts = new HashSet<>();
 
-    public Set<Contracts> getContracts() {
+    public Set<Contract> getContracts() {
         return this.contracts;
     }
 
-    public void setContracts(Set<Contracts> contracts) {
+    public void setContracts(Set<Contract> contracts) {
         this.contracts = contracts;
     }
 
-    public void addContracts(Contracts contracts) {
-        contracts.setUsers(this);
-        getContracts().add(contracts);
+    public void addContracts(Contract contract) {
+        contract.setUser(this);
+        getContracts().add(contract);
     }
 
-    public void removeContracts(Contracts contracts) {
-        getContracts().remove(contracts);
+    public void removeContracts(Contract contract) {
+        getContracts().remove(contract);
     }
 
     @Override
@@ -150,18 +150,18 @@ public class Users {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Users users = (Users) o;
+        User user = (User) o;
 
-        if (id != users.id) return false;
-        if (isBlocked != users.isBlocked) return false;
-        if (firstName != null ? !firstName.equals(users.firstName) : users.firstName != null) return false;
-        if (secondName != null ? !secondName.equals(users.secondName) : users.secondName != null) return false;
-        if (dateOfBirth != null ? !dateOfBirth.equals(users.dateOfBirth) : users.dateOfBirth != null) return false;
-        if (passportNumber != null ? !passportNumber.equals(users.passportNumber) : users.passportNumber != null)
+        if (id != user.id) return false;
+        if (isBlocked != user.isBlocked) return false;
+        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
+        if (secondName != null ? !secondName.equals(user.secondName) : user.secondName != null) return false;
+        if (dateOfBirth != null ? !dateOfBirth.equals(user.dateOfBirth) : user.dateOfBirth != null) return false;
+        if (passportNumber != null ? !passportNumber.equals(user.passportNumber) : user.passportNumber != null)
             return false;
-        if (adress != null ? !adress.equals(users.adress) : users.adress != null) return false;
-        if (email != null ? !email.equals(users.email) : users.email != null) return false;
-        if (password != null ? !password.equals(users.password) : users.password != null) return false;
+        if (adress != null ? !adress.equals(user.adress) : user.adress != null) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
 
         return true;
     }
@@ -182,7 +182,7 @@ public class Users {
 
     @Override
     public String toString() {
-        return "Users{" +
+        return "User{" +
                 "firstName='" + firstName + '\'' +
                 ", secondName='" + secondName + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
@@ -191,7 +191,7 @@ public class Users {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", isBlocked=" + isBlocked +
-                ", roles=" + roles.getName() +
+                ", role=" + role.getName() +
                 '}';
     }
 }

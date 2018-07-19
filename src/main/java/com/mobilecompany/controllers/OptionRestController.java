@@ -1,6 +1,6 @@
 package com.mobilecompany.controllers;
 
-import com.mobilecompany.entities.Options;
+import com.mobilecompany.entities.Option;
 import com.mobilecompany.services.api.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class OptionRestController {
                             @RequestParam("optionDescription") String optionDescription,
                             @RequestParam("optionPrice") BigDecimal optionPrice,
                             @RequestParam("connectionCost") BigDecimal connectionCost) {
-        Options option = new Options();
+        Option option = new Option();
         option.setName(optionName);
         option.setPrice(optionPrice);
         option.setDescription(optionDescription);
