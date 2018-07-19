@@ -2,7 +2,8 @@ package com.mobilecompany.services.impl;
 
 import com.mobilecompany.dao.api.RoleDao;
 import com.mobilecompany.dao.api.UserDao;
-import com.mobilecompany.entities.Role;
+import com.mobilecompany.dto.RoleDto;
+import com.mobilecompany.dto.UserDto;
 import com.mobilecompany.entities.User;
 import com.mobilecompany.services.api.UserService;
 import org.modelmapper.ModelMapper;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,33 +29,38 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public User getUser(Integer id) {
-        return userDao.read(id);
+    public UserDto getUser(Integer id) {
+        return mapper.map(userDao.read(id), UserDto.class);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> getAllUsers() {
-        return userDao.findAllUsers();
+    public List<UserDto> getAllUsers() {
+        List<UserDto> userDtoList = new ArrayList<>();
+        for (User user: userDao.findAllUsers()) {
+            userDtoList.add(mapper.map(user, UserDto.class));
+        }
+        return userDtoList;
     }
 
     @Override
     @Transactional
-    public void createUser(User user) {
-        Role role = roleDao.getRoleByName("ROLE_USER");
+    public void createUser(UserDto user) {
+        RoleDto role = mapper.map(roleDao.getRoleByName("ROLE_USER"), RoleDto.class);
         user.setRole(role);
-        userDao.create(user);
+        userDao.create(mapper.map(user, User.class));
     }
 
     @Override
     @Transactional
-    public User findByEmail(String email) {
-        return userDao.getByEmail(email);
+    public UserDto findByEmail(String email) {
+        return mapper.map(userDao.getByEmail(email), UserDto.class);
     }
 
     @Override
     @Transactional
-    public void update(User user) {
-        userDao.update(user.getId());
+    public void update(UserDto user) {
+        User updatedUser = mapper.map(user, User.class);
+        userDao.update(updatedUser.getId());
     }
 }

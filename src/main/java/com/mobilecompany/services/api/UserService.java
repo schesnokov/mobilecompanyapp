@@ -1,13 +1,13 @@
 package com.mobilecompany.services.api;
 
-import com.mobilecompany.entities.User;
+import com.mobilecompany.dto.UserDto;
 
 import java.util.List;
 
 public interface UserService {
-    User getUser(Integer id);
-    List<User> getAllUsers();
-    void createUser(User user);
-    User findByEmail(String email);
-    void update(User user);
+    UserDto getUser(Integer id);
+    List<UserDto> getAllUsers();
+    void createUser(UserDto user);
+    UserDto findByEmail(String email);
+    void update(UserDto user);
 }

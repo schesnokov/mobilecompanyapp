@@ -1,6 +1,6 @@
 package com.mobilecompany.controllers;
 
-import com.mobilecompany.entities.User;
+import com.mobilecompany.dto.UserDto;
 import com.mobilecompany.services.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,7 +32,7 @@ public class AccountRestController {
                           @RequestParam("adress") String adress,
                           @RequestParam("email") String email,
                           @RequestParam("password") String password) {
-        User user = new User();
+        UserDto user = new UserDto();
         user.setFirstName(firstName);
         user.setSecondName(secondName);
         user.setDateOfBirth(birthDate);

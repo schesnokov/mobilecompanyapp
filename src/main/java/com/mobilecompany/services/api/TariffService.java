@@ -1,12 +1,12 @@
 package com.mobilecompany.services.api;
 
-import com.mobilecompany.entities.Tariff;
+import com.mobilecompany.dto.TariffDto;
 
 import java.util.List;
 
 public interface TariffService {
-    Tariff getTariff(Integer id);
-    List<Tariff> getAllTariffs();
+    TariffDto getTariff(Integer id);
+    List<TariffDto> getAllTariffs();
     void deleteTariff(Integer id);
-    void addTariff(Tariff tariff);
+    void addTariff(TariffDto tariff);
 }

@@ -1,6 +1,7 @@
 package com.mobilecompany.dto;
 
 import java.sql.Date;
+import java.util.Set;
 
 public class UserDto {
 
@@ -12,13 +13,15 @@ public class UserDto {
     private String adress;
     private String email;
     private String password;
-    private byte isBlocked;
+    private int isBlocked;
+    private RoleDto role;
+    private Set<ContractDto> contracts;
 
 
     public UserDto() {
     }
 
-    public UserDto(int id, String firstName, String secondName, Date dateOfBirth, String passportNumber, String adress, String email, String password, byte isBlocked) {
+    public UserDto(int id, String firstName, String secondName, Date dateOfBirth, String passportNumber, String adress, String email, String password, int isBlocked) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -86,11 +89,26 @@ public class UserDto {
         this.password = password;
     }
 
-    public byte getIsBlocked() {
+    public int getIsBlocked() {
         return isBlocked;
     }
-    public void setIsBlocked(byte isBlocked) {
+    public void setIsBlocked(int isBlocked) {
         this.isBlocked = isBlocked;
     }
 
+
+    public RoleDto getRole() {
+        return role;
+    }
+    public void setRole(RoleDto role) {
+        this.role = role;
+    }
+
+
+    public Set<ContractDto> getContracts() {
+        return contracts;
+    }
+    public void setContracts(Set<ContractDto> contracts) {
+        this.contracts = contracts;
+    }
 }

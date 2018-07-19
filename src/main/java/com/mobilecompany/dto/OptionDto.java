@@ -1,6 +1,7 @@
 package com.mobilecompany.dto;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 public class OptionDto {
 
@@ -8,6 +9,8 @@ public class OptionDto {
     private String name;
     private BigDecimal price;
     private BigDecimal connectionCost;
+    private String description;
+    private Set<TariffDto> tariffs;
 
     public OptionDto() {
     }
@@ -45,5 +48,19 @@ public class OptionDto {
     }
     public void setConnectionCost(BigDecimal connectionCost) {
         this.connectionCost = connectionCost;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Set<TariffDto> getTariffs() {
+        return tariffs;
+    }
+    public void setTariffs(Set<TariffDto> tariffs) {
+        this.tariffs = tariffs;
     }
 }

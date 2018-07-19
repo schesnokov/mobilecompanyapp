@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,20 +26,23 @@ public class OptionServiceImpl implements OptionService {
 
     @Override
     @Transactional(readOnly = true)
-    public OptionDto getEntity(Integer id) {
-        Option optionEntity = optionDao.read(id);
-        return mapper.map(optionEntity, OptionDto.class);
+    public OptionDto getOption(Integer id) {
+        return mapper.map(optionDao.read(id), OptionDto.class);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Option> getAllOptions() {
-        return optionDao.findAllOptions();
+    public List<OptionDto> getAllOptions() {
+        List<OptionDto> optionDtoList = new ArrayList<>();
+        for(Option option: optionDao.findAllOptions()) {
+           optionDtoList.add(mapper.map(option, OptionDto.class));
+        }
+        return optionDtoList;
         }
 
     @Override
     @Transactional
-    public void addOption(Option option) {
-        optionDao.create(option);
+    public void addOption(OptionDto option) {
+        optionDao.create(mapper.map(option, Option.class));
     }
 }

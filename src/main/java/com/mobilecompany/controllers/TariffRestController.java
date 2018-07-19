@@ -1,6 +1,6 @@
 package com.mobilecompany.controllers;
 
-import com.mobilecompany.entities.Tariff;
+import com.mobilecompany.dto.TariffDto;
 import com.mobilecompany.services.api.TariffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,7 @@ public class TariffRestController {
     public String addTariff(@RequestParam("tariffName") String tariffName,
                             @RequestParam("tariffDescription") String tariffDescription,
                             @RequestParam("tariffPrice") BigDecimal tariffPrice) {
-        Tariff tariff = new Tariff();
+        TariffDto tariff = new TariffDto();
         tariff.setName(tariffName);
         tariff.setDescription(tariffDescription);
         tariff.setPrice(tariffPrice);

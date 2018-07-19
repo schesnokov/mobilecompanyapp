@@ -1,5 +1,8 @@
 package com.mobilecompany.dto;
 
+import com.mobilecompany.entities.Tariff;
+import com.mobilecompany.entities.User;
+
 import java.math.BigDecimal;
 
 public class ContractDto {
@@ -7,6 +10,8 @@ public class ContractDto {
     private String number;
     private BigDecimal balance;
     private byte isBlocked;
+    private User user;
+    private Tariff tariff;
 
     public ContractDto() {
     }
@@ -44,5 +49,19 @@ public class ContractDto {
     }
     public void setIsBlocked(byte isBlocked) {
         this.isBlocked = isBlocked;
+    }
+
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Tariff getTariff() {
+        return tariff;
+    }
+    public void setTariff(Tariff tariff) {
+        this.tariff = tariff;
     }
 }
