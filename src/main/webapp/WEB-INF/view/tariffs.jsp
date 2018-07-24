@@ -102,9 +102,9 @@
             <div class="col-sm-4 info-blocks">
                 <i class="icon-info-blocks fa fa-bell-o"></i>
                 <div class="info-blocks-in">
-                    <h3><c:out value="${tariffVar.name}"/></h3>
-                    <p><c:out value="${tariffVar.description}"/></p>
-					<p>Price: <c:out value="${tariffVar.price}"/></p>
+                    <h3><c:out value="${tariffVar.tariffName}"/></h3>
+                    <p><c:out value="${tariffVar.tariffDescription}"/></p>
+					<p>Price: <c:out value="${tariffVar.tariffPrice}"/></p>
 					<p>Available options: <br />
 					<c:choose>
 						<c:when test="${not empty tariffVar.options}">
@@ -122,7 +122,7 @@
 						</c:otherwise>
 					</c:choose>
 					<security:authorize access="hasRole('ROLE_ADMIN')">
-					<form action="/deleteTariff/${tariffVar.id}" method="GET">
+					<form action="/deleteTariff/${tariffVar.id}" method="POST">
 						<input type="hidden" name="tariff" value="${tariffVar.id}">
 						<input type='submit' value='Delete'>
 					</form>

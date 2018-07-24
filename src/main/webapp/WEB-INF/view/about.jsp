@@ -134,13 +134,13 @@
                   <div class="panel-heading">
                     <h4 class="panel-title">
                       <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapse<c:out value="${tariffVar.id}"/>-alt3">
-                        <i class="fa fa-angle-right"></i> <h3><c:out value="${tariffVar.name}"/></h3> </a>
+                        <h3><c:out value="${tariffVar.tariffName}"/></h3> </a>
                     </h4>
                   </div>
                   <div id="collapse<c:out value="${tariffVar.id}"/>-alt3" class="panel-collapse collapse">
                     <!-- Panel body -->
-                    <div class="panel-body"> <h5>Tariff description:</h5> <c:out value="${tariffVar.description}"/> <br />
-                      <h5>Tariff price: </h5><c:out value="${tariffVar.price}"/></div>
+                    <div class="panel-body"> <h5>Tariff description:</h5> <c:out value="${tariffVar.tariffDescription}"/> <br />
+                      <h5>Tariff price: </h5><c:out value="${tariffVar.tariffPrice}"/></div>
                   </div>
                   <br />
                 </div>

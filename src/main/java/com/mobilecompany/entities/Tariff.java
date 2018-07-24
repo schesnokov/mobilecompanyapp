@@ -14,20 +14,20 @@ public class Tariff {
     private int id;
 
     @Column(name = "name")
-    private String name;
+    private String tariffName;
 
     @Column(name = "price")
-    private BigDecimal price;
+    private BigDecimal tariffPrice;
 
     @Column(name = "description")
-    private String description;
+    private String tariffDescription;
 
     public Tariff() {}
 
-    public Tariff(int id, String name, BigDecimal price, Set<Option> options) {
+    public Tariff(int id, String tariffName, BigDecimal tariffPrice, Set<Option> options) {
         this.id = id;
-        this.name = name;
-        this.price = price;
+        this.tariffName = tariffName;
+        this.tariffPrice = tariffPrice;
         this.options = options;
     }
 
@@ -38,22 +38,22 @@ public class Tariff {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTariffName() {
+        return tariffName;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setTariffName(String name) {
+        this.tariffName = name;
     }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public BigDecimal getTariffPrice() {
+        return tariffPrice;
+    }
+    public void setTariffPrice(BigDecimal price) {
+        this.tariffPrice = price;
+    }
+
+    public String getTariffDescription() { return tariffDescription; }
+    public void setTariffDescription(String description) { this.tariffDescription = description; }
 
     @ManyToMany(targetEntity = Option.class,
             cascade = CascadeType.ALL,
@@ -102,8 +102,8 @@ public class Tariff {
         Tariff tariff = (Tariff) o;
 
         if (id != tariff.id) return false;
-        if (name != null ? !name.equals(tariff.name) : tariff.name != null) return false;
-        if (price != null ? !price.equals(tariff.price) : tariff.price != null) return false;
+        if (tariffName != null ? !tariffName.equals(tariff.tariffName) : tariff.tariffName != null) return false;
+        if (tariffPrice != null ? !tariffPrice.equals(tariff.tariffPrice) : tariff.tariffPrice != null) return false;
 
         return true;
     }
@@ -111,8 +111,8 @@ public class Tariff {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (tariffName != null ? tariffName.hashCode() : 0);
+        result = 31 * result + (tariffPrice != null ? tariffPrice.hashCode() : 0);
         return result;
     }
 
@@ -124,9 +124,9 @@ public class Tariff {
         }
         return "Tariff{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", description=" + description +
+                ", name='" + tariffName + '\'' +
+                ", price=" + tariffPrice +
+                ", description=" + tariffDescription +
                 ", options=" + optionString +
                 '}';
     }

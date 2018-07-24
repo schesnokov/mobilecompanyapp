@@ -100,74 +100,88 @@
             <div class="row">
                 <div class="col-sm-4 info-blocks">
                     <div class="info-blocks-in">
-                <form action="/addTariff/${tariff}" method='GET'>
-                <h2>Add Tariff</h2>
+                        <form:form method='POST' modelAttribute="tariffDto" action="/addTariff">
+                            <h2>Add Tariff</h2>
                 <dl class="dl_class">
-                    <dt>
-                        Tariff
-                    </dt>
-                    <dd>
-                        <input type='text' name="tariffName" id="tariffName"
-                               placeholder="Tariff Name">
-                        <p>Enter tariff name</p>
-                    </dd>
-                    <dt>
-                        Tariff Description
-                    </dt>
-                    <dd>
-                        <input type="text" name="tariffDescription" id="tariffDescription"
-                               placeholder="Tariff Description">
-                        <p>Enter tariff description</p>
-                    </dd>
-                    <dt>
-                        Price
-                    </dt>
-                    <dd>
-                        <input type="text" name="tariffPrice" id="tariffPrice"
-                               placeholder="Tariff Price">
-                        <p>Enter tariff price</p>
-                    </dd>
+                    <spring:bind path="tariffName">
+                        <dt>
+                            Tariff
+                        </dt>
+                        <dd>
+                            <form:input type='text' path="tariffName"
+                                        placeholder="Tariff name"/>
+                            <p>Enter tariff name</p>
+                        </dd>
+                    </spring:bind>
+                    <spring:bind path="tariffPrice">
+                        <dt>
+                            Tariff price
+                        </dt>
+                        <dd>
+                            <form:input type='text' path="tariffPrice"
+                                        placeholder="Tariff price"/>
+                            <p>Enter tariff price</p>
+                        </dd>
+                    </spring:bind>
+                    <spring:bind path="tariffDescription">
+                        <dt>
+                            Tariff Description
+                        </dt>
+                        <dd>
+                            <form:input type='text' path="tariffDescription"
+                                        placeholder="Tariff description"/>
+                            <p>Enter tariff description</p>
+                        </dd>
+                    </spring:bind>
                     </dl>
                 <input type='submit' value='Add new tariff'>
-                    <form action="/addOption/${option}" method='GET'>
+                        </form:form>
+                        <form:form method='POST' modelAttribute="optionDto" action="/addOption">
                         <h2>Add Option</h2>
                         <dl class="dl_class">
-                            <dt>
-                                Option
-                            </dt>
-                            <dd>
-                                <input type='text' name="optionName" id="optionName"
-                                       placeholder="Option Name">
-                                <p>Enter option name</p>
-                            </dd>
-                            <dt>
-                                Option Description
-                            </dt>
-                            <dd>
-                                <input type="text" name="optionDescription" id="optionDescription"
-                                       placeholder="Option Description">
-                                <p>Enter option description</p>
-                            </dd>
-                            <dt>
-                                Price
-                            </dt>
-                            <dd>
-                                <input type="text" name="optionPrice" id="optionPrice"
-                                       placeholder="Option Price">
-                                <p>Enter option price</p>
-                            </dd>
-                            <dt>
-                                Connection cost
-                            </dt>
-                            <dd>
-                                <input type="text" name="connectionCost" id="connectionCost"
-                                       placeholder="Connection cost">
-                                <p>Enter connection cost</p>
-                            </dd>
+                            <spring:bind path="name">
+                                <dt>
+                                    Option name
+                                </dt>
+                                <dd>
+                                    <form:input type='text' path="name"
+                                                placeholder="Option name"/>
+                                    <p>Enter option name</p>
+                                </dd>
+                            </spring:bind>
+                            <spring:bind path="description">
+                                <dt>
+                                    Option Description
+                                </dt>
+                                <dd>
+                                    <form:input type='text' path="description"
+                                                placeholder="Option description"/>
+                                    <p>Enter option description</p>
+                                </dd>
+                            </spring:bind>
+                            <spring:bind path="price">
+                                <dt>
+                                    Option price
+                                </dt>
+                                <dd>
+                                    <form:input type='text' path="price"
+                                                placeholder="Option price"/>
+                                    <p>Enter option price</p>
+                                </dd>
+                            </spring:bind>
+                            <spring:bind path="connectionCost">
+                                <dt>
+                                    Tariff Description
+                                </dt>
+                                <dd>
+                                    <form:input type='text' path="connectionCost"
+                                                placeholder="Option connection cost"/>
+                                    <p>Enter option connection cost</p>
+                                </dd>
+                            </spring:bind>
                         </dl>
                         <input type='submit' value='Add new option'>
-                    </form>
-                </form>
+                        </form:form>
                     </div>
                 </div>
 
@@ -181,62 +195,82 @@
 
                 <div class="col-sm-4 info-blocks">
                     <div class="info-blocks-in">
-                        <form action="/registration" method='GET'>
-                            <h2>Registration</h2>
+                            <form:form method='POST' modelAttribute="userDto">
+                                <h2>Registration</h2>
                                 <dl class="dl_class">
-                    <dt>
-                        First Name
-                    </dt>
-                    <dd>
-                        <input type='text' name="firstName" id="firstName"
-                               placeholder="First Name">
-                        <p>Enter your name</p>
-                    </dd>
-                    <dt>Second Name
-                    </dt>
-                    <dd>
-                        <input type='text' name="secondName" id="secondName"
-                               placeholder="Second Name">
-                        <p>Second Name</p>
-                    </dd>
-                    <dt>Birth Date
-                    </dt>
-                    <dd>
-                        <input type='text' name="dateOfBirth" id="dateOfBirth"
-                               placeholder="yyyy-mm-dd">
-                        <p>Birth Date</p>
-                    </dd>
-                    <dt>Passport
-                    </dt>
-                    <dd>
-                        <input type='text' name="passport" id="passport"
-                               placeholder="Passport Data">
-                        <p>Passport Data</p>
-                    </dd>
-                    <dt>Adress
-                    </dt>
-                    <dd>
-                        <input type='text' name="adress" id="adress"
-                               placeholder="Adress">
-                        <p>Adress</p>
-                    </dd>
-                    <dt>E-mail
-                    </dt>
-                    <dd>
-                        <input type='text' name="email" id="email"
-                               placeholder="E-mail">
-                        <p>E-mail</p>
-                    </dd>
-                    <dt>Password
-                    </dt>
-                    <dd>
-                        <input type='text' name="password" id="password"
-                               placeholder="Password">
-                        <p>Password</p>
-                    </dd>
-                </dl>
-                <input type='submit' value='Confirm'>
-            </form>
+                                    <spring:bind path="firstName">
+                                    <dt>
+                                        First Name
+                                    </dt>
+                                    <dd>
+                                        <form:input type='text' path="firstName"
+                                               placeholder="First Name"/>
+                                        <p>Enter your name</p>
+                                    </dd>
+                                    </spring:bind>
+                                    <spring:bind path="secondName">
+                                        <dt>
+                                            Second Name
+                                        </dt>
+                                        <dd>
+                                            <form:input type='text' path="secondName"
+                                                        placeholder="Second Name"/>
+                                            <p>Enter your second name</p>
+                                        </dd>
+                                    </spring:bind>
+                                    <spring:bind path="dateOfBirth">
+                                        <dt>
+                                            Date of birth
+                                        </dt>
+                                        <dd>
+                                            <form:input type='text' path="dateOfBirth"
+                                                        placeholder="yyyy-mm-dd"/>
+                                            <p>Enter your birth date</p>
+                                        </dd>
+                                    </spring:bind>
+                                    <spring:bind path="passportNumber">
+                                        <dt>
+                                            Passport Number
+                                        </dt>
+                                        <dd>
+                                            <form:input type='text' path="passportNumber"
+                                                        placeholder="passport"/>
+                                            <p>Enter your passport number</p>
+                                        </dd>
+                                    </spring:bind>
+                                    <spring:bind path="adress">
+                                        <dt>
+                                            Address
+                                        </dt>
+                                        <dd>
+                                            <form:input type='text' path="adress"
+                                                        placeholder="Address"/>
+                                            <p>Enter your address</p>
+                                        </dd>
+                                    </spring:bind>
+                                    <spring:bind path="email">
+                                        <dt>
+                                            Email
+                                        </dt>
+                                        <dd>
+                                            <form:input type='text' path="email"
+                                                        placeholder="Email"/>
+                                            <p>Enter your email</p>
+                                        </dd>
+                                    </spring:bind>
+                                    <spring:bind path="password">
+                                        <dt>
+                                            Password
+                                        </dt>
+                                        <dd>
+                                            <form:input type='text' path="password"
+                                                        placeholder="Password"/>
+                                            <p>Enter your password</p>
+                                        </dd>
+                                    </spring:bind>
+                                </dl>
+                                <input type='submit' value='Confirm'>
+                            </form:form>
                     </div>
                 </div>
         </div>

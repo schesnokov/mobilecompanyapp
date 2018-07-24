@@ -28,7 +28,7 @@ public class TariffDaoImpl implements TariffDao {
     public void update(Integer id) {
         Tariff tariff = entityManager.find(Tariff.class, id);
         entityManager.detach(tariff);
-        tariff.setName("New name");
+        tariff.setTariffName("New name");
         entityManager.merge(tariff);
     }
 

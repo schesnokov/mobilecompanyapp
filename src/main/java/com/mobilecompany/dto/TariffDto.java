@@ -8,9 +8,9 @@ import java.util.Set;
 public class TariffDto {
 
     private int id;
-    private String name;
-    private BigDecimal price;
-    private String description;
+    private String tariffName;
+    private BigDecimal tariffPrice;
+    private String tariffDescription;
     private Set<OptionDto> options;
     private Contract contract;
 
@@ -18,11 +18,11 @@ public class TariffDto {
     public TariffDto() {
     }
 
-    public TariffDto(int id, String name, BigDecimal price, String description) {
+    public TariffDto(int id, String tariffName, BigDecimal tariffPrice, String tariffDescription) {
         this.id = id;
-        this.name = name;
-        this.price = price;
-        this.description = description;
+        this.tariffName = tariffName;
+        this.tariffPrice = tariffPrice;
+        this.tariffDescription = tariffDescription;
     }
 
     public int getId() {
@@ -33,27 +33,27 @@ public class TariffDto {
     }
 
 
-    public String getName() {
-        return name;
+    public String getTariffName() {
+        return tariffName;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setTariffName(String tariffName) {
+        this.tariffName = tariffName;
     }
 
 
-    public String getDescription() {
-        return description;
+    public BigDecimal getTariffPrice() {
+        return tariffPrice;
     }
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTariffPrice(BigDecimal tariffPrice) {
+        this.tariffPrice = tariffPrice;
+    }
+
+
+    public String getTariffDescription() {
+        return tariffDescription;
+    }
+    public void setTariffDescription(String tariffDescription) {
+        this.tariffDescription = tariffDescription;
     }
 
 
