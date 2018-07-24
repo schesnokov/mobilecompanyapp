@@ -45,4 +45,11 @@ public class ContractServiceImpl implements ContractService {
     public void create(ContractDto contract) {
         contractDao.create(mapper.map(contract, Contract.class));
     }
+
+    @Override
+    @Transactional
+    public void update(ContractDto contract) {
+        Contract updatedContract = mapper.map(contract, Contract.class);
+        contractDao.update(updatedContract);
+    }
 }

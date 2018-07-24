@@ -8,4 +8,5 @@ public interface ContractService {
     ContractDto getContract(Integer id);
     List<ContractDto> getAllContracts();
     void create(ContractDto contract);
+    void update(ContractDto contract);
 }

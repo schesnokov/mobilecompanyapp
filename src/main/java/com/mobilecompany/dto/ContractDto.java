@@ -6,7 +6,7 @@ public class ContractDto {
     private int id;
     private String number;
     private BigDecimal balance;
-    private byte isBlocked;
+    private int isBlocked;
     private UserDto userDto;
     private TariffDto tariffDto;
 
@@ -41,10 +41,10 @@ public class ContractDto {
         this.balance = balance;
     }
 
-    public byte getIsBlocked() {
+    public int getIsBlocked() {
         return isBlocked;
     }
-    public void setIsBlocked(byte isBlocked) {
+    public void setIsBlocked(int isBlocked) {
         this.isBlocked = isBlocked;
     }
 

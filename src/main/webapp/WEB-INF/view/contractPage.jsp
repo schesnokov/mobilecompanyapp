@@ -95,7 +95,7 @@
         <div class="container content">
             <hr class="margin-bottom-50">
             <div class="row">
-                <div class="col-sm-4 info-blocks" style="width:800px;">
+                <div class="col-sm-4 info-blocks" style="width:400px;">
                     <div class="info-blocks-in" >
                         <h2>Contract's number: <h3>${contractDto.number}</h3></h2>
                         <h2>Contract's tariff: <h3>${contractDto.tariff.tariffName}</h3></h2>
@@ -120,7 +120,7 @@
                         </h2>
                     </div>
                 </div>
-                <div class="col-sm-4 info-blocks" style="width:800px;">
+                <div class="col-sm-4 info-blocks" style="width:400px;">
                     <div class="info-blocks-in" >
                                 <h2>Choose new tariff: <br /></h2>
                         <form:form modelAttribute="tariffDto" action="/changeTariff/${contractDto.id}" method="GET">
@@ -133,6 +133,21 @@
                                 <input type='submit' value='Change'/>
                             </td>
                         </form:form>
+                        <c:choose>
+                            <c:when test="${customer.isBlocked == '0'}">
+                                <form:form method="GET" action="/contractBlock/${contractDto.id}" modelAttribute="contractDto">
+                                    <input type='submit' value='Block this number'>
+                                </form:form>
+                            </c:when>
+                            <c:when test="${customer.isBlocked == '1'}">
+                                <form:form method="GET" action="/contractUnblock${contractDto.id}" modelAttribute="contractDto">
+                                    <input type='submit' value='Unblock this number'>
+                                </form:form>
+                            </c:when>
+                            <c:otherwise>
+                                <h3>Number is blocked by operator</h3>
+                            </c:otherwise>
+                        </c:choose>
                             </div>
                         </div>
                     </div>

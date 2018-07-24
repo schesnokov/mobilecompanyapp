@@ -91,7 +91,7 @@
       <div class="container content">
         <hr class="margin-bottom-50">
         <div class="row">
-          <div class="col-sm-4 info-blocks" style="width:800px;">
+          <div class="col-sm-4 info-blocks" style="width:400px;">
             <div class="info-blocks-in" >
               <h2> First name: </h2> <h3>${customer.firstName}</h3> <br />
               <h2> Second name: </h2><h3>${customer.secondName}</h3> <br />
@@ -104,11 +104,11 @@
                                 </h3>
             </div>
           </div>
-          <div class="col-sm-4 info-blocks" style="width:800px;">
+          <div class="col-sm-4 info-blocks" style="width:400px;">
             <div class="info-blocks-in" >
               <c:if test="${not empty contractList}">
               <c:forEach var="contractVar" items="#{contractList}">
-              <div class="panel-group" id="accordion-alt3" style="width:500px;">
+              <div class="panel-group" id="accordion-alt3" style="width:400px;">
                 <div class="panel">
                   <!-- Panel heading -->
                   <div class="panel-heading">

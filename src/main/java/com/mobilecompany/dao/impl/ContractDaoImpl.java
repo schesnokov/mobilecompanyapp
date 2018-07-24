@@ -25,11 +25,9 @@ public class ContractDaoImpl implements ContractDao {
     }
 
     @Override
-    public void update(Integer id) {
-        Contract contract = entityManager.find(Contract.class, id);
-        entityManager.detach(contract);
-        contract.setNumber("NewNumber");
-        entityManager.merge(contract);
+    public void update(Contract contract) {
+        Contract newContract = entityManager.find(Contract.class, contract.getId());
+        entityManager.merge(newContract);
     }
 
     @Override
