@@ -40,6 +40,7 @@ public class TariffDaoImpl implements TariffDao {
     public List<Tariff> findAllTariffs() {
         return entityManager.createQuery("from Tariff c").getResultList();
     }
+
 }
 
 

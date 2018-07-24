@@ -104,7 +104,38 @@
                                 </h3>
             </div>
           </div>
+          <div class="col-sm-4 info-blocks" style="width:800px;">
+            <div class="info-blocks-in" >
+              <c:if test="${not empty contractList}">
+              <c:forEach var="contractVar" items="#{contractList}">
+              <div class="panel-group" id="accordion-alt3" style="width:500px;">
+                <div class="panel">
+                  <!-- Panel heading -->
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapse<c:out value="${contractVar.id}"/>-alt3">
+                        <h3>
+                          <c:out value="${contractVar.number}"/></h3> </a>
+                    </h4>
+                  </div>
+                  <div id="collapse<c:out value="${contractVar.id}"/>-alt3" class="panel-collapse collapse">
+                    <!-- Panel body -->
+                    <div class="panel-body"> <h5>Tariff: </h5> <c:out value="${contractVar.tariff.tariffName}"/> <br />
+                      <h5>Balance: </h5><c:out value="${contractVar.balance}"/>
+                      <form action="/contractPage/${contractVar.id}" method="GET">
+                        <input type="hidden" name="contract" value="${contractVar.id}">
+                        <input type='submit' value='Edit contract'>
+                      </form>
+                    </div>
+                  <br />
+                </div>
+                </c:forEach>
+                  </c:if>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
       </div>
     </section>
 

@@ -24,6 +24,7 @@ public class AccountController {
     public String account(Model model) {
         String userEmail = securityService.findLoggedInEmail();
         model.addAttribute("customer", userService.findByEmail(userEmail));
+        model.addAttribute("contractList", userService.findByEmail(userEmail).getContracts());
         return "/account";
     }
 }

@@ -51,4 +51,5 @@ public class TariffServiceImpl implements TariffService {
     public void addTariff(TariffDto tariff) {
         tariffDao.create(mapper.map(tariff, Tariff.class));
     }
+
 }
