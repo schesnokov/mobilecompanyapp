@@ -1,8 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@ page isELIgnored="false" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
@@ -96,35 +96,44 @@
             <hr class="margin-bottom-50">
             <div class="row">
                 <div class="col-sm-4 info-blocks" style="width:400px;">
-                    <div class="info-blocks-in" >
+                    <div class="info-blocks-in">
                         <h2>Contract's number: <h3>${contractDto.number}</h3></h2>
                         <h2>Contract's tariff: <h3>${contractDto.tariff.tariffName}</h3></h2>
-                        <h2>Tariff's options: <br />
+                        <h2>Tariff's options: <br/>
                             <h3>
-                                        <c:forEach var="optionsVar" items="#{contractDto.selectedOptions}">
-                                            <p>
-                                                <c:out value="${optionsVar.name}"/> <br/>
-                                                <c:out value="${optionsVar.description}"/> <br/>
-                                                <c:out value="${optionsVar.connectionCost}"/> <br/>
-                                                <c:out value="${optionsVar.price}"/> <br/>
-                                            </p>
-                                        </c:forEach>
+                                <c:forEach var="optionsVar" items="#{contractDto.selectedOptions}">
+                                    <p>
+                                        <c:out value="${optionsVar.name}"/> <br/>
+                                        <c:out value="${optionsVar.description}"/> <br/>
+                                        <c:out value="${optionsVar.connectionCost}"/> <br/>
+                                        <c:out value="${optionsVar.price}"/> <br/>
+                                    </p>
+                                </c:forEach>
                             </h3>
                         </h2>
                     </div>
                 </div>
                 <div class="col-sm-4 info-blocks" style="width:400px;">
-                    <div class="info-blocks-in" >
-                                <h2>Choose new tariff: <br /></h2>
-                        <form:form modelAttribute="tariffDto" action="/changeTariff/${contractDto.id}" method="GET">
-                            <form:select path="id">
+                    <div class="info-blocks-in">
+                        <h2>Choose new tariff: <br/></h2>
+                        <form:form modelAttribute="contractDto" action="/changeTariff/${contractDto.id}" method="POST">
+                            <form:select path="tariffDto.id">
                                 <form:options items="${tariffList}" itemValue="id" itemLabel="tariffName"/>
                             </form:select>
+                            <%-- <br />
+                             <td>
+                                 <c:forEach var="availableOptionsVar" items="#{availableOptions}">
+                                     <form:checkbox path="selectedOptions" value="${availableOptionsVar.name}"/> <br />
+                                 </c:forEach>
+                             </td>--%>
+                            <td>
+                                <input type='submit' value='Change'/>
+                            </td>
                         </form:form>
-                            </div>
-                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
     </section>
 
     <div id="sub-footer">
