@@ -101,51 +101,7 @@
             <div class="row">
                 <div class="col-sm-4 info-blocks" style="width:800px;">
                     <div class="info-blocks-in" >
-                        <form:form id="formEditCustomer" commandName="customer" method="post" action="/saveEditedCustomer">
-                                <dl class="dl_class">
-                                    <dt>Passport
-                                    </dt>
-                                    <dd>
-                                        <form:input type='text' path="passportNumber" />
-                                               placeholder="${customer.passportNumber}">
-                                        <p>New Passport Data</p>
-                                    </dd>
-                                    <dt>Address
-                                    </dt>
-                                    <dd>
-                                        <form:input type='text' path="adress" />
-                                                placeholder="${customer.adress}">
-                                        <p>New address</p>
-                                    </dd>
-                                    <dt>E-mail
-                                    </dt>
-                                    <dd>
-                                        <form:input type='text' path="email" />
-                                        placeholder="${customer.email}">
-                                        <p>New e-mail</p>
-                                    </dd>
-                                    <dt>Password
-                                    </dt>
-                                    <dd>
-                                        <form:input type='text' path="password" />
-                                               placeholder="Password">
-                                        <p>New password</p>
-                                    </dd>
-                                    <select name="tariffName">
-                                        <option>Choose tariff</option>
-                                        <c:forEach var="tariffVar" items="#{tariffList}">
-                                            <form:option value="${tariffVar.name}">${tariffVar.name}</form:option>
-                                        </c:forEach>
-                                    </select>
-                                    <select name="optionName">
-                                        <option>Choose options</option>
-                                        <c:forEach var="optionVar" items="#{optionsList}">
-                                            <form:option value="${optionVar.name}">${optionVar.name}</form:option>
-                                        </c:forEach>
-                                    </select>
-                                </dl>
-                                <input type='submit' value='Confirm'/>
-                        </form:form>
+
                     </div>
                 </div>
             </div>

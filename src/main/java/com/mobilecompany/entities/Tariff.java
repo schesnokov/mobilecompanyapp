@@ -2,7 +2,6 @@ package com.mobilecompany.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "Tariff")
@@ -11,24 +10,33 @@ public class Tariff {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "tariffName")
     private String tariffName;
 
-    @Column(name = "price")
+    @Column(name = "tariffPrice")
     private BigDecimal tariffPrice;
 
-    @Column(name = "description")
+    @Column(name = "tariffDescription")
     private String tariffDescription;
+
+    @JoinTable(name = "availableoptions", joinColumns = {
+            @JoinColumn(name = "tariffId", referencedColumnName = "id", nullable = false)},
+            inverseJoinColumns = {
+            @JoinColumn(name = "optionId", referencedColumnName = "id", nullable = false)
+    })
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private Set<Option> availableOptions;
 
     public Tariff() {}
 
-    public Tariff(int id, String tariffName, BigDecimal tariffPrice, Set<Option> options) {
+    public Tariff(String tariffDescription, int id, String tariffName, BigDecimal tariffPrice, Set<Option> options) {
         this.id = id;
         this.tariffName = tariffName;
         this.tariffPrice = tariffPrice;
-        this.options = options;
+        this.tariffDescription = tariffDescription;
     }
 
     public int getId() {
@@ -55,44 +63,13 @@ public class Tariff {
     public String getTariffDescription() { return tariffDescription; }
     public void setTariffDescription(String description) { this.tariffDescription = description; }
 
-    @ManyToMany(targetEntity = Option.class,
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "availableOptions",
-            joinColumns = @JoinColumn(name = "tariffId"),
-            inverseJoinColumns = @JoinColumn(name = "optionId")
-    )
-    private Set<Option> options = new HashSet<>();
-
-    public Set<Option> getOptions() {
-        return options;
+    public Set<Option> getAvailableOptions() {
+        return availableOptions;
+    }
+    public void setAvailableOptions(Set<Option> availableOptions) {
+        this.availableOptions = availableOptions;
     }
 
-    public void setOptions(Set<Option> options) {
-        this.options = options;
-    }
-
-    public void addOption(Option option) {
-        options.add(option);
-        option.getTariffs().add(this);
-    }
-
-    public void removeOption(Option option) {
-        options.remove(option);
-        option.getTariffs().remove(this);
-    }
-
-    @OneToOne(mappedBy = "tariff")
-    private Contract contract;
-
-    public Contract getContract() {
-        return contract;
-    }
-
-    public void setContract(Contract contract) {
-        this.contract = contract;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -118,16 +95,11 @@ public class Tariff {
 
     @Override
     public String toString() {
-        String optionString = "";
-        for (Option option : options) {
-            optionString = optionString + option;
-        }
         return "Tariff{" +
                 "id=" + id +
                 ", name='" + tariffName + '\'' +
                 ", price=" + tariffPrice +
                 ", description=" + tariffDescription +
-                ", options=" + optionString +
                 '}';
     }
 }

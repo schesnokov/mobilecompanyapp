@@ -34,13 +34,17 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "isBlocked")
-    private int isBlocked;
+    @ManyToOne
+    @JoinColumn(name = "roleId")
+    private Role role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Contract> contracts = new HashSet<>();
 
     public User() {
     }
 
-    public User(int id, String firstName, String secondName, Date dateOfBirth, String passportNumber, String adress, String email, String password, byte isBlocked) {
+    public User(int id, String firstName, String secondName, Date dateOfBirth, String passportNumber, String adress, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -49,7 +53,6 @@ public class User {
         this.adress = adress;
         this.email = email;
         this.password = password;
-        this.isBlocked = isBlocked;
     }
 
     public int getId() {
@@ -106,43 +109,19 @@ public class User {
         this.password = password;
     }
 
-    public int getIsBlocked() {
-        return isBlocked;
-    }
-    public void setIsBlocked(int isBlocked) {
-        this.isBlocked = isBlocked;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "role")
-    private Role role;
-
     public Role getRole() {
         return this.role;
     }
-
     public void setRole(Role role) {
         this.role = role;
     }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Contract> contracts = new HashSet<>();
 
     public Set<Contract> getContracts() {
         return this.contracts;
     }
-
     public void setContracts(Set<Contract> contracts) {
         this.contracts = contracts;
-    }
-
-    public void addContracts(Contract contract) {
-        contract.setUser(this);
-        getContracts().add(contract);
-    }
-
-    public void removeContracts(Contract contract) {
-        getContracts().remove(contract);
     }
 
     @Override
@@ -153,7 +132,6 @@ public class User {
         User user = (User) o;
 
         if (id != user.id) return false;
-        if (isBlocked != user.isBlocked) return false;
         if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
         if (secondName != null ? !secondName.equals(user.secondName) : user.secondName != null) return false;
         if (dateOfBirth != null ? !dateOfBirth.equals(user.dateOfBirth) : user.dateOfBirth != null) return false;
@@ -176,7 +154,6 @@ public class User {
         result = 31 * result + (adress != null ? adress.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (int) isBlocked;
         return result;
     }
 
@@ -190,7 +167,6 @@ public class User {
                 ", adress='" + adress + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", isBlocked=" + isBlocked +
                 ", role=" + role.getName() +
                 '}';
     }

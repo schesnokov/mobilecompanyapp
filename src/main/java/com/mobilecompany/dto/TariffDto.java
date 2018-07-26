@@ -1,7 +1,5 @@
 package com.mobilecompany.dto;
 
-import com.mobilecompany.entities.Contract;
-
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -11,9 +9,7 @@ public class TariffDto {
     private String tariffName;
     private BigDecimal tariffPrice;
     private String tariffDescription;
-    private Set<OptionDto> options;
-    private Contract contract;
-
+    private Set<OptionDto> availableOptions;
 
     public TariffDto() {
     }
@@ -56,19 +52,10 @@ public class TariffDto {
         this.tariffDescription = tariffDescription;
     }
 
-
-    public Set<OptionDto> getOptions() {
-        return options;
+    public Set<OptionDto> getAvailableOptions() {
+        return availableOptions;
     }
-    public void setOptions(Set<OptionDto> options) {
-        this.options = options;
-    }
-
-
-    public Contract getContract() {
-        return contract;
-    }
-    public void setContract(Contract contract) {
-        this.contract = contract;
+    public void setAvailableOptions(Set<OptionDto> availableOptions) {
+        this.availableOptions = availableOptions;
     }
 }

@@ -11,27 +11,102 @@ public class Option {
 
     @Id
     @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="name")
+    @Column(name="optionName")
     private String name;
 
-    @Column(name="price")
+    @Column(name="optionPrice")
     private BigDecimal price;
 
-    @Column(name="connectionCost")
+    @Column(name="connectionPrice")
     private BigDecimal connectionCost;
 
-    @Column(name = "description")
+    @Column(name = "optionDescription")
     private String description;
 
-    public Option() {}
+    @JoinTable(name = "dependentoptions", joinColumns = {
+            @JoinColumn(name = "firstOption", referencedColumnName = "id")}, inverseJoinColumns = {
+            @JoinColumn(name = "secondOption", referencedColumnName = "id")
+    })
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private Set<Option> dependentFirst = new HashSet<>();
 
-    public Option(int id, String name, BigDecimal price, BigDecimal connectionCost) {
+    @JoinTable(name = "dependentoptions", joinColumns = {
+            @JoinColumn(name = "secondOption", referencedColumnName = "id")}, inverseJoinColumns = {
+            @JoinColumn(name = "firstOption", referencedColumnName = "id")
+    })
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private Set<Option> dependentSecond = new HashSet<>();
+
+    @JoinTable(name = "conflictedoptions", joinColumns = {
+            @JoinColumn(name = "firstOption", referencedColumnName = "id")}, inverseJoinColumns = {
+            @JoinColumn(name = "secondOption", referencedColumnName = "id")
+    })
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private Set<Option> conflictedFirst = new HashSet<>();
+
+    @JoinTable(name = "conflictedoptions", joinColumns = {
+            @JoinColumn(name = "secondOption", referencedColumnName = "id")}, inverseJoinColumns = {
+            @JoinColumn(name = "firstOption", referencedColumnName = "id")
+    })
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private Set<Option> conflictedSecond = new HashSet<>();
+
+    @JoinTable(name = "availableoptions", joinColumns = {
+            @JoinColumn(name = "optionId", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "tariffId", referencedColumnName = "id", nullable = false)
+    })
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private Set<Tariff> availableTariffOption = new HashSet<>();
+
+    @JoinTable(name = "selectedoptions", joinColumns = {
+            @JoinColumn(name = "optionId", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "contractId", referencedColumnName = "id", nullable = false)
+    })
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private Set<Contract> contracts = new HashSet<>();
+
+    public Option() {
+            dependentFirst = new HashSet<>();
+            conflictedFirst = new HashSet<>();
+            availableTariffOption = new HashSet<>();
+            contracts = new HashSet<>();
+    }
+
+    public Option(int id, String name, BigDecimal price, BigDecimal connectionCost, String description) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.connectionCost = connectionCost;
+        this.description = description;
+    }
+
+    public void addDependentFirst(Option option) {
+        this.getDependentFirst().add(option);
+    }
+
+    public void addDependentSecond(Option option) {
+        this.getDependentSecond().add(option);
+    }
+
+    public void addConflicted(Option option) {
+        this.getConflictedFirst().add(option);
+        this.getConflictedSecond().add(option);
+    }
+
+    public void addDependentFirst(Set<Option> options) {
+        this.getDependentFirst().addAll(options);
+    }
+
+    public void addDependentSecond(Set<Option> options) {
+        this.getDependentSecond().addAll(options);
+    }
+
+    public void addConflicted(Set<Option> options) {
+        this.getConflictedFirst().addAll(options);
+        this.getConflictedSecond().addAll(options);
     }
 
     public int getId() {
@@ -66,17 +141,46 @@ public class Option {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    @ManyToMany(cascade = CascadeType.ALL,
-                targetEntity = Tariff.class,
-                mappedBy = "options")
-    private Set<Tariff> tariffs = new HashSet<>();
-
-    public Set<Tariff> getTariffs() {
-        return tariffs;
+    public Set<Option> getDependentFirst() {
+        return dependentFirst;
+    }
+    public void setDependentFirst(Set<Option> dependentFirst) {
+        this.dependentFirst = dependentFirst;
     }
 
-    public void setTariffs(Set<Tariff> tariffs) {
-        this.tariffs = tariffs;
+    public Set<Option> getDependentSecond() {
+        return dependentSecond;
+    }
+    public void setDependentSecond(Set<Option> dependentSecond) {
+        this.dependentSecond = dependentSecond;
+    }
+
+    public Set<Option> getConflictedFirst() {
+        return conflictedFirst;
+    }
+    public void setConflictedFirst(Set<Option> conflictedFirst) {
+        this.conflictedFirst = conflictedFirst;
+    }
+
+    public Set<Option> getConflictedSecond() {
+        return conflictedSecond;
+    }
+    public void setConflictedSecond(Set<Option> conflictedSecond) {
+        this.conflictedSecond = conflictedSecond;
+    }
+
+    public Set<Tariff> getAvailableTariffOption() {
+        return availableTariffOption;
+    }
+    public void setAvailableTariffOption(Set<Tariff> availableTariffOption) {
+        this.availableTariffOption = availableTariffOption;
+    }
+
+    public Set<Contract> getContracts() {
+        return contracts;
+    }
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
     }
 
     @Override

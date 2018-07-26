@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 @Repository
 public class RoleDaoImpl implements RoleDao {
@@ -15,27 +14,7 @@ public class RoleDaoImpl implements RoleDao {
     private EntityManager entityManager;
 
     @Override
-    public void create(Role role) {
-
-    }
-
-    @Override
     public Role read(Integer id) {
-        return null;
-    }
-
-    @Override
-    public void update(Integer id) {
-
-    }
-
-    @Override
-    public void delete(Integer id) {
-
-    }
-
-    @Override
-    public List<Role> findAllTariffs() {
         return null;
     }
 

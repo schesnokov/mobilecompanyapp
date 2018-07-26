@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -28,10 +27,6 @@ public class OptionDaoImpl implements OptionDao {
     @Override
     public void update(Integer id) {
         Option option = entityManager.find(Option.class, id);
-        entityManager.detach(option);
-        option.setName("NewName");
-        option.setPrice(new BigDecimal(20.00));
-        option.setConnectionCost(new BigDecimal(10.00));
         entityManager.merge(option);
     }
 

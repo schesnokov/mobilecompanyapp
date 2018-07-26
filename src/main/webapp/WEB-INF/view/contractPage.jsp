@@ -101,9 +101,7 @@
                         <h2>Contract's tariff: <h3>${contractDto.tariff.tariffName}</h3></h2>
                         <h2>Tariff's options: <br />
                             <h3>
-                                <c:choose>
-                                    <c:when test="${not empty contractDto.tariff.options}">
-                                        <c:forEach var="optionsVar" items="#{contractDto.tariff.options}">
+                                        <c:forEach var="optionsVar" items="#{contractDto.selectedOptions}">
                                             <p>
                                                 <c:out value="${optionsVar.name}"/> <br/>
                                                 <c:out value="${optionsVar.description}"/> <br/>
@@ -111,11 +109,6 @@
                                                 <c:out value="${optionsVar.price}"/> <br/>
                                             </p>
                                         </c:forEach>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <p>There is no available options for this tariff <br/></p>
-                                    </c:otherwise>
-                                </c:choose>
                             </h3>
                         </h2>
                     </div>
@@ -125,29 +118,9 @@
                                 <h2>Choose new tariff: <br /></h2>
                         <form:form modelAttribute="tariffDto" action="/changeTariff/${contractDto.id}" method="GET">
                             <form:select path="id">
-                                <c:forEach var="tariffVar" items="#{tariffList}">
-                                    <form:option value="${tariffVar.id}">${tariffVar.tariffName}</form:option>
-                                </c:forEach>
+                                <form:options items="${tariffList}" itemValue="id" itemLabel="tariffName"/>
                             </form:select>
-                            <td>
-                                <input type='submit' value='Change'/>
-                            </td>
                         </form:form>
-                        <c:choose>
-                            <c:when test="${customer.isBlocked == '0'}">
-                                <form:form method="GET" action="/contractBlock/${contractDto.id}" modelAttribute="contractDto">
-                                    <input type='submit' value='Block this number'>
-                                </form:form>
-                            </c:when>
-                            <c:when test="${customer.isBlocked == '1'}">
-                                <form:form method="GET" action="/contractUnblock${contractDto.id}" modelAttribute="contractDto">
-                                    <input type='submit' value='Unblock this number'>
-                                </form:form>
-                            </c:when>
-                            <c:otherwise>
-                                <h3>Number is blocked by operator</h3>
-                            </c:otherwise>
-                        </c:choose>
                             </div>
                         </div>
                     </div>

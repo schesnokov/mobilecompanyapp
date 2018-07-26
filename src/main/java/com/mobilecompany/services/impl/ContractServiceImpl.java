@@ -3,6 +3,7 @@ package com.mobilecompany.services.impl;
 import com.mobilecompany.dao.api.ContractDao;
 import com.mobilecompany.dto.ContractDto;
 import com.mobilecompany.entities.Contract;
+import com.mobilecompany.entities.Tariff;
 import com.mobilecompany.services.api.ContractService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,15 @@ public class ContractServiceImpl implements ContractService {
     public void update(ContractDto contract) {
         Contract updatedContract = mapper.map(contract, Contract.class);
         contractDao.update(updatedContract);
+    }
+
+    @Override
+    @Transactional
+    public void changeTariff(Integer tariffId, Integer contractId) {
+        Contract contract = contractDao.read(contractId);
+        Tariff tariff = new Tariff();
+        tariff.setId(tariffId);
+        contract.setTariff(tariff);
+        contractDao.update(contract);
     }
 }

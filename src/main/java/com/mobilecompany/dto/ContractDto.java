@@ -1,6 +1,8 @@
 package com.mobilecompany.dto;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ContractDto {
     private int id;
@@ -9,6 +11,7 @@ public class ContractDto {
     private int isBlocked;
     private UserDto userDto;
     private TariffDto tariffDto;
+    private Set<OptionDto> selectedOptions = new HashSet<>();
 
     public ContractDto() {
     }
@@ -48,7 +51,7 @@ public class ContractDto {
         this.isBlocked = isBlocked;
     }
 
-    public UserDto getUser() {
+    public UserDto getUserDto() {
         return userDto;
     }
     public void setUserDto(UserDto userDto) {
@@ -60,5 +63,19 @@ public class ContractDto {
     }
     public void setTariff(TariffDto tariffDto) {
         this.tariffDto = tariffDto;
+    }
+
+    public TariffDto getTariffDto() {
+        return tariffDto;
+    }
+    public void setTariffDto(TariffDto tariffDto) {
+        this.tariffDto = tariffDto;
+    }
+
+    public Set<OptionDto> getSelectedOptions() {
+        return selectedOptions;
+    }
+    public void setSelectedOptions(Set<OptionDto> selectedOptions) {
+        this.selectedOptions = selectedOptions;
     }
 }

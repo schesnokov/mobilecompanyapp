@@ -11,6 +11,10 @@ public class OptionDto {
     private BigDecimal connectionCost;
     private String description;
     private Set<TariffDto> tariffs;
+    private Set<TariffDto> dependentFirst;
+    private Set<TariffDto> dependentSecond;
+    private Set<OptionDto> conflictedFirst;
+
 
     public OptionDto() {
     }

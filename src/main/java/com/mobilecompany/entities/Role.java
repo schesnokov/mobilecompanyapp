@@ -12,8 +12,11 @@ public class Role {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "roleName")
     private String name;
+
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<User> users = new HashSet<>();
 
     public Role() {
     }
@@ -36,9 +39,6 @@ public class Role {
     public void setName(String name) {
         this.name = name;
     }
-
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<User> users = new HashSet<>();
 
     public Set<User> getUsers() {
         return this.users;

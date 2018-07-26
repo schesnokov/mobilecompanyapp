@@ -6,10 +6,7 @@ import com.mobilecompany.services.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ContractController {
@@ -40,26 +37,12 @@ public class ContractController {
         return "/contractPage";
     }
 
-    @RequestMapping(value = "/changeTariff/{id}", method = RequestMethod.GET)
-    public String changeTariff(@ModelAttribute("tariffDto") TariffDto tariffDto, @PathVariable Integer id, Model model) {
+    @RequestMapping(value = "/changeTariff/{contractId}", method = RequestMethod.GET)
+    public String changeTariff(@ModelAttribute("tariffDto") TariffDto tariffDto,
+                               @PathVariable Integer contractId, Model model) {
         String userEmail = securityService.findLoggedInEmail();
-        ContractDto contractDto = contractService.getContract(id);
-        TariffDto newTariffDto = tariffService.getTariff(tariffDto.getId());
-        contractDto.setTariff(newTariffDto);
-        contractService.update(contractDto);
-        model.addAttribute("contractDto", contractDto);
-        model.addAttribute("tariffList", tariffService.getAllTariffs());
-        model.addAttribute("tariffDto", new TariffDto());
-        model.addAttribute("customer", userService.findByEmail(userEmail));
-        return "/contractPage";
-    }
-
-    @RequestMapping(value = "/contractBlock/{id}", method = RequestMethod.GET)
-    public String contractBlock(@ModelAttribute("contractDto") ContractDto contractDto, @PathVariable Integer id, Model model) {
-        contractDto.setIsBlocked(1);
-        String userEmail = securityService.findLoggedInEmail();
-        contractService.update(contractDto);
-        model.addAttribute("contractDto", contractDto);
+        contractService.changeTariff(tariffDto.getId(), contractId);
+        model.addAttribute("contractDto", contractService.getContract(contractId));
         model.addAttribute("tariffList", tariffService.getAllTariffs());
         model.addAttribute("tariffDto", new TariffDto());
         model.addAttribute("customer", userService.findByEmail(userEmail));

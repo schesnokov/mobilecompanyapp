@@ -9,4 +9,5 @@ public interface ContractService {
     List<ContractDto> getAllContracts();
     void create(ContractDto contract);
     void update(ContractDto contract);
+    void changeTariff(Integer tariffId, Integer contractId);
 }

@@ -21,7 +21,7 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(int id, String firstName, String secondName, Date dateOfBirth, String passportNumber, String adress, String email, String password, int isBlocked) {
+    public UserDto(Set<ContractDto> contracts, int id, String firstName, String secondName, Date dateOfBirth, String passportNumber, String adress, String email, String password, int isBlocked) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -31,6 +31,7 @@ public class UserDto {
         this.email = email;
         this.password = password;
         this.isBlocked = isBlocked;
+        this.contracts = contracts;
     }
 
     public int getId() {

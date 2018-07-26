@@ -2,12 +2,14 @@ package com.mobilecompany.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity(name = "Contract")
 @Table(name = "contracts")
 public class Contract {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -19,6 +21,22 @@ public class Contract {
 
     @Column(name = "isBlocked")
     private int isBlocked;
+
+    @ManyToOne
+    @JoinColumn(name = "clientId")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "tariffId")
+    private Tariff tariff;
+
+    @JoinTable(name = "selectedoptions", joinColumns = {
+            @JoinColumn(name = "contractId", referencedColumnName = "id", nullable = false)},
+            inverseJoinColumns = {
+            @JoinColumn(name = "optionId", referencedColumnName = "id", nullable = false)
+    })
+    @ManyToMany
+    private Set<Option> selectedOptions;
 
     public Contract() {
     }
@@ -58,28 +76,25 @@ public class Contract {
         this.isBlocked = isBlocked;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "client")
-    private User user;
-
     public User getUser() {
         return this.user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tariff")
-    private Tariff tariff;
-
     public Tariff getTariff() {
         return tariff;
     }
-
     public void setTariff(Tariff tariff) {
         this.tariff = tariff;
+    }
+
+    public Set<Option> getSelectedOptions() {
+        return selectedOptions;
+    }
+    public void setSelectedOptions(Set<Option> selectedOptions) {
+        this.selectedOptions = selectedOptions;
     }
 
     @Override

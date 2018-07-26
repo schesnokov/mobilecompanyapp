@@ -124,11 +124,10 @@
                                         <c:otherwise> Blocked </c:otherwise>
                                         </c:choose>
                                     </td>
-                                    <%--<td><c:out value="${customerVar.isBlocked}"/></td>--%>
-                                    <%--<td>
+                                    <td>
                                         <a class="btn btn-block text-uppercase btn-success"
                                            href="<c:url value="/admin/editCustomer/${customerVar.id}"/>">edit</a>
-                                    </td>--%>
+                                    </td>
                                 </tr>
                             </c:forEach>
                             </tbody>

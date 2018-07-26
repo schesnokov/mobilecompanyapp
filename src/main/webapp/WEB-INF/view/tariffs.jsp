@@ -107,8 +107,8 @@
 					<p>Price: <c:out value="${tariffVar.tariffPrice}"/></p>
 					<p>Available options: <br />
 					<c:choose>
-						<c:when test="${not empty tariffVar.options}">
-							<c:forEach var="optionsVar" items="#{tariffVar.options}">
+						<c:when test="${not empty tariffVar.availableOptions}">
+							<c:forEach var="optionsVar" items="#{tariffVar.availableOptions}">
 								<p>
 									<c:out value="${optionsVar.name}"/> <br/>
 									<c:out value="${optionsVar.description}"/> <br/>
