@@ -1,10 +1,11 @@
 package com.mobilecompany.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ContractDto {
+public class ContractDto implements Serializable {
     private int id;
     private String number;
     private BigDecimal balance;
@@ -26,6 +27,7 @@ public class ContractDto {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -33,6 +35,7 @@ public class ContractDto {
     public String getNumber() {
         return number;
     }
+
     public void setNumber(String number) {
         this.number = number;
     }
@@ -40,6 +43,7 @@ public class ContractDto {
     public BigDecimal getBalance() {
         return balance;
     }
+
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
@@ -47,6 +51,7 @@ public class ContractDto {
     public int getIsBlocked() {
         return isBlocked;
     }
+
     public void setIsBlocked(int isBlocked) {
         this.isBlocked = isBlocked;
     }
@@ -54,6 +59,7 @@ public class ContractDto {
     public UserDto getUserDto() {
         return userDto;
     }
+
     public void setUserDto(UserDto userDto) {
         this.userDto = userDto;
     }
@@ -61,6 +67,7 @@ public class ContractDto {
     public TariffDto getTariff() {
         return tariffDto;
     }
+
     public void setTariff(TariffDto tariffDto) {
         this.tariffDto = tariffDto;
     }
@@ -68,6 +75,7 @@ public class ContractDto {
     public TariffDto getTariffDto() {
         return tariffDto;
     }
+
     public void setTariffDto(TariffDto tariffDto) {
         this.tariffDto = tariffDto;
     }
@@ -75,6 +83,7 @@ public class ContractDto {
     public Set<OptionDto> getSelectedOptions() {
         return selectedOptions;
     }
+
     public void setSelectedOptions(Set<OptionDto> selectedOptions) {
         this.selectedOptions = selectedOptions;
     }

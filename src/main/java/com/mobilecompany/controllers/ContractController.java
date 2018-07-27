@@ -1,13 +1,18 @@
 package com.mobilecompany.controllers;
 
+import com.mobilecompany.controllers.model.ContractChanges;
 import com.mobilecompany.dto.ContractDto;
-import com.mobilecompany.dto.TariffDto;
+import com.mobilecompany.dto.OptionDto;
 import com.mobilecompany.services.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
+@SessionAttributes(value = {"contractDto", "tariffList"})
 @Controller
 public class ContractController {
 
@@ -31,21 +36,27 @@ public class ContractController {
         String userEmail = securityService.findLoggedInEmail();
         ContractDto contractDto = contractService.getContract(id);
         model.addAttribute("contractDto", contractDto);
+        model.addAttribute("contractChanges", new ContractChanges());
         model.addAttribute("tariffList", tariffService.getAllTariffs());
-        model.addAttribute("tariffDto", new TariffDto());
-        model.addAttribute("customer", userService.findByEmail(userEmail));
+        model.addAttribute("availableOptions", contractDto.getTariff().getAvailableOptions());
         return "/contractPage";
     }
 
-    @RequestMapping(value = "/changeTariff/{contractId}", method = RequestMethod.GET)
-    public String changeTariff(@ModelAttribute("tariffDto") TariffDto tariffDto,
-                               @PathVariable Integer contractId, Model model) {
-        String userEmail = securityService.findLoggedInEmail();
-        contractService.changeTariff(tariffDto.getId(), contractId);
-        model.addAttribute("contractDto", contractService.getContract(contractId));
-        model.addAttribute("tariffList", tariffService.getAllTariffs());
-        model.addAttribute("tariffDto", new TariffDto());
-        model.addAttribute("customer", userService.findByEmail(userEmail));
+    @RequestMapping(value = "/changeTariff/{contractId}", method = RequestMethod.POST)
+    public String changeTariff(@ModelAttribute("contractChanges") ContractChanges contractChanges,
+                               @PathVariable(name = "contractId") Integer contractId, Model model) {
+        contractService.changeTariff(contractChanges.getTariffId(), contractId);
+        ContractDto contract = contractService.getContract(contractId);
+        model.addAttribute("contractDto", contract);
+        model.addAttribute("availableOptions", contract.getTariff().getAvailableOptions());
         return "/contractPage";
+    }
+
+    @RequestMapping(value = "/options/{tariffId}", method = RequestMethod.GET)
+    @ResponseBody
+    public Set<OptionDto> getOptionsByTariff(@PathVariable(name = "tariffId") Integer tariffId) {
+        Set<OptionDto> options = new HashSet<>();
+        options = tariffService.getTariff(tariffId).getAvailableOptions();
+        return options;
     }
 }

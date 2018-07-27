@@ -1,9 +1,10 @@
 package com.mobilecompany.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
 
-public class TariffDto {
+public class TariffDto implements Serializable {
 
     private int id;
     private String tariffName;
@@ -24,6 +25,7 @@ public class TariffDto {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -32,6 +34,7 @@ public class TariffDto {
     public String getTariffName() {
         return tariffName;
     }
+
     public void setTariffName(String tariffName) {
         this.tariffName = tariffName;
     }
@@ -40,6 +43,7 @@ public class TariffDto {
     public BigDecimal getTariffPrice() {
         return tariffPrice;
     }
+
     public void setTariffPrice(BigDecimal tariffPrice) {
         this.tariffPrice = tariffPrice;
     }
@@ -48,6 +52,7 @@ public class TariffDto {
     public String getTariffDescription() {
         return tariffDescription;
     }
+
     public void setTariffDescription(String tariffDescription) {
         this.tariffDescription = tariffDescription;
     }
@@ -55,6 +60,7 @@ public class TariffDto {
     public Set<OptionDto> getAvailableOptions() {
         return availableOptions;
     }
+
     public void setAvailableOptions(Set<OptionDto> availableOptions) {
         this.availableOptions = availableOptions;
     }

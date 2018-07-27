@@ -116,16 +116,18 @@
                 <div class="col-sm-4 info-blocks" style="width:400px;">
                     <div class="info-blocks-in">
                         <h2>Choose new tariff: <br/></h2>
-                        <form:form modelAttribute="contractDto" action="/changeTariff/${contractDto.id}" method="POST">
-                            <form:select path="tariffDto.id">
+                        <form:form modelAttribute="contractChanges" action="/changeTariff/${contractDto.id}"
+                                   method="POST">
+                            <form:select path="tariffId" onchange="tariffChanged()">
                                 <form:options items="${tariffList}" itemValue="id" itemLabel="tariffName"/>
                             </form:select>
-                            <%-- <br />
-                             <td>
-                                 <c:forEach var="availableOptionsVar" items="#{availableOptions}">
-                                     <form:checkbox path="selectedOptions" value="${availableOptionsVar.name}"/> <br />
-                                 </c:forEach>
-                             </td>--%>
+                            <br/>
+                            <td>
+                                <div id="optionCheckboxes">
+                                    <form:checkboxes path="optionsIds" items="${availableOptions}" itemLabel="name"
+                                                     itemValue="id" id="id" onchange="optionPicked()"/>
+                                </div>
+                            </td>
                             <td>
                                 <input type='submit' value='Change'/>
                             </td>
@@ -196,6 +198,7 @@
 <script src="/res/js/jquery.flexslider.js"></script>
 <script src="/res/js/animate.js"></script>
 <script src="/res/js/custom.js"></script>
+<script src="/res/js/script.js"></script>
 <script src="/res/js/owl-carousel/owl.carousel.js"></script>
 </body>
 

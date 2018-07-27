@@ -1,9 +1,10 @@
 package com.mobilecompany.dto;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Set;
 
-public class UserDto {
+public class UserDto implements Serializable {
 
     private int id;
     private String firstName;
@@ -37,6 +38,7 @@ public class UserDto {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -44,6 +46,7 @@ public class UserDto {
     public String getFirstName() {
         return firstName;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -51,6 +54,7 @@ public class UserDto {
     public String getSecondName() {
         return secondName;
     }
+
     public void setSecondName(String secondName) {
         this.secondName = secondName;
     }
@@ -58,6 +62,7 @@ public class UserDto {
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
+
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
@@ -65,6 +70,7 @@ public class UserDto {
     public String getPassportNumber() {
         return passportNumber;
     }
+
     public void setPassportNumber(String passportNumber) {
         this.passportNumber = passportNumber;
     }
@@ -72,6 +78,7 @@ public class UserDto {
     public String getAdress() {
         return adress;
     }
+
     public void setAdress(String adress) {
         this.adress = adress;
     }
@@ -79,6 +86,7 @@ public class UserDto {
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -86,6 +94,7 @@ public class UserDto {
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -93,6 +102,7 @@ public class UserDto {
     public int getIsBlocked() {
         return isBlocked;
     }
+
     public void setIsBlocked(int isBlocked) {
         this.isBlocked = isBlocked;
     }
@@ -101,6 +111,7 @@ public class UserDto {
     public RoleDto getRole() {
         return role;
     }
+
     public void setRole(RoleDto role) {
         this.role = role;
     }
@@ -109,6 +120,7 @@ public class UserDto {
     public Set<ContractDto> getContracts() {
         return contracts;
     }
+
     public void setContracts(Set<ContractDto> contracts) {
         this.contracts = contracts;
     }
