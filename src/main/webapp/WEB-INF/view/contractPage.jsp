@@ -124,8 +124,8 @@
                             <br/>
                             <td>
                                 <div id="optionCheckboxes">
-                                    <form:checkboxes path="optionsIds" items="${availableOptions}" itemLabel="name"
-                                                     itemValue="id" id="id" onchange="optionPicked()"/>
+                                    <form:checkboxes cssClass="optionCheckbox" path="optionsIds" items="${availableOptions}" itemLabel="name"
+                                                     itemValue="id" id="id"/>
                                 </div>
                             </td>
                             <td>

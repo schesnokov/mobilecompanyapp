@@ -12,8 +12,7 @@ public class OptionDto implements Serializable {
     private BigDecimal connectionCost;
     private String description;
     private Set<TariffDto> tariffs;
-    private Set<TariffDto> dependentFirst;
-    private Set<TariffDto> dependentSecond;
+    private Set<OptionDto> dependentFirst;
     private Set<OptionDto> conflictedFirst;
 
 
@@ -73,5 +72,22 @@ public class OptionDto implements Serializable {
 
     public void setTariffs(Set<TariffDto> tariffs) {
         this.tariffs = tariffs;
+    }
+
+    public Set<OptionDto> getDependentFirst() {
+        return dependentFirst;
+    }
+
+    public void setDependentFirst(Set<OptionDto> dependentFirst) {
+        this.dependentFirst = dependentFirst;
+    }
+
+
+    public Set<OptionDto> getConflictedFirst() {
+        return conflictedFirst;
+    }
+
+    public void setConflictedFirst(Set<OptionDto> conflictedFirst) {
+        this.conflictedFirst = conflictedFirst;
     }
 }

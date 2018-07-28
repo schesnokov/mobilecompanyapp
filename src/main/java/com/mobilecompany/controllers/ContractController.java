@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @SessionAttributes(value = {"contractDto", "tariffList"})
@@ -55,8 +57,30 @@ public class ContractController {
     @RequestMapping(value = "/options/{tariffId}", method = RequestMethod.GET)
     @ResponseBody
     public Set<OptionDto> getOptionsByTariff(@PathVariable(name = "tariffId") Integer tariffId) {
-        Set<OptionDto> options = new HashSet<>();
-        options = tariffService.getTariff(tariffId).getAvailableOptions();
-        return options;
+        Set<OptionDto> availableOptions = new HashSet<>();
+        availableOptions = tariffService.getTariff(tariffId).getAvailableOptions();
+        return availableOptions;
+    }
+
+    @RequestMapping(value = "/options/conflict/{optionId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Integer> getConflictedOptions(@PathVariable(name = "optionId") Integer optionId) {
+        List<OptionDto> conflictedOptions = new ArrayList<>(optionService.getOption(optionId).getConflictedFirst());
+        List<Integer> conflictedOptionsIds = new ArrayList<>();
+        for (OptionDto optionDto : conflictedOptions) {
+            conflictedOptionsIds.add(optionDto.getId());
+        }
+        return conflictedOptionsIds;
+    }
+
+    @RequestMapping(value = "/options/dependent/{optionId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Integer> getDependentOptions(@PathVariable(name = "optionId") Integer optionId) {
+        List<OptionDto> dependentOptions = new ArrayList<>(optionService.getOption(optionId).getDependentFirst());
+        List<Integer> dependentOptionsIds = new ArrayList<>();
+        for (OptionDto optionDto : dependentOptions) {
+            dependentOptionsIds.add(optionDto.getId());
+        }
+        return dependentOptionsIds;
     }
 }
