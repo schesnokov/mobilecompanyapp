@@ -3,14 +3,16 @@ package com.mobilecompany.controllers;
 import com.mobilecompany.controllers.model.ContractChanges;
 import com.mobilecompany.dto.ContractDto;
 import com.mobilecompany.dto.OptionDto;
-import com.mobilecompany.services.api.*;
+import com.mobilecompany.services.api.ContractService;
+import com.mobilecompany.services.api.OptionService;
+import com.mobilecompany.services.api.SecurityService;
+import com.mobilecompany.services.api.TariffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,15 +21,14 @@ import java.util.Set;
 public class ContractController {
 
     private ContractService contractService;
-    private UserService userService;
     private TariffService tariffService;
     private OptionService optionService;
     private SecurityService securityService;
 
+
     @Autowired
-    public ContractController(SecurityService securityService, ContractService contractService, UserService userService, TariffService tariffService, OptionService optionService) {
+    public ContractController(ContractService contractService, TariffService tariffService, OptionService optionService, SecurityService securityService) {
         this.contractService = contractService;
-        this.userService = userService;
         this.tariffService = tariffService;
         this.optionService = optionService;
         this.securityService = securityService;
@@ -35,7 +36,6 @@ public class ContractController {
 
     @RequestMapping(value = "/contractPage/{id}", method = RequestMethod.GET)
     public String contract(@PathVariable Integer id, Model model) {
-        String userEmail = securityService.findLoggedInEmail();
         ContractDto contractDto = contractService.getContract(id);
         model.addAttribute("contractDto", contractDto);
         model.addAttribute("contractChanges", new ContractChanges());
@@ -44,10 +44,24 @@ public class ContractController {
         return "/contractPage";
     }
 
+    @RequestMapping(value = "/changeStatus/{contractId}", method = RequestMethod.POST)
+    public String changeStatus(@PathVariable(name = "contractId") Integer contractId, Model model) {
+        if (securityService.findLoggedInEmail().equals("chesnokov.sergei@gmail.com")) {
+            contractService.changeStatusByAdmin(contractId);
+        } else {
+            contractService.changeStatus(contractId);
+        }
+        ContractDto contract = contractService.getContract(contractId);
+        model.addAttribute("contractDto", contract);
+        model.addAttribute("availableOptions", contract.getTariff().getAvailableOptions());
+        model.addAttribute("contractChanges", new ContractChanges());
+        return "/contractPage";
+    }
+
     @RequestMapping(value = "/changeTariff/{contractId}", method = RequestMethod.POST)
     public String changeTariff(@ModelAttribute("contractChanges") ContractChanges contractChanges,
                                @PathVariable(name = "contractId") Integer contractId, Model model) {
-        contractService.changeTariff(contractChanges.getTariffId(), contractId);
+        contractService.changeTariff(contractChanges, contractId);
         ContractDto contract = contractService.getContract(contractId);
         model.addAttribute("contractDto", contract);
         model.addAttribute("availableOptions", contract.getTariff().getAvailableOptions());
@@ -57,7 +71,7 @@ public class ContractController {
     @RequestMapping(value = "/options/{tariffId}", method = RequestMethod.GET)
     @ResponseBody
     public Set<OptionDto> getOptionsByTariff(@PathVariable(name = "tariffId") Integer tariffId) {
-        Set<OptionDto> availableOptions = new HashSet<>();
+        Set<OptionDto> availableOptions;
         availableOptions = tariffService.getTariff(tariffId).getAvailableOptions();
         return availableOptions;
     }

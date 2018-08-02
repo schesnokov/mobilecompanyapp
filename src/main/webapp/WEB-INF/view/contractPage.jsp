@@ -111,10 +111,34 @@
                                 </c:forEach>
                             </h3>
                         </h2>
+                        <td>
+                            <c:if test="${contractDto.isBlocked == 0}">
+                            <form:form action="/changeStatus/${contractDto.id}" method="POST">
+                            <input type='submit' value='Block Contract'/>
+                            </form:form>
+                            </c:if>
+                            <c:if test="${contractDto.isBlocked == 1}">
+                                <form:form action="/changeStatus/${contractDto.id}" method="POST">
+                                    <input type='submit' value='Unblock Contract'/>
+                                </form:form>
+                            </c:if>
+                            <c:if test="${contractDto.isBlocked == 2}">
+                                <security:authorize access="hasRole('ROLE_ADMIN')">
+                                    <form:form action="/changeStatus/${contractDto.id}" method="POST">
+                                        <input type='submit' value='Unblock Contract'/>
+                                    </form:form>
+                                </security:authorize>
+                                <security:authorize access="hasRole('ROLE_USER')">
+                                <h3>Your contract is blocked by operator.</h3>
+                                </security:authorize>
+                            </c:if>
+                        </td>
                     </div>
                 </div>
                 <div class="col-sm-4 info-blocks" style="width:400px;">
                     <div class="info-blocks-in">
+                        <c:choose>
+                            <c:when test="${contractDto.isBlocked == 0}">
                         <h2>Choose new tariff: <br/></h2>
                         <form:form modelAttribute="contractChanges" action="/changeTariff/${contractDto.id}"
                                    method="POST">
@@ -132,6 +156,14 @@
                                 <input type='submit' value='Change'/>
                             </td>
                         </form:form>
+                            </c:when>
+                            <c:when test="${contractDto.isBlocked == 1}">
+                                <h3>Unblock your contract</h3>
+                            </c:when>
+                            <c:otherwise>
+                                <h3>Your's contract is blocked by operator!</h3>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>
