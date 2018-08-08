@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
 
-public class RoleDto  implements Serializable {
+public class RoleDto implements Serializable {
 
     private int id;
     private String name;

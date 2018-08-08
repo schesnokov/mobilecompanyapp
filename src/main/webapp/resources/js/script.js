@@ -7,7 +7,7 @@ function tariffChanged() {
         var newOptions = "";
         data.forEach(function (item, i, arr) {
             newOptions += '<span>\n' +
-                '    <input class="optionCheckbox" data-id="'+i+'" id="optionsIds' + i + '" name="optionsIds" type="checkbox" value="' + item.id + '">\n' +
+                '    <input class="optionCheckbox" data-id="' + i + '" id="optionsIds' + i + '" name="optionsIds" type="checkbox" value="' + item.id + '">\n' +
                 '    <label for="optionsIds' + i + '">' + item.name + '</label>\n' +
                 '</span> <br />';
         });
@@ -25,8 +25,8 @@ $('body').on('change', '.optionCheckbox', function () {
         var conflictedIds = data;
         if (checked) {
             conflictedIds.forEach(function (item, i, arr) {
-                if (container.find($('.optionCheckbox[value='+item+']'))) {
-                    $('input[value='+item+']').prop({
+                if (container.find($('.optionCheckbox[value=' + item + ']'))) {
+                    $('input[value=' + item + ']').prop({
                         checked: false,
                         disabled: true
                     });
@@ -46,8 +46,8 @@ $('body').on('change', '.optionCheckbox', function () {
         if (checked) {
 
             dependentIds.forEach(function (item, i, arr) {
-                if (container.find($('.optionCheckbox[value='+item+']'))) {
-                    $('input[value='+item+']').prop({
+                if (container.find($('.optionCheckbox[value=' + item + ']'))) {
+                    $('input[value=' + item + ']').prop({
                         checked: true,
                         disabled: true
                     });
@@ -55,7 +55,7 @@ $('body').on('change', '.optionCheckbox', function () {
             })
         } else {
             dependentIds.forEach(function (item, i, arr) {
-                $('input[value='+item+']').prop({
+                $('input[value=' + item + ']').prop({
                     checked: false,
                     disabled: false
                 });

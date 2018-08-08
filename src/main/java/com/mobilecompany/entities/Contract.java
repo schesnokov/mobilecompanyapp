@@ -33,8 +33,8 @@ public class Contract {
     @JoinTable(name = "selectedoptions", joinColumns = {
             @JoinColumn(name = "contractId", referencedColumnName = "id", nullable = false)},
             inverseJoinColumns = {
-            @JoinColumn(name = "optionId", referencedColumnName = "id", nullable = false)
-    })
+                    @JoinColumn(name = "optionId", referencedColumnName = "id", nullable = false)
+            })
     @ManyToMany
     private Set<Option> selectedOptions;
 
@@ -51,6 +51,7 @@ public class Contract {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -58,6 +59,7 @@ public class Contract {
     public String getNumber() {
         return number;
     }
+
     public void setNumber(String number) {
         this.number = number;
     }
@@ -65,6 +67,7 @@ public class Contract {
     public BigDecimal getBalance() {
         return balance;
     }
+
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
@@ -72,6 +75,7 @@ public class Contract {
     public int getIsBlocked() {
         return isBlocked;
     }
+
     public void setIsBlocked(int isBlocked) {
         this.isBlocked = isBlocked;
     }
@@ -79,6 +83,7 @@ public class Contract {
     public User getUser() {
         return this.user;
     }
+
     public void setUser(User user) {
         this.user = user;
     }
@@ -86,6 +91,7 @@ public class Contract {
     public Tariff getTariff() {
         return tariff;
     }
+
     public void setTariff(Tariff tariff) {
         this.tariff = tariff;
     }
@@ -93,6 +99,7 @@ public class Contract {
     public Set<Option> getSelectedOptions() {
         return selectedOptions;
     }
+
     public void setSelectedOptions(Set<Option> selectedOptions) {
         this.selectedOptions = selectedOptions;
     }

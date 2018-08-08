@@ -34,11 +34,11 @@ public class OptionServiceImpl implements OptionService {
     @Transactional(readOnly = true)
     public List<OptionDto> getAllOptions() {
         List<OptionDto> optionDtoList = new ArrayList<>();
-        for(Option option: optionDao.findAllOptions()) {
-           optionDtoList.add(mapper.map(option, OptionDto.class));
+        for (Option option : optionDao.findAllOptions()) {
+            optionDtoList.add(mapper.map(option, OptionDto.class));
         }
         return optionDtoList;
-        }
+    }
 
     @Override
     @Transactional

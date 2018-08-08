@@ -36,6 +36,12 @@ public class ContractDaoImpl implements ContractDao {
     }
 
     @Override
+    public Contract findByPhoneNumber(String phone) {
+        return entityManager.createQuery("from Contract as contract where contract.number = :phone", Contract.class).
+                setParameter("phone", phone).getSingleResult();
+    }
+
+    @Override
     public List<Contract> findAllContracts() {
         return entityManager.createQuery("from Contract c").getResultList();
     }

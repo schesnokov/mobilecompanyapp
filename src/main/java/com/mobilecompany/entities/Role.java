@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "Role")
-@Table(name="roles")
+@Table(name = "roles")
 public class Role {
 
     @Id
@@ -29,6 +29,7 @@ public class Role {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -36,6 +37,7 @@ public class Role {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }

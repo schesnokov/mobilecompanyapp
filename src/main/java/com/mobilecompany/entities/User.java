@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "User")
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -58,6 +58,7 @@ public class User {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -65,6 +66,7 @@ public class User {
     public String getFirstName() {
         return firstName;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -72,6 +74,7 @@ public class User {
     public String getSecondName() {
         return secondName;
     }
+
     public void setSecondName(String secondName) {
         this.secondName = secondName;
     }
@@ -79,11 +82,15 @@ public class User {
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
+
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getPassportNumber() { return passportNumber; }
+    public String getPassportNumber() {
+        return passportNumber;
+    }
+
     public void setPassportNumber(String passportNumber) {
         this.passportNumber = passportNumber;
     }
@@ -91,6 +98,7 @@ public class User {
     public String getAdress() {
         return adress;
     }
+
     public void setAdress(String adress) {
         this.adress = adress;
     }
@@ -98,6 +106,7 @@ public class User {
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -105,6 +114,7 @@ public class User {
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -112,6 +122,7 @@ public class User {
     public Role getRole() {
         return this.role;
     }
+
     public void setRole(Role role) {
         this.role = role;
     }
@@ -120,6 +131,7 @@ public class User {
     public Set<Contract> getContracts() {
         return this.contracts;
     }
+
     public void setContracts(Set<Contract> contracts) {
         this.contracts = contracts;
     }

@@ -57,22 +57,22 @@
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
-    <http auto-config="true">
-        <intercept-url pattern="/account"
-                       access="isAuthenticated()"/>
-        <intercept-url pattern="/adminPanel"
-                       access="hasAnyRole('ROLE_ADMIN')"/>
+        <http auto-config="true">
+            <intercept-url pattern="/account"
+                           access="isAuthenticated()"/>
+            <intercept-url pattern="/adminPanel"
+                           access="hasAnyRole('ROLE_ADMIN')"/>
 
 
-        <form-login login-processing-url="/login"
-                    login-page="/login" default-target-url="/"
-                    authentication-failure-url="/error"
-                    username-parameter="email" password-parameter="password"/>
+            <form-login login-processing-url="/login"
+                        login-page="/login" default-target-url="/"
+                        authentication-failure-url="/error"
+                        username-parameter="email" password-parameter="password"/>
 
-        <logout logout-success-url="/login"/>
+            <logout logout-success-url="/login"/>
 
-        <csrf disabled="true"/>
-    </http>
+            <csrf disabled="true"/>
+        </http>
 
         <authentication-manager alias="authenticationManager">
             <authentication-provider user-service-ref="userDetailsServiceImpl">

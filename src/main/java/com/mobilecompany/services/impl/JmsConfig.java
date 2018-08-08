@@ -16,6 +16,7 @@ public class JmsConfig {
     private static final String BROKER_URL = "tcp://localhost:61616";
     private static final String BROKER_USERNAME = "admin";
     private static final String BROKER_PASSWORD = "admin";
+
     @Bean
     public ActiveMQConnectionFactory connectionFactory() {
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();

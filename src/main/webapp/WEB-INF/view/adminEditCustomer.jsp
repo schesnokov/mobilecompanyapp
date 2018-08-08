@@ -1,8 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@ page isELIgnored="false" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
@@ -12,15 +12,15 @@
 <head>
     <meta charset="utf-8">
     <title>Administration Panel</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="" />
-    <meta name="author" content="http://webthemez.com" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="http://webthemez.com"/>
 
-    <link href="/res/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/res/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/res/css/fancybox/jquery.fancybox.css" rel="stylesheet">
-    <link href="/res/css/jcarousel.css" rel="stylesheet" />
-    <link href="/res/css/flexslider.css" rel="stylesheet" />
-    <link href="/res/css/style.css" rel="stylesheet" />
+    <link href="/res/css/jcarousel.css" rel="stylesheet"/>
+    <link href="/res/css/flexslider.css" rel="stylesheet"/>
+    <link href="/res/css/style.css" rel="stylesheet"/>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -96,8 +96,20 @@
         <div class="container content">
             <hr class="margin-bottom-50">
             <div class="row">
+                <div class="col-sm-4 info-blocks" style="width:400px;">
+                    <div class="info-blocks-in">
+                        <h2> First name: </h2>
+                        <h3>${customer.firstName}</h3> <br/>
+                        <h2> Second name: </h2>
+                        <h3>${customer.secondName}</h3> <br/>
+                        <h2> E-mail: </h2>
+                        <h3>${customer.email}</h3> <br/>
+                        <h2> Date of birth: </h2>
+                        <h3>${customer.dateOfBirth}</h3> <br/>
+                    </div>
+                </div>
                 <div class="col-sm-4 info-blocks" style="width:800px;">
-                    <div class="info-blocks-in" >
+                    <div class="info-blocks-in">
                         <c:if test="${not empty contractList}">
                         <c:forEach var="contractVar" items="#{contractList}">
                         <div class="panel-group" id="accordion-alt3" style="width:400px;">
@@ -105,21 +117,24 @@
                                 <!-- Panel heading -->
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapse<c:out value="${contractVar.id}"/>-alt3">
+                                        <a data-toggle="collapse" data-parent="#accordion-alt3"
+                                           href="#collapse<c:out value="${contractVar.id}"/>-alt3">
                                             <h3>
-                                                <c:out value="${contractVar.number}"/></h3> </a>
+                                                <c:out value="${contractVar.number}"/></h3></a>
                                     </h4>
                                 </div>
-                                <div id="collapse<c:out value="${contractVar.id}"/>-alt3" class="panel-collapse collapse">
+                                <div id="collapse<c:out value="${contractVar.id}"/>-alt3"
+                                     class="panel-collapse collapse">
                                     <!-- Panel body -->
-                                    <div class="panel-body"> <h5>Tariff: </h5> <c:out value="${contractVar.tariff.tariffName}"/> <br />
+                                    <div class="panel-body"><h5>Tariff: </h5> <c:out
+                                            value="${contractVar.tariff.tariffName}"/> <br/>
                                         <h5>Balance: </h5><c:out value="${contractVar.balance}"/>
                                         <form action="/contractPage/${contractVar.id}" method="GET">
                                             <input type="hidden" name="contract" value="${contractVar.id}">
                                             <input type='submit' value='Edit contract'>
                                         </form>
                                     </div>
-                                    <br />
+                                    <br/>
                                 </div>
                                 </c:forEach>
                                 </c:if>
@@ -136,7 +151,8 @@
                 <div class="col-lg-6">
                     <div class="copyright">
                         <p>
-                            <span>&copy; Creative Bee 2015 All right reserved. By </span><a href="http://webthemez.com" target="_blank">WebThemez</a>
+                            <span>&copy; Creative Bee 2015 All right reserved. By </span><a href="http://webthemez.com"
+                                                                                            target="_blank">WebThemez</a>
                         </p>
                     </div>
                 </div>
@@ -146,7 +162,8 @@
                         <li><a href="#" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
                         <li><a href="#" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
                         <li><a href="#" data-placement="top" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Google plus"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#" data-placement="top" title="Google plus"><i class="fa fa-google-plus"></i></a>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -13,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public List<UserDto> getAllUsers() {
         List<UserDto> userDtoList = new ArrayList<>();
-        for (User user: userDao.findAllUsers()) {
+        for (User user : userDao.findAllUsers()) {
             userDtoList.add(mapper.map(user, UserDto.class));
         }
         return userDtoList;
@@ -70,17 +69,4 @@ public class UserServiceImpl implements UserService {
         userDao.update(updatedUser.getId());
     }
 
-    @Override
-    public UserDto createNewUserDto(String firstName, String secondName, Date dateOfBirth, String passport, String adress, String email, String password) {
-        UserDto user = new UserDto();
-        user.setFirstName(firstName);
-        user.setSecondName(secondName);
-        user.setDateOfBirth(dateOfBirth);
-        user.setPassportNumber(passport);
-        user.setAdress(adress);
-        user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setIsBlocked(0);
-        return user;
-    }
 }

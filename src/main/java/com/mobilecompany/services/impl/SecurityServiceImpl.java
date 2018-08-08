@@ -11,17 +11,22 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SecurityServiceImpl implements SecurityService {
-    @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
+
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    public SecurityServiceImpl(AuthenticationManager authenticationManager, UserDetailsService userDetailsService) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     public String findLoggedInEmail() {
 
         Object userDetails = SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
-        if(userDetails instanceof UserDetails)
+        if (userDetails instanceof UserDetails)
             return ((UserDetails) userDetails).getUsername();
 
         return null;
@@ -36,7 +41,7 @@ public class SecurityServiceImpl implements SecurityService {
 
         authenticationManager.authenticate(authenticationToken);
 
-        if(authenticationToken.isAuthenticated()){
+        if (authenticationToken.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
     }

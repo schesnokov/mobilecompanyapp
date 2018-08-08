@@ -113,9 +113,9 @@
                         </h2>
                         <td>
                             <c:if test="${contractDto.isBlocked == 0}">
-                            <form:form action="/changeStatus/${contractDto.id}" method="POST">
-                            <input type='submit' value='Block Contract'/>
-                            </form:form>
+                                <form:form action="/changeStatus/${contractDto.id}" method="POST">
+                                    <input type='submit' value='Block Contract'/>
+                                </form:form>
                             </c:if>
                             <c:if test="${contractDto.isBlocked == 1}">
                                 <form:form action="/changeStatus/${contractDto.id}" method="POST">
@@ -129,7 +129,7 @@
                                     </form:form>
                                 </security:authorize>
                                 <security:authorize access="hasRole('ROLE_USER')">
-                                <h3>Your contract is blocked by operator.</h3>
+                                    <h3>Your contract is blocked by operator.</h3>
                                 </security:authorize>
                             </c:if>
                         </td>
@@ -139,23 +139,25 @@
                     <div class="info-blocks-in">
                         <c:choose>
                             <c:when test="${contractDto.isBlocked == 0}">
-                        <h2>Choose new tariff: <br/></h2>
-                        <form:form modelAttribute="contractChanges" action="/changeTariff/${contractDto.id}"
-                                   method="POST">
-                            <form:select path="tariffId" onchange="tariffChanged()">
-                                <form:options items="${tariffList}" itemValue="id" itemLabel="tariffName"/>
-                            </form:select>
-                            <br/>
-                            <td>
-                                <div id="optionCheckboxes">
-                                    <form:checkboxes cssClass="optionCheckbox" path="optionsIds" items="${availableOptions}" itemLabel="name"
-                                                     itemValue="id" id="id"/>
-                                </div>
-                            </td>
-                            <td>
-                                <input type='submit' value='Change'/>
-                            </td>
-                        </form:form>
+                                <h2>Choose new tariff: <br/></h2>
+                                <%--<form:form modelAttribute="contractChanges" action="/cart/addChanges/${contractDto.id}"--%>
+                                <form:form modelAttribute="contractChanges" action="/changeTariff/${contractDto.id}"
+                                           method="POST">
+                                    <form:select path="tariffId" onchange="tariffChanged()">
+                                        <form:options items="${tariffList}" itemValue="id" itemLabel="tariffName"/>
+                                    </form:select>
+                                    <br/>
+                                    <td>
+                                        <div id="optionCheckboxes">
+                                            <form:checkboxes cssClass="optionCheckbox" path="optionsIds"
+                                                             items="${availableOptions}" itemLabel="name"
+                                                             itemValue="id" id="id"/>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type='submit' value='Change tariff'/>
+                                    </td>
+                                </form:form>
                             </c:when>
                             <c:when test="${contractDto.isBlocked == 1}">
                                 <h3>Unblock your contract</h3>

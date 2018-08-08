@@ -34,7 +34,7 @@ public class OptionDaoImpl implements OptionDao {
     public void delete(Integer id) {
         Option option = entityManager.find(Option.class, id);
         entityManager.remove(option);
-        }
+    }
 
     @Override
     public List<Option> findAllOptions() {

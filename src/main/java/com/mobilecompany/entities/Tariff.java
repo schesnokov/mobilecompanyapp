@@ -25,14 +25,15 @@ public class Tariff {
     @JoinTable(name = "availableoptions", joinColumns = {
             @JoinColumn(name = "tariffId", referencedColumnName = "id", nullable = false)},
             inverseJoinColumns = {
-            @JoinColumn(name = "optionId", referencedColumnName = "id", nullable = false)
-    })
+                    @JoinColumn(name = "optionId", referencedColumnName = "id", nullable = false)
+            })
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Set<Option> availableOptions;
 
-    public Tariff() {}
+    public Tariff() {
+    }
 
-    public Tariff(String tariffDescription, int id, String tariffName, BigDecimal tariffPrice, Set<Option> options) {
+    public Tariff(String tariffDescription, int id, String tariffName, BigDecimal tariffPrice) {
         this.id = id;
         this.tariffName = tariffName;
         this.tariffPrice = tariffPrice;
@@ -42,6 +43,7 @@ public class Tariff {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -49,6 +51,7 @@ public class Tariff {
     public String getTariffName() {
         return tariffName;
     }
+
     public void setTariffName(String name) {
         this.tariffName = name;
     }
@@ -56,16 +59,23 @@ public class Tariff {
     public BigDecimal getTariffPrice() {
         return tariffPrice;
     }
+
     public void setTariffPrice(BigDecimal price) {
         this.tariffPrice = price;
     }
 
-    public String getTariffDescription() { return tariffDescription; }
-    public void setTariffDescription(String description) { this.tariffDescription = description; }
+    public String getTariffDescription() {
+        return tariffDescription;
+    }
+
+    public void setTariffDescription(String description) {
+        this.tariffDescription = description;
+    }
 
     public Set<Option> getAvailableOptions() {
         return availableOptions;
     }
+
     public void setAvailableOptions(Set<Option> availableOptions) {
         this.availableOptions = availableOptions;
     }

@@ -3,7 +3,6 @@ package com.mobilecompany.controllers;
 import com.mobilecompany.dto.ContractDto;
 import com.mobilecompany.dto.UserDto;
 import com.mobilecompany.entities.User;
-import com.mobilecompany.services.api.ContractService;
 import com.mobilecompany.services.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,12 +18,10 @@ import java.util.Set;
 public class CustomerController {
 
     private UserService userService;
-    private ContractService contractService;
 
     @Autowired
-    public CustomerController(UserService userService, ContractService contractService) {
+    public CustomerController(UserService userService) {
         this.userService = userService;
-        this.contractService = contractService;
     }
 
     @RequestMapping(value = "/customerPage", method = RequestMethod.GET)
@@ -43,7 +40,7 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/saveEditedCustomer")
-    public String saveEditedCustomer(@ModelAttribute("customer") User user){
+    public String saveEditedCustomer(@ModelAttribute("customer") User user) {
         return "/customerPage";
     }
 }

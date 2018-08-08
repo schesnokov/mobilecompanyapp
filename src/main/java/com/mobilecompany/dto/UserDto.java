@@ -14,7 +14,6 @@ public class UserDto implements Serializable {
     private String adress;
     private String email;
     private String password;
-    private int isBlocked;
     private RoleDto role;
     private Set<ContractDto> contracts;
 
@@ -22,7 +21,7 @@ public class UserDto implements Serializable {
     public UserDto() {
     }
 
-    public UserDto(Set<ContractDto> contracts, int id, String firstName, String secondName, Date dateOfBirth, String passportNumber, String adress, String email, String password, int isBlocked) {
+    public UserDto(Set<ContractDto> contracts, int id, String firstName, String secondName, Date dateOfBirth, String passportNumber, String adress, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -31,7 +30,6 @@ public class UserDto implements Serializable {
         this.adress = adress;
         this.email = email;
         this.password = password;
-        this.isBlocked = isBlocked;
         this.contracts = contracts;
     }
 
@@ -98,15 +96,6 @@ public class UserDto implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public int getIsBlocked() {
-        return isBlocked;
-    }
-
-    public void setIsBlocked(int isBlocked) {
-        this.isBlocked = isBlocked;
-    }
-
 
     public RoleDto getRole() {
         return role;

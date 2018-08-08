@@ -45,7 +45,7 @@ public class ContractServiceImpl implements ContractService {
     @Transactional(readOnly = true)
     public List<ContractDto> getAllContracts() {
         List<ContractDto> contractDtoList = new ArrayList<>();
-        for(Contract contract: contractDao.findAllContracts()) {
+        for (Contract contract : contractDao.findAllContracts()) {
             contractDtoList.add(mapper.map(contract, ContractDto.class));
         }
         return contractDtoList;
@@ -100,5 +100,11 @@ public class ContractServiceImpl implements ContractService {
         } else {
             contract.setIsBlocked(0);
         }
+    }
+
+    @Override
+    @Transactional
+    public Contract getContractByPhone(String phone) {
+        return contractDao.findByPhoneNumber(phone);
     }
 }

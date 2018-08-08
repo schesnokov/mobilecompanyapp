@@ -6,21 +6,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "Option")
-@Table(name="options")
+@Table(name = "options")
 public class Option {
 
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="optionName")
+    @Column(name = "optionName")
     private String name;
 
-    @Column(name="optionPrice")
+    @Column(name = "optionPrice")
     private BigDecimal price;
 
-    @Column(name="connectionPrice")
+    @Column(name = "connectionPrice")
     private BigDecimal connectionCost;
 
     @Column(name = "optionDescription")
@@ -69,10 +69,10 @@ public class Option {
     private Set<Contract> contracts = new HashSet<>();
 
     public Option() {
-            dependentFirst = new HashSet<>();
-            conflictedFirst = new HashSet<>();
-            availableTariffOption = new HashSet<>();
-            contracts = new HashSet<>();
+        dependentFirst = new HashSet<>();
+        conflictedFirst = new HashSet<>();
+        availableTariffOption = new HashSet<>();
+        contracts = new HashSet<>();
     }
 
     public Option(int id, String name, BigDecimal price, BigDecimal connectionCost, String description) {
@@ -112,6 +112,7 @@ public class Option {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -119,6 +120,7 @@ public class Option {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -126,6 +128,7 @@ public class Option {
     public BigDecimal getPrice() {
         return price;
     }
+
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
@@ -134,16 +137,23 @@ public class Option {
     public BigDecimal getConnectionCost() {
         return connectionCost;
     }
+
     public void setConnectionCost(BigDecimal connectionCost) {
         this.connectionCost = connectionCost;
     }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Set<Option> getDependentFirst() {
         return dependentFirst;
     }
+
     public void setDependentFirst(Set<Option> dependentFirst) {
         this.dependentFirst = dependentFirst;
     }
@@ -151,6 +161,7 @@ public class Option {
     public Set<Option> getDependentSecond() {
         return dependentSecond;
     }
+
     public void setDependentSecond(Set<Option> dependentSecond) {
         this.dependentSecond = dependentSecond;
     }
@@ -158,6 +169,7 @@ public class Option {
     public Set<Option> getConflictedFirst() {
         return conflictedFirst;
     }
+
     public void setConflictedFirst(Set<Option> conflictedFirst) {
         this.conflictedFirst = conflictedFirst;
     }
@@ -165,6 +177,7 @@ public class Option {
     public Set<Option> getConflictedSecond() {
         return conflictedSecond;
     }
+
     public void setConflictedSecond(Set<Option> conflictedSecond) {
         this.conflictedSecond = conflictedSecond;
     }
@@ -172,6 +185,7 @@ public class Option {
     public Set<Tariff> getAvailableTariffOption() {
         return availableTariffOption;
     }
+
     public void setAvailableTariffOption(Set<Tariff> availableTariffOption) {
         this.availableTariffOption = availableTariffOption;
     }
@@ -179,6 +193,7 @@ public class Option {
     public Set<Contract> getContracts() {
         return contracts;
     }
+
     public void setContracts(Set<Contract> contracts) {
         this.contracts = contracts;
     }
