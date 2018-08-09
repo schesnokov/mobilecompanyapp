@@ -1,10 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@ page isELIgnored="false" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html>
@@ -56,9 +52,6 @@
                     <li class="active">
                         <a href="/account">Personal account</a>
                     </li>
-                    <li>
-                        <a href="/bucket">Cart</a>
-                    </li>
                     <security:authorize access="hasRole('ROLE_ADMIN')">
                         <li>
                             <a href="/adminPanel">Admin panel</a>
@@ -99,77 +92,10 @@
             <hr class="margin-bottom-50">
             <div class="row">
                 <div class="col-sm-4 info-blocks" style="width:400px;">
-                    <div class="info-blocks-in">
-                        <h2>Contract's number: <h3>${contractDto.number}</h3></h2>
-                        <h2>Contract's tariff: <h3>${contractDto.tariff.tariffName}</h3></h2>
-                        <h2>Tariff's options: <br/>
-                            <h3>
-                                <c:forEach var="optionsVar" items="#{contractDto.selectedOptions}">
-                                    <p>
-                                        <c:out value="${optionsVar.name}"/> <br/>
-                                        <c:out value="${optionsVar.description}"/> <br/>
-                                        <c:out value="${optionsVar.connectionCost}"/> <br/>
-                                        <c:out value="${optionsVar.price}"/> <br/>
-                                    </p>
-                                </c:forEach>
-                            </h3>
-                        </h2>
-                        <td>
-                            <c:if test="${contractDto.isBlocked == 0}">
-                                <form:form action="/changeStatus/${contractDto.id}" method="POST">
-                                    <input type='submit' value='Block Contract'/>
-                                </form:form>
-                            </c:if>
-                            <c:if test="${contractDto.isBlocked == 1}">
-                                <form:form action="/changeStatus/${contractDto.id}" method="POST">
-                                    <input type='submit' value='Unblock Contract'/>
-                                </form:form>
-                            </c:if>
-                            <c:if test="${contractDto.isBlocked == 2}">
-                                <security:authorize access="hasRole('ROLE_ADMIN')">
-                                    <form:form action="/changeStatus/${contractDto.id}" method="POST">
-                                        <input type='submit' value='Unblock Contract'/>
-                                    </form:form>
-                                </security:authorize>
-                                <security:authorize access="hasRole('ROLE_USER')">
-                                    <h3>Your contract is blocked by operator.</h3>
-                                </security:authorize>
-                            </c:if>
-                        </td>
-                    </div>
-                </div>
-                <div class="col-sm-4 info-blocks" style="width:400px;">
-                    <div class="info-blocks-in">
-                        <c:choose>
-                            <c:when test="${contractDto.isBlocked == 0}">
-                                <h2>Choose new tariff: <br/></h2>
-                                <%--<form:form modelAttribute="contractChanges" action="/changeTariff/${contractDto.id}"--%>
-                                <form:form modelAttribute="contractChanges" action="/bucket/product/${contractDto.id}"
-                                           method="POST">
-                                    <form:select path="tariffId" onchange="tariffChanged()">
-                                        <form:options items="${tariffList}" itemValue="id" itemLabel="tariffName"/>
-                                    </form:select>
-                                    <br/>
-                                    <td>
-                                        <div id="optionCheckboxes">
-                                            <form:checkboxes cssClass="optionCheckbox" path="optionsIds"
-                                                             items="${availableOptions}" itemLabel="name"
-                                                             itemValue="id" id="id"/>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input type='submit' value='Add to cart'/>
-                                    </td>
-                                </form:form>
-                            </c:when>
-                            <c:when test="${contractDto.isBlocked == 1}">
-                                <h3>Unblock your contract</h3>
-                            </c:when>
-                            <c:otherwise>
-                                <h3>Your's contract is blocked by operator!</h3>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
+                    <h2>Your cart:</h2> <br/>
+                    <c:forEach var="changes" items="${requestScope.bucket}">
+                        Choosed tariff: ${changes.value.tariffId} <br/>
+                    </c:forEach>
                 </div>
             </div>
         </div>
@@ -235,7 +161,6 @@
 <script src="/res/js/jquery.flexslider.js"></script>
 <script src="/res/js/animate.js"></script>
 <script src="/res/js/custom.js"></script>
-<script src="/res/js/script.js"></script>
 <script src="/res/js/owl-carousel/owl.carousel.js"></script>
 </body>
 
