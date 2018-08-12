@@ -1,16 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ page isELIgnored="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
-<%@ page isELIgnored="false" %>
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>F SOCIETY Tariffs</title>
+    <title>Administration Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content="http://webthemez.com"/>
@@ -51,8 +52,8 @@
                     <li>
                         <a href="/about">About Us</a>
                     </li>
-                    <li class="active">
-                        <a href="/tariff">Our Tariffs</a>
+                    <li>
+                        <a href="/tariffs">Our Tariffs</a>
                     </li>
                     <li>
                         <a href="/account">Personal account</a>
@@ -86,8 +87,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="pageTitle">Tariffs
-                    </h2>
+                    <h2 class="pageTitle">Tariff edit page</h2>
                 </div>
             </div>
         </div>
@@ -95,45 +95,40 @@
     <section id="content">
         <div class="container content">
             <hr class="margin-bottom-50">
-
-            <!-- Info Blcoks -->
             <div class="row">
-                <c:forEach var="tariffVar" items="#{tariffList}">
-                    <div class="col-sm-4 info-blocks">
-                        <i class="icon-info-blocks fa fa-bell-o"></i>
-                        <div class="info-blocks-in">
-                            <h3><c:out value="${tariffVar.tariffName}"/></h3>
-                            <p><c:out value="${tariffVar.tariffDescription}"/></p>
-                            <p>Price: <c:out value="${tariffVar.tariffPrice}"/></p>
-                            <p>Available options: <br/>
-                                <c:choose>
-                                <c:when test="${not empty tariffVar.availableOptions}">
-                                <c:forEach var="optionsVar" items="#{tariffVar.availableOptions}">
-                            <p>
-                                <c:out value="${optionsVar.name}"/> <br/>
-                                <c:out value="${optionsVar.description}"/> <br/>
-                                <c:out value="${optionsVar.connectionCost}"/> <br/>
-                                <c:out value="${optionsVar.price}"/> <br/>
-                            </p>
-                            </c:forEach>
-                            </c:when>
-                            <c:otherwise>
-                                <p>There is no available options for this tariff <br/></p>
-                            </c:otherwise>
-                            </c:choose>
-                            <security:authorize access="hasRole('ROLE_ADMIN')">
-                                <form action="/deleteTariff/${tariffVar.id}" method="POST">
-                                    <input type="hidden" name="tariff" value="${tariffVar.id}">
-                                    <input type='submit' value='Delete'>
-                                </form>
-                                <form action="/editTariff/${tariffVar.id}" method="GET">
-                                    <input type="submit" value="Edit">
-                                </form>
-                            </security:authorize>
-                            </p>
-                        </div>
+                <div class="col-sm-4 info-blocks" style="width:400px;">
+                    <div class="info-blocks-in">
+                        <h2> Tariff name: </h2>
+                        <h3>${tariff.tariffName}</h3> <br/>
+                        <h2> Description: </h2>
+                        <h3>${tariff.tariffDescription}</h3> <br/>
+                        <h2> Available options:</h2>
+                        <c:forEach var="optionVar" items="${tariff.availableOptions}">
+                            <h3>${optionVar.name}</h3> <br />
+                        </c:forEach>
                     </div>
-                </c:forEach>
+                </div>
+                <div class="col-sm-4 info-blocks" style="width:800px;">
+                    <div class="info-blocks-in">
+                        <h2>Select options to delete from this tariff:</h2>
+                        <form:form method="POST" modelAttribute="options"
+                        action="/deleteOptionsSubmit/${tariff.id}">
+                            <spring:bind path="optionsIds1">
+                                <form:checkboxes path="optionsIds1" items="${tariff.availableOptions}"
+                                                 itemValue="id" id="id" itemLabel="name"/>
+                            </spring:bind>
+                            <input type="submit" value="Delete options"/>
+                        </form:form>
+                        <form:form method="POST" modelAttribute="options"
+                        action="/addOptionsSubmit/${tariff.id}">
+                            <spring:bind path="optionsIds2">
+                                <form:checkboxes path="optionsIds2" items="${allOptionsList}"
+                                                 itemValue="id" id="id" itemLabel="name"/>
+                            </spring:bind>
+                            <input type="submit" value="Add options"/>
+                        </form:form>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -177,6 +172,8 @@
 <script src="/res/js/jquery.flexslider.js"></script>
 <script src="/res/js/animate.js"></script>
 <script src="/res/js/custom.js"></script>
+<script src="/res/js/script.js"></script>
+
 
 </body>
 </html>

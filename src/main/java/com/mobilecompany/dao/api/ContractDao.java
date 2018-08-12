@@ -11,7 +11,7 @@ public interface ContractDao {
 
     void update(Contract contract);
 
-    void delete(Integer id);
+    void delete(Contract contract);
 
     Contract findByPhoneNumber(String phone);
 

@@ -3,15 +3,13 @@ package com.mobilecompany.controllers;
 import com.mobilecompany.controllers.model.ContractChanges;
 import com.mobilecompany.dto.ContractDto;
 import com.mobilecompany.dto.OptionDto;
-import com.mobilecompany.services.api.ContractService;
-import com.mobilecompany.services.api.OptionService;
-import com.mobilecompany.services.api.SecurityService;
-import com.mobilecompany.services.api.TariffService;
+import com.mobilecompany.services.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -24,14 +22,17 @@ public class ContractController {
     private TariffService tariffService;
     private OptionService optionService;
     private SecurityService securityService;
+    private UserService userService;
 
 
     @Autowired
-    public ContractController(ContractService contractService, TariffService tariffService, OptionService optionService, SecurityService securityService) {
+    public ContractController(ContractService contractService, TariffService tariffService, OptionService optionService,
+                              SecurityService securityService, UserService userService) {
         this.contractService = contractService;
         this.tariffService = tariffService;
         this.optionService = optionService;
         this.securityService = securityService;
+        this.userService = userService;
     }
 
     @RequestMapping(value = "/contractPage/{id}", method = RequestMethod.GET)
@@ -60,11 +61,14 @@ public class ContractController {
 
     @RequestMapping(value = "/changeTariff/{contractId}", method = RequestMethod.POST)
     public String changeTariff(@ModelAttribute("contractChanges") ContractChanges contractChanges,
-                               @PathVariable(name = "contractId") Integer contractId, Model model) {
-        contractService.changeTariff(contractChanges, contractId);
+                               @PathVariable(name = "contractId") Integer contractId, Model model, HttpServletRequest request) {
+        ContractChanges contractChanges1 = (ContractChanges) request.getSession().getAttribute("contractChanges");
+        contractService.changeTariff(contractChanges1, contractId);
         ContractDto contract = contractService.getContract(contractId);
         model.addAttribute("contractDto", contract);
         model.addAttribute("availableOptions", contract.getTariff().getAvailableOptions());
+        request.getSession().setAttribute("bucket", null);
+        request.getSession().setAttribute("orderResult", null);
         return "/contractPage";
     }
 

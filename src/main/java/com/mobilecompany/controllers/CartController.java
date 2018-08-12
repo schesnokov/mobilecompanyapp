@@ -1,7 +1,9 @@
 package com.mobilecompany.controllers;
 
+import com.mobilecompany.controllers.model.BucketChanges;
 import com.mobilecompany.controllers.model.ContractChanges;
 import com.mobilecompany.services.api.CartService;
+import com.mobilecompany.services.api.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,22 +13,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 public class CartController {
 
     private CartService cartService;
+    private ContractService contractService;
 
     @Autowired
-    public CartController(CartService cartService) {
+    public CartController(CartService cartService, ContractService contractService) {
         this.cartService = cartService;
+        this.contractService = contractService;
     }
 
     @RequestMapping(value = "/bucket", method = RequestMethod.GET)
     public String getCart(HttpServletRequest request, Model model) {
         model.addAttribute("bucket", request.getSession().getAttribute("bucket"));
+        model.addAttribute("contractChanges", request.getSession().getAttribute("contractChanges"));
+        model.addAttribute("contract", request.getSession().getAttribute("contract"));
+        model.addAttribute("orderResult", request.getSession().getAttribute("orderResult"));
         return "/bucket";
     }
 
@@ -35,11 +40,19 @@ public class CartController {
                                    @PathVariable(name = "contractId") Integer contractId, HttpServletRequest request) {
         Object bucket = request.getSession().getAttribute("bucket");
         if (bucket == null) {
-            Map<Integer, ContractChanges> changes = new HashMap<>();
-            cartService.addToCart(changes, contractId, contractChanges);
-            request.getSession().setAttribute("bucket", changes);
+            BucketChanges bucketChanges = new BucketChanges();
+            cartService.addToCart(bucketChanges, contractId, contractChanges);
+            request.getSession().setAttribute("bucket", bucketChanges);
+            request.getSession().setAttribute("contractChanges", contractChanges);
+            request.getSession().setAttribute("contract", contractService.getContract(contractId));
+            request.getSession().setAttribute("orderResult", contractService.getOrderResult(contractChanges.getTariffId(),
+                    contractChanges.getOptionsIds()));
         } else {
-            cartService.addToCart((Map<Integer, ContractChanges>) bucket, contractId, contractChanges);
+            cartService.addToCart((BucketChanges) bucket, contractId, contractChanges);
+            request.getSession().setAttribute("contractChanges", contractChanges);
+            request.getSession().setAttribute("contract", contractService.getContract(contractId));
+            request.getSession().setAttribute("orderResult", contractService.getOrderResult(contractChanges.getTariffId(),
+                    contractChanges.getOptionsIds()));
         }
         return "redirect: /bucket";
     }

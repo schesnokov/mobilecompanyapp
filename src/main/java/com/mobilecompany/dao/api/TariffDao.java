@@ -9,7 +9,7 @@ public interface TariffDao {
 
     Tariff read(Integer id);
 
-    void update(Integer id);
+    void update(Tariff tariff);
 
     void delete(Integer id);
 

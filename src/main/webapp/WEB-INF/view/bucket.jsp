@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page isELIgnored="false" %>
 
 <!DOCTYPE html>
@@ -93,9 +94,15 @@
             <div class="row">
                 <div class="col-sm-4 info-blocks" style="width:400px;">
                     <h2>Your cart:</h2> <br/>
-                    <c:forEach var="changes" items="${requestScope.bucket}">
-                        Choosed tariff: ${changes.value.tariffId} <br/>
-                    </c:forEach>
+                    Choosed tariff: ${requestScope.bucket.tariff.tariffName} <br/>
+                    Choosed options: <br/> <c:forEach var="option" items="${requestScope.bucket.options}">
+                                             ${option.name} <br/>
+                                           </c:forEach> <br/>
+                    Sum for changing you tariff and options is ${orderResult}. <br/>
+                    Your balance is ${contract.balance}.
+                    <form:form modelAttribute="contractChanges" action="/changeTariff/${requestScope.bucket.contractId}" method="POST">
+                        <input type='submit' value='Submit changes'/>
+                    </form:form>
                 </div>
             </div>
         </div>

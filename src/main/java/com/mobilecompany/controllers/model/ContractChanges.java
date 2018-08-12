@@ -5,7 +5,8 @@ import java.util.List;
 public class ContractChanges {
 
     private Integer tariffId;
-    private List<Integer> optionsIds;
+    private List<Integer> optionsIds1;
+    private List<Integer> optionsIds2;
 
     public Integer getTariffId() {
         return tariffId;
@@ -16,10 +17,26 @@ public class ContractChanges {
     }
 
     public List<Integer> getOptionsIds() {
-        return optionsIds;
+        return optionsIds1;
     }
 
-    public void setOptionsIds(List<Integer> optionsIds) {
-        this.optionsIds = optionsIds;
+    public void setOptionsIds(List<Integer> optionsIds1) {
+        this.optionsIds1 = optionsIds1;
+    }
+
+    public List<Integer> getOptionsIds1() {
+        return optionsIds1;
+    }
+
+    public void setOptionsIds1(List<Integer> optionsIds1) {
+        this.optionsIds1 = optionsIds1;
+    }
+
+    public List<Integer> getOptionsIds2() {
+        return optionsIds2;
+    }
+
+    public void setOptionsIds2(List<Integer> optionsIds2) {
+        this.optionsIds2 = optionsIds2;
     }
 }

@@ -143,7 +143,6 @@
                         <c:choose>
                             <c:when test="${contractDto.isBlocked == 0}">
                                 <h2>Choose new tariff: <br/></h2>
-                                <%--<form:form modelAttribute="contractChanges" action="/changeTariff/${contractDto.id}"--%>
                                 <form:form modelAttribute="contractChanges" action="/bucket/product/${contractDto.id}"
                                            method="POST">
                                     <form:select path="tariffId" onchange="tariffChanged()">

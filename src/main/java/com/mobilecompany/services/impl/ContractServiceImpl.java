@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -76,7 +77,24 @@ public class ContractServiceImpl implements ContractService {
         Integer tariffId = contractChanges.getTariffId();
         Tariff tariff = mapper.map(tariffService.getTariff(tariffId), Tariff.class);
         contract.setTariff(tariff);
+        contract.setBalance(contract.getBalance().subtract(getOrderResult(tariffId, contractChanges.getOptionsIds())));
         contractDao.update(contract);
+    }
+
+    @Override
+    public BigDecimal getOrderResult(Integer tariffId, List<Integer> selectedOptionsIds) {
+        Tariff tariff = mapper.map(tariffService.getTariff(tariffId), Tariff.class);
+        BigDecimal tariffPrice = tariff.getTariffPrice();
+        BigDecimal changeCost = new BigDecimal(0.0);
+        changeCost = changeCost.add(tariffPrice);
+        Set<Option> selectedOptions = new HashSet<>();
+        for (Integer optionId : selectedOptionsIds) {
+            selectedOptions.add(optionDao.read(optionId));
+        }
+        for (Option option : selectedOptions) {
+            changeCost = changeCost.add(option.getPrice()).add(option.getConnectionCost());
+        }
+        return changeCost;
     }
 
     @Override
@@ -106,5 +124,11 @@ public class ContractServiceImpl implements ContractService {
     @Transactional
     public Contract getContractByPhone(String phone) {
         return contractDao.findByPhoneNumber(phone);
+    }
+
+    @Override
+    @Transactional
+    public void delete(ContractDto contractDto) {
+        contractDao.delete(mapper.map(contractDto, Contract.class));
     }
 }

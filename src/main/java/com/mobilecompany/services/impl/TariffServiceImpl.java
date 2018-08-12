@@ -46,6 +46,12 @@ public class TariffServiceImpl implements TariffService {
 
     @Override
     @Transactional
+    public void update(TariffDto tariff) {
+        tariffDao.update(mapper.map(tariff, Tariff.class));
+    }
+
+    @Override
+    @Transactional
     public void deleteTariff(Integer id) {
         tariffDao.delete(id);
     }

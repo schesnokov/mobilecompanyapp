@@ -4,6 +4,7 @@ import com.mobilecompany.controllers.model.ContractChanges;
 import com.mobilecompany.dto.ContractDto;
 import com.mobilecompany.entities.Contract;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface ContractService {
@@ -22,4 +23,8 @@ public interface ContractService {
     void changeStatusByAdmin(Integer contractId);
 
     Contract getContractByPhone(String phone);
+
+    BigDecimal getOrderResult(Integer tariffId, List<Integer> selectedOptionsIds);
+
+    void delete(ContractDto contract);
 }

@@ -108,9 +108,10 @@
                         <h3>${customer.dateOfBirth}</h3> <br/>
                     </div>
                 </div>
+                <c:if test="${not empty contractList}">
                 <div class="col-sm-4 info-blocks" style="width:800px;">
                     <div class="info-blocks-in">
-                        <c:if test="${not empty contractList}">
+
                         <c:forEach var="contractVar" items="#{contractList}">
                         <div class="panel-group" id="accordion-alt3" style="width:400px;">
                             <div class="panel">
@@ -137,9 +138,64 @@
                                     <br/>
                                 </div>
                                 </c:forEach>
-                                </c:if>
+
                             </div>
                         </div>
+                    </div>
+                </div>
+                </c:if>
+                <div class="col-sm-4 info-blocks" style="width:400px;">
+                    <div class="info-blocks-in">
+                        <form:form method='POST' modelAttribute="newContract"
+                                   action="/customer/addContract/${customer.id}">
+                            <h2>Add new contract</h2>
+                            <dl class="dl_class">
+                                <spring:bind path="number">
+                                    <dt>
+                                        Phone number
+                                    </dt>
+                                    <dd>
+                                        <form:input type='text' path="number"
+                                                    placeholder="Phone number"/>
+                                        <p>Phone number</p>
+                                    </dd>
+                                </spring:bind>
+                                <spring:bind path="balance">
+                                    <dt>
+                                        Start balance
+                                    </dt>
+                                    <dd>
+                                        <form:input type='text' path="balance"
+                                                    placeholder="Start balance"/>
+                                        <p>Enter start balance</p>
+                                    </dd>
+                                </spring:bind>
+                                <spring:bind path="tariffId">
+                                    <dt>
+                                        Select tariff
+                                    </dt>
+                                    <dd>
+                                        <form:select path="tariffId" onchange="tariffChanged()">
+                                            <form:options items="${tariffList}" itemValue="id" itemLabel="tariffName"/>
+                                        </form:select>
+                                        <p>Select contract tariff</p>
+                                    </dd>
+                                </spring:bind>
+                                <spring:bind path="optionsIds">
+                                    <dt>
+                                        Choose tariff options
+                                    </dt>
+                                    <dd>
+                                        <div id="optionCheckboxes">
+                                            <form:checkboxes cssClass="optionCheckbox" path="optionsIds"
+                                                             items="${availableOptions}" itemLabel="name"
+                                                             itemValue="id" id="id"/>
+                                        </div>
+                                        <p>Select tariff options</p>
+                                    </dd>
+                                </spring:bind></dl>
+                            <input type='submit' value='Confirm'>
+                        </form:form>
                     </div>
                 </div>
             </div>
@@ -185,6 +241,8 @@
 <script src="/res/js/jquery.flexslider.js"></script>
 <script src="/res/js/animate.js"></script>
 <script src="/res/js/custom.js"></script>
+<script src="/res/js/script.js"></script>
+
 
 </body>
 </html>

@@ -30,8 +30,7 @@ public class ContractDaoImpl implements ContractDao {
     }
 
     @Override
-    public void delete(Integer id) {
-        Contract contract = entityManager.find(Contract.class, id);
+    public void delete(Contract contract) {
         entityManager.remove(contract);
     }
 

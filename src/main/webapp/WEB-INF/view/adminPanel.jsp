@@ -100,6 +100,21 @@
             <div class="row">
                 <div class="col-sm-4 info-blocks">
                     <div class="info-blocks-in">
+                        <form action="customerPage" method="GET">
+                            <input type='submit' class="btn btn-primary btn-lg btn-block" value='Edit Customers'>
+                        </form>
+                        <form action="tariffs" method="GET">
+                            <input type='submit' class="btn btn-primary btn-lg btn-block" value='Edit tariffs'>
+                        </form>
+                        <form:form method='GET' action="/findByPhone">
+                            <h2>Find customer by phone number</h2> <br/>
+                            <input name="phone" type="text"/>
+                            <input type="submit" value="Find">
+                        </form:form>
+                    </div>
+                </div>
+                <div class="col-sm-4 info-blocks">
+                    <div class="info-blocks-in">
                         <form:form method='POST' modelAttribute="tariffDto" action="/addTariff">
                             <h2>Add Tariff</h2>
                             <dl class="dl_class">
@@ -136,7 +151,7 @@
                             </dl>
                             <input type='submit' value='Add new tariff'>
                         </form:form>
-                        <form:form method='POST' modelAttribute="optionDto" action="/addOption">
+                        <form:form method='POST' modelAttribute="newOption" action="/addOption">
                             <h2>Add Option</h2>
                             <dl class="dl_class">
                                 <spring:bind path="name">
@@ -171,7 +186,7 @@
                                 </spring:bind>
                                 <spring:bind path="connectionCost">
                                     <dt>
-                                        Tariff Description
+                                        Connection cost
                                     </dt>
                                     <dd>
                                         <form:input type='text' path="connectionCost"
@@ -179,21 +194,21 @@
                                         <p>Enter option connection cost</p>
                                     </dd>
                                 </spring:bind>
+                                <spring:bind path="compatibleTariffsIds">
+                                    <dt>
+                                        Choose compatible tariffs
+                                    </dt>
+                                    <dd>
+                                        <div id="tariffCheckboxes">
+                                            <form:checkboxes cssClass="tariffCheckbox" path="compatibleTariffsIds"
+                                                             items="${tariffList}" itemLabel="tariffName"
+                                                             itemValue="id" id="id"/>
+                                        </div>
+                                        <p>Choose compatible tariffs</p>
+                                    </dd>
+                                </spring:bind>
                             </dl>
                             <input type='submit' value='Add new option'>
-                        </form:form>
-                    </div>
-                </div>
-
-                <div class="col-sm-4 info-blocks">
-                    <div class="info-blocks-in">
-                        <form action="customerPage" method="GET">
-                            <input type='submit' class="btn btn-primary btn-lg btn-block" value='Edit Customers'>
-                        </form>
-                        <form:form method='GET' action="/findByPhone">
-                        <h2>Find customer by phone number</h2> <br />
-                        <input name="phone" type="text"/>
-                        <input type="submit" value="Find">
                         </form:form>
                     </div>
                 </div>
@@ -321,6 +336,8 @@
 <script src="/res/js/jquery.flexslider.js"></script>
 <script src="/res/js/animate.js"></script>
 <script src="/res/js/custom.js"></script>
+<script src="/res/js/script.js"></script>
+
 
 </body>
 </html>

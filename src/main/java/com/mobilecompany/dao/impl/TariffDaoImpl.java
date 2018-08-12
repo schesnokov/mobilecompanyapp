@@ -25,8 +25,7 @@ public class TariffDaoImpl implements TariffDao {
     }
 
     @Override
-    public void update(Integer id) {
-        Tariff tariff = entityManager.find(Tariff.class, id);
+    public void update(Tariff tariff) {
         entityManager.merge(tariff);
     }
 
