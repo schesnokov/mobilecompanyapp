@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -61,8 +62,8 @@ public class AdminController {
         model.addAttribute("customer", customer);
         model.addAttribute("contractList", contracts);
         model.addAttribute("newContract", new NewContractHelper());
-        model.addAttribute("availableOptions", tariffService.getAllTariffs().get(0).getAvailableOptions());
         model.addAttribute("tariffList", tariffService.getAllTariffs());
+        model.addAttribute("availableOptions", tariffService.getAllTariffs().get(0).getAvailableOptions());
         return "/adminEditCustomer";
     }
 
@@ -80,20 +81,26 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/editTariff/{tariffId}", method = RequestMethod.GET)
-    public String editTariff(@PathVariable(name = "tariffId") Integer tariffId, Model model) {
+    public String editTariff(@PathVariable (name = "tariffId") Integer tariffId, Model model) {
         model.addAttribute("tariff", tariffService.getTariff(tariffId));
+        List<OptionDto> available = new ArrayList<>(tariffService.getTariff(tariffId).getAvailableOptions());
+        List<OptionDto> allOptions = optionService.getAllOptions();
+        allOptions.removeAll(available);
         model.addAttribute("optionsList", tariffService.getTariff(tariffId).getAvailableOptions());
         model.addAttribute("options", new ContractChanges());
-        model.addAttribute("allOptionsList", optionService.getAllOptions());
+        model.addAttribute("allOptionsList", allOptions);
         return "/adminEditTariff";
     }
 
     @RequestMapping(value = "/deleteOptionsSubmit/{tariffId}", method = RequestMethod.POST)
-    public String deleteOptionsSubmit(@ModelAttribute(name = "options") ContractChanges contractChanges,
-                                      @PathVariable(name = "tariffId") Integer tariffId) {
+    public String   deleteOptionsSubmit(@ModelAttribute (name = "options") ContractChanges contractChanges,
+                                   @PathVariable (name = "tariffId") Integer tariffId) {
         TariffDto tariffDto = tariffService.getTariff(tariffId);
         for (Integer optionId : contractChanges.getOptionsIds()) {
-            tariffDto.getAvailableOptions().remove(optionService.getOption(optionId));
+            Set<OptionDto> availableOptions = tariffDto.getAvailableOptions();
+            OptionDto optionDto = optionService.getOption(optionId);
+            availableOptions.remove(optionDto);
+            tariffDto.setAvailableOptions(availableOptions);
             tariffService.update(tariffDto);
             //tariffService.sendUpdateMessageToJmsServer();
         }
@@ -101,14 +108,14 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/addOptionsSubmit/{tariffId}", method = RequestMethod.POST)
-    public String addOptionsSubmit(@ModelAttribute(name = "options") ContractChanges contractChanges,
-                                   @PathVariable(name = "tariffId") Integer tariffId) {
+    public String addOptionsSubmit(@ModelAttribute (name = "options") ContractChanges contractChanges,
+                                   @PathVariable (name = "tariffId") Integer tariffId) {
         TariffDto tariffDto = tariffService.getTariff(tariffId);
         for (Integer optionId : contractChanges.getOptionsIds2()) {
             tariffDto.getAvailableOptions().add(optionService.getOption(optionId));
+            tariffService.update(tariffDto);
+            //tariffService.sendUpdateMessageToJmsServer();
         }
-        tariffService.update(tariffDto);
-        //tariffService.sendUpdateMessageToJmsServer();
         return "redirect: /adminPanel";
     }
 
@@ -126,10 +133,15 @@ public class AdminController {
         optionDto.setDescription(newOption.getDescription());
         optionDto.setPrice(newOption.getPrice());
         optionDto.setConnectionCost(newOption.getConnectionCost());
-        optionDto.setTariffs(new HashSet<>());
+        /*Set<TariffDto> tariffDtos = new HashSet<>();
         for (Integer tariffId : newOption.getCompatibleTariffsIds()) {
-            optionDto.getTariffs().add(tariffService.getTariff(tariffId));
+            tariffDtos.add(tariffService.getTariff(tariffId));
+            *//*TariffDto tariffDto = tariffService.getTariff(tariffId);
+            tariffDto.getAvailableOptions().add(optionDto);
+            tariffService.update(tariffDto);*//*
+            //tariffService.sendUpdateMessageToJmsServer();
         }
+        optionDto.setTariffs(tariffDtos);*/
         optionService.addOption(optionDto);
         return "redirect: /adminPanel";
     }

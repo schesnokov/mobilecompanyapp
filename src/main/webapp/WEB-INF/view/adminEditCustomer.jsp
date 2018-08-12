@@ -108,10 +108,9 @@
                         <h3>${customer.dateOfBirth}</h3> <br/>
                     </div>
                 </div>
-                <c:if test="${not empty contractList}">
                 <div class="col-sm-4 info-blocks" style="width:800px;">
                     <div class="info-blocks-in">
-
+                        <c:if test="${not empty contractList}">
                         <c:forEach var="contractVar" items="#{contractList}">
                         <div class="panel-group" id="accordion-alt3" style="width:400px;">
                             <div class="panel">
@@ -138,12 +137,11 @@
                                     <br/>
                                 </div>
                                 </c:forEach>
-
+                                </c:if>
                             </div>
                         </div>
                     </div>
                 </div>
-                </c:if>
                 <div class="col-sm-4 info-blocks" style="width:400px;">
                     <div class="info-blocks-in">
                         <form:form method='POST' modelAttribute="newContract"

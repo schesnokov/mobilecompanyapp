@@ -33,13 +33,6 @@ public class Option {
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Set<Option> dependentFirst = new HashSet<>();
 
-    @JoinTable(name = "dependentoptions", joinColumns = {
-            @JoinColumn(name = "secondOption", referencedColumnName = "id")}, inverseJoinColumns = {
-            @JoinColumn(name = "firstOption", referencedColumnName = "id")
-    })
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    private Set<Option> dependentSecond = new HashSet<>();
-
     @JoinTable(name = "conflictedoptions", joinColumns = {
             @JoinColumn(name = "firstOption", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "secondOption", referencedColumnName = "id")
@@ -47,18 +40,7 @@ public class Option {
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Set<Option> conflictedFirst = new HashSet<>();
 
-    @JoinTable(name = "conflictedoptions", joinColumns = {
-            @JoinColumn(name = "secondOption", referencedColumnName = "id")}, inverseJoinColumns = {
-            @JoinColumn(name = "firstOption", referencedColumnName = "id")
-    })
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    private Set<Option> conflictedSecond = new HashSet<>();
-
-    @JoinTable(name = "availableoptions", joinColumns = {
-            @JoinColumn(name = "optionId", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
-            @JoinColumn(name = "tariffId", referencedColumnName = "id", nullable = false)
-    })
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "availableOptions", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Set<Tariff> availableTariffOption = new HashSet<>();
 
     @JoinTable(name = "selectedoptions", joinColumns = {
@@ -87,26 +69,16 @@ public class Option {
         this.getDependentFirst().add(option);
     }
 
-    public void addDependentSecond(Option option) {
-        this.getDependentSecond().add(option);
-    }
-
     public void addConflicted(Option option) {
         this.getConflictedFirst().add(option);
-        this.getConflictedSecond().add(option);
     }
 
     public void addDependentFirst(Set<Option> options) {
         this.getDependentFirst().addAll(options);
     }
 
-    public void addDependentSecond(Set<Option> options) {
-        this.getDependentSecond().addAll(options);
-    }
-
     public void addConflicted(Set<Option> options) {
         this.getConflictedFirst().addAll(options);
-        this.getConflictedSecond().addAll(options);
     }
 
     public int getId() {
@@ -158,13 +130,6 @@ public class Option {
         this.dependentFirst = dependentFirst;
     }
 
-    public Set<Option> getDependentSecond() {
-        return dependentSecond;
-    }
-
-    public void setDependentSecond(Set<Option> dependentSecond) {
-        this.dependentSecond = dependentSecond;
-    }
 
     public Set<Option> getConflictedFirst() {
         return conflictedFirst;
@@ -174,13 +139,6 @@ public class Option {
         this.conflictedFirst = conflictedFirst;
     }
 
-    public Set<Option> getConflictedSecond() {
-        return conflictedSecond;
-    }
-
-    public void setConflictedSecond(Set<Option> conflictedSecond) {
-        this.conflictedSecond = conflictedSecond;
-    }
 
     public Set<Tariff> getAvailableTariffOption() {
         return availableTariffOption;

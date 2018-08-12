@@ -90,4 +90,37 @@ public class OptionDto implements Serializable {
     public void setConflictedFirst(Set<OptionDto> conflictedFirst) {
         this.conflictedFirst = conflictedFirst;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OptionDto optionDto = (OptionDto) o;
+
+        if (id != null ? !id.equals(optionDto.id) : optionDto.id != null) return false;
+        if (name != null ? !name.equals(optionDto.name) : optionDto.name != null) return false;
+        if (price != null ? !price.equals(optionDto.price) : optionDto.price != null) return false;
+        if (connectionCost != null ? !connectionCost.equals(optionDto.connectionCost) : optionDto.connectionCost != null)
+            return false;
+        if (description != null ? !description.equals(optionDto.description) : optionDto.description != null)
+            return false;
+        if (tariffs != null ? !tariffs.equals(optionDto.tariffs) : optionDto.tariffs != null) return false;
+        if (dependentFirst != null ? !dependentFirst.equals(optionDto.dependentFirst) : optionDto.dependentFirst != null)
+            return false;
+        return conflictedFirst != null ? conflictedFirst.equals(optionDto.conflictedFirst) : optionDto.conflictedFirst == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (connectionCost != null ? connectionCost.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (tariffs != null ? tariffs.hashCode() : 0);
+        result = 31 * result + (dependentFirst != null ? dependentFirst.hashCode() : 0);
+        result = 31 * result + (conflictedFirst != null ? conflictedFirst.hashCode() : 0);
+        return result;
+    }
 }

@@ -101,4 +101,11 @@ public class ContractController {
         }
         return dependentOptionsIds;
     }
+
+    @RequestMapping(value = "/contract/delete/{contractId}", method = RequestMethod.POST)
+    public String deleteContract(@PathVariable (name = "contractId") Integer contractId,
+                                 @RequestParam (name = "customerId") Integer customerId, Model model) {
+        contractService.delete(contractService.getContract(contractId));
+        return "redirect: /customerPage";
+    }
 }

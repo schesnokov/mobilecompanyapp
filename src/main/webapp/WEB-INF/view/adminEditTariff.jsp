@@ -125,7 +125,7 @@
                                 <form:checkboxes path="optionsIds2" items="${allOptionsList}"
                                                  itemValue="id" id="id" itemLabel="name"/>
                             </spring:bind>
-                            <input type="submit" value="Add options"/>
+                            <input type="submit" value="Add options">
                         </form:form>
                     </div>
                 </div>

@@ -194,7 +194,7 @@
                                         <p>Enter option connection cost</p>
                                     </dd>
                                 </spring:bind>
-                                <spring:bind path="compatibleTariffsIds">
+                                <%--<spring:bind path="compatibleTariffsIds">
                                     <dt>
                                         Choose compatible tariffs
                                     </dt>
@@ -206,7 +206,7 @@
                                         </div>
                                         <p>Choose compatible tariffs</p>
                                     </dd>
-                                </spring:bind>
+                                </spring:bind>--%>
                             </dl>
                             <input type='submit' value='Add new option'>
                         </form:form>
