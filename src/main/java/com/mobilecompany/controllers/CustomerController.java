@@ -5,11 +5,12 @@ import com.mobilecompany.dto.ContractDto;
 import com.mobilecompany.dto.OptionDto;
 import com.mobilecompany.dto.TariffDto;
 import com.mobilecompany.dto.UserDto;
-import com.mobilecompany.entities.User;
 import com.mobilecompany.services.api.ContractService;
 import com.mobilecompany.services.api.OptionService;
 import com.mobilecompany.services.api.TariffService;
 import com.mobilecompany.services.api.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,8 @@ import java.util.Set;
 
 @Controller
 public class CustomerController {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
 
     private UserService userService;
     private TariffService tariffService;
@@ -40,12 +43,14 @@ public class CustomerController {
 
     @RequestMapping(value = "/customerPage", method = RequestMethod.GET)
     public String customers(Model model) {
+        LOGGER.info("Returning page with all customers");
         model.addAttribute("customersList", userService.getAllUsers());
         return "/customerPage";
     }
 
     @RequestMapping(value = "/admin/editCustomer/{customerId}")
     public String editCustomer(@PathVariable("customerId") Integer customerId, Model model) {
+        LOGGER.info("Returning page for customer edit with id {}", customerId);
         UserDto customer = userService.getUser(customerId);
         List<TariffDto> tariffList = tariffService.getAllTariffs();
         Set<ContractDto> contracts = customer.getContracts();
@@ -59,7 +64,8 @@ public class CustomerController {
 
     @RequestMapping(value = "/customer/addContract/{customerId}", method = RequestMethod.POST)
     public String addNewContract(@PathVariable(name = "customerId") Integer customerId,
-                                 @ModelAttribute("newContract") NewContractHelper newContract, Model model){
+                                 @ModelAttribute("newContract") NewContractHelper newContract){
+        LOGGER.info("New contract creation started");
         UserDto customer = userService.getUser(customerId);
         ContractDto contract = new ContractDto();
         contract.setNumber(newContract.getNumber());
@@ -75,10 +81,5 @@ public class CustomerController {
         userService.update(customer);
         contractService.create(contract);
         return "redirect: /customerPage";
-    }
-
-    @RequestMapping(value = "/saveEditedCustomer")
-    public String saveEditedCustomer(@ModelAttribute("customer") User user) {
-        return "/customerPage";
     }
 }

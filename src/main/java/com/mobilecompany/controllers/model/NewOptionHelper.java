@@ -10,6 +10,8 @@ public class NewOptionHelper {
     private BigDecimal price;
     private BigDecimal connectionCost;
     private List<Integer> compatibleTariffsIds;
+    private List<Integer> dependentIds;
+    private List<Integer> conflictedIds;
 
     public String getName() {
         return name;
@@ -49,5 +51,21 @@ public class NewOptionHelper {
 
     public void setCompatibleTariffsIds(List<Integer> compatibleTariffsIds) {
         this.compatibleTariffsIds = compatibleTariffsIds;
+    }
+
+    public List<Integer> getDependentIds() {
+        return dependentIds;
+    }
+
+    public void setDependentIds(List<Integer> dependentIds) {
+        this.dependentIds = dependentIds;
+    }
+
+    public List<Integer> getConflictedIds() {
+        return conflictedIds;
+    }
+
+    public void setConflictedIds(List<Integer> conflictedIds) {
+        this.conflictedIds = conflictedIds;
     }
 }

@@ -194,19 +194,30 @@
                                         <p>Enter option connection cost</p>
                                     </dd>
                                 </spring:bind>
-                                <%--<spring:bind path="compatibleTariffsIds">
+                                <spring:bind path="dependentIds">
                                     <dt>
-                                        Choose compatible tariffs
+                                        Choose dependent options:
                                     </dt>
                                     <dd>
-                                        <div id="tariffCheckboxes">
-                                            <form:checkboxes cssClass="tariffCheckbox" path="compatibleTariffsIds"
-                                                             items="${tariffList}" itemLabel="tariffName"
+                                        <div id="optionCheckboxes1">
+                                            <form:checkboxes cssClass="optionCheckbox" path="dependentIds"
+                                                             items="${optionsList}" itemLabel="name"
                                                              itemValue="id" id="id"/>
                                         </div>
-                                        <p>Choose compatible tariffs</p>
                                     </dd>
-                                </spring:bind>--%>
+                                </spring:bind>
+                                <spring:bind path="conflictedIds">
+                                    <dt>
+                                        Choose conflicted options:
+                                    </dt>
+                                    <dd>
+                                        <div id="optionCheckboxes2">
+                                            <form:checkboxes cssClass="optionCheckbox" path="conflictedIds"
+                                                             items="${optionsList}" itemLabel="name"
+                                                             itemValue="id" id="id"/>
+                                        </div>
+                                    </dd>
+                                </spring:bind>
                             </dl>
                             <input type='submit' value='Add new option'>
                         </form:form>
@@ -336,8 +347,6 @@
 <script src="/res/js/jquery.flexslider.js"></script>
 <script src="/res/js/animate.js"></script>
 <script src="/res/js/custom.js"></script>
-<script src="/res/js/script.js"></script>
-
 
 </body>
 </html>

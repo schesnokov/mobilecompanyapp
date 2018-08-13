@@ -10,6 +10,8 @@ import com.mobilecompany.entities.Tariff;
 import com.mobilecompany.services.api.ContractService;
 import com.mobilecompany.services.api.TariffService;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,8 @@ import java.util.Set;
 
 @Service
 public class ContractServiceImpl implements ContractService {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(ContractServiceImpl.class);
 
     private ContractDao contractDao;
     private OptionDao optionDao;
@@ -39,12 +43,14 @@ public class ContractServiceImpl implements ContractService {
     @Override
     @Transactional(readOnly = true)
     public ContractDto getContract(Integer id) {
+        LOGGER.info("Getting contractDto of Entity with id {}", id);
         return mapper.map(contractDao.read(id), ContractDto.class);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ContractDto> getAllContracts() {
+        LOGGER.info("Getting list with DTOs of contracts entities");
         List<ContractDto> contractDtoList = new ArrayList<>();
         for (Contract contract : contractDao.findAllContracts()) {
             contractDtoList.add(mapper.map(contract, ContractDto.class));
@@ -55,12 +61,14 @@ public class ContractServiceImpl implements ContractService {
     @Override
     @Transactional
     public void create(ContractDto contract) {
+        LOGGER.info("ContractDto mapped to Entity and passed to DAO");
         contractDao.create(mapper.map(contract, Contract.class));
     }
 
     @Override
     @Transactional
     public void update(ContractDto contract) {
+        LOGGER.info("Sending {} to DAO for update", contract);
         Contract updatedContract = mapper.map(contract, Contract.class);
         contractDao.update(updatedContract);
     }
@@ -68,6 +76,7 @@ public class ContractServiceImpl implements ContractService {
     @Override
     @Transactional
     public void changeTariff(ContractChanges contractChanges, Integer contractId) {
+        LOGGER.info("Changing tariff of contract with id {}", contractId);
         Contract contract = contractDao.read(contractId);
         Set<Option> selectedOptions = new HashSet<>();
         for (Integer optionId : contractChanges.getOptionsIds()) {
@@ -83,6 +92,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public BigDecimal getOrderResult(Integer tariffId, List<Integer> selectedOptionsIds) {
+        LOGGER.info("Calculation of price for tariff changes");
         Tariff tariff = mapper.map(tariffService.getTariff(tariffId), Tariff.class);
         BigDecimal tariffPrice = tariff.getTariffPrice();
         BigDecimal changeCost = new BigDecimal(0.0);
@@ -100,6 +110,7 @@ public class ContractServiceImpl implements ContractService {
     @Override
     @Transactional
     public void changeStatus(Integer contractId) {
+        LOGGER.info("Changing tariff status with id {} by user", contractId);
         Contract contract = contractDao.read(contractId);
         if (contract.getIsBlocked() == 0) {
             contract.setIsBlocked(1);
@@ -112,6 +123,7 @@ public class ContractServiceImpl implements ContractService {
     @Override
     @Transactional
     public void changeStatusByAdmin(Integer contractId) {
+        LOGGER.info("Changing tariff status with id {} by admin", contractId);
         Contract contract = contractDao.read(contractId);
         if (contract.getIsBlocked() == 0) {
             contract.setIsBlocked(2);
@@ -123,12 +135,14 @@ public class ContractServiceImpl implements ContractService {
     @Override
     @Transactional
     public Contract getContractByPhone(String phone) {
+        LOGGER.info("Passing phone number {} to DAO for finding contract", phone);
         return contractDao.findByPhoneNumber(phone);
     }
 
     @Override
     @Transactional
     public void delete(ContractDto contractDto) {
+        LOGGER.info("Passing contractDto with id {} to DAO for delete", contractDto.getId());
         contractDao.delete(mapper.map(contractDto, Contract.class));
     }
 }

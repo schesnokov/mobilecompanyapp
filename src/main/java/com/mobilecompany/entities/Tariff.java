@@ -27,7 +27,7 @@ public class Tariff {
             inverseJoinColumns = {
                     @JoinColumn(name = "optionId", referencedColumnName = "id", nullable = false)
             })
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Option> availableOptions;
 
     public Tariff() {

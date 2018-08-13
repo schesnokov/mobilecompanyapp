@@ -23,6 +23,7 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/newmobilecompany"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="sergio123"/>
+            <property name="hibernate.event.merge.entity_copy_observer" value="allow"/>
         </properties>
     </persistence-unit>
 </persistence>

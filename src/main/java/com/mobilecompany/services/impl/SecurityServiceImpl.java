@@ -1,6 +1,8 @@
 package com.mobilecompany.services.impl;
 
 import com.mobilecompany.services.api.SecurityService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SecurityServiceImpl implements SecurityService {
-    private AuthenticationManager authenticationManager;
 
+    private static Logger LOGGER = LoggerFactory.getLogger(SecurityServiceImpl.class);
+
+    private AuthenticationManager authenticationManager;
     private UserDetailsService userDetailsService;
 
     @Autowired
@@ -23,7 +27,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public String findLoggedInEmail() {
-
+        LOGGER.info("Finding logged in user");
         Object userDetails = SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
         if (userDetails instanceof UserDetails)

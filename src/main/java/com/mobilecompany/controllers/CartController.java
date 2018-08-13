@@ -4,6 +4,8 @@ import com.mobilecompany.controllers.model.BucketChanges;
 import com.mobilecompany.controllers.model.ContractChanges;
 import com.mobilecompany.services.api.CartService;
 import com.mobilecompany.services.api.ContractService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class CartController {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(CartController.class);
+
     private CartService cartService;
     private ContractService contractService;
 
@@ -28,6 +32,7 @@ public class CartController {
 
     @RequestMapping(value = "/bucket", method = RequestMethod.GET)
     public String getCart(HttpServletRequest request, Model model) {
+        LOGGER.info("Returning bucket page");
         model.addAttribute("bucket", request.getSession().getAttribute("bucket"));
         model.addAttribute("contractChanges", request.getSession().getAttribute("contractChanges"));
         model.addAttribute("contract", request.getSession().getAttribute("contract"));
@@ -38,6 +43,7 @@ public class CartController {
     @RequestMapping(value = "/bucket/product/{contractId}", method = RequestMethod.POST)
     public String addProductToBucket(@ModelAttribute("contractChanges") ContractChanges contractChanges,
                                    @PathVariable(name = "contractId") Integer contractId, HttpServletRequest request) {
+        LOGGER.info("Adding products to bucket");
         Object bucket = request.getSession().getAttribute("bucket");
         if (bucket == null) {
             BucketChanges bucketChanges = new BucketChanges();

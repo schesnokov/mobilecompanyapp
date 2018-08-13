@@ -12,7 +12,8 @@ import com.mobilecompany.services.api.ContractService;
 import com.mobilecompany.services.api.OptionService;
 import com.mobilecompany.services.api.TariffService;
 import com.mobilecompany.services.api.UserService;
-import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,17 +24,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Controller
 public class AdminController {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
+
     private UserService userService;
     private TariffService tariffService;
     private OptionService optionService;
     private ContractService contractService;
-    private ModelMapper mapper;
 
     @Autowired
     public AdminController(UserService userService, TariffService tariffService, OptionService optionService, ContractService contractService) {
@@ -41,21 +44,23 @@ public class AdminController {
         this.tariffService = tariffService;
         this.optionService = optionService;
         this.contractService = contractService;
-        this.mapper = new ModelMapper();
     }
 
     @RequestMapping(value = "/adminPanel", method = RequestMethod.GET)
     public String tariffs(Model model) {
+        LOGGER.info("Returning admin panel");
         model.addAttribute("customerList", userService.getAllUsers());
         model.addAttribute("userDto", new UserDto());
         model.addAttribute("tariffDto", new TariffDto());
         model.addAttribute("newOption", new NewOptionHelper());
         model.addAttribute("tariffList", tariffService.getAllTariffs());
+        model.addAttribute("optionsList", optionService.getAllOptions());
         return "/adminPanel";
     }
 
     @RequestMapping(value = "/findByPhone", method = RequestMethod.GET)
     public String findCustomerByPhone(HttpServletRequest request, Model model) {
+        LOGGER.info("Getting customer by phone number");
         Contract contract = contractService.getContractByPhone(request.getParameter("phone"));
         User customer = contract.getUser();
         Set<Contract> contracts = customer.getContracts();
@@ -69,19 +74,22 @@ public class AdminController {
 
     @RequestMapping(value = "/adminPanel", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userDto") UserDto userDto) {
+        LOGGER.info("Registration of user");
         userService.createUser(userDto);
         return "redirect: /adminPanel";
     }
 
     @RequestMapping(value = "/addTariff", method = RequestMethod.POST)
     public String addTariff(@ModelAttribute("tariffDto") TariffDto tariffDto) {
+        LOGGER.info("Adding new tariff {}", tariffDto);
         tariffService.addTariff(tariffDto);
-        //tariffService.sendUpdateMessageToJmsServer();
+        tariffService.sendUpdateMessageToJmsServer();
         return "redirect: /adminPanel";
     }
 
     @RequestMapping(value = "/editTariff/{tariffId}", method = RequestMethod.GET)
     public String editTariff(@PathVariable (name = "tariffId") Integer tariffId, Model model) {
+        LOGGER.info("Editing tariff with id {}", tariffId);
         model.addAttribute("tariff", tariffService.getTariff(tariffId));
         List<OptionDto> available = new ArrayList<>(tariffService.getTariff(tariffId).getAvailableOptions());
         List<OptionDto> allOptions = optionService.getAllOptions();
@@ -95,6 +103,7 @@ public class AdminController {
     @RequestMapping(value = "/deleteOptionsSubmit/{tariffId}", method = RequestMethod.POST)
     public String   deleteOptionsSubmit(@ModelAttribute (name = "options") ContractChanges contractChanges,
                                    @PathVariable (name = "tariffId") Integer tariffId) {
+        LOGGER.info("Deleting available options from tariff with id {}", tariffId);
         TariffDto tariffDto = tariffService.getTariff(tariffId);
         for (Integer optionId : contractChanges.getOptionsIds()) {
             Set<OptionDto> availableOptions = tariffDto.getAvailableOptions();
@@ -102,46 +111,53 @@ public class AdminController {
             availableOptions.remove(optionDto);
             tariffDto.setAvailableOptions(availableOptions);
             tariffService.update(tariffDto);
-            //tariffService.sendUpdateMessageToJmsServer();
         }
+        tariffService.sendUpdateMessageToJmsServer();
         return "redirect: /adminPanel";
     }
 
     @RequestMapping(value = "/addOptionsSubmit/{tariffId}", method = RequestMethod.POST)
     public String addOptionsSubmit(@ModelAttribute (name = "options") ContractChanges contractChanges,
                                    @PathVariable (name = "tariffId") Integer tariffId) {
+        LOGGER.info("Adding available options from tariff with id {}", tariffId);
         TariffDto tariffDto = tariffService.getTariff(tariffId);
+        Set<OptionDto> availableOptions = new HashSet<>();
+        availableOptions.addAll(tariffDto.getAvailableOptions());
         for (Integer optionId : contractChanges.getOptionsIds2()) {
-            tariffDto.getAvailableOptions().add(optionService.getOption(optionId));
-            tariffService.update(tariffDto);
-            //tariffService.sendUpdateMessageToJmsServer();
+            availableOptions.add(optionService.getOption(optionId));
         }
+        tariffDto.setAvailableOptions(availableOptions);
+        tariffService.update(tariffDto);
+        tariffService.sendUpdateMessageToJmsServer();
         return "redirect: /adminPanel";
     }
 
     @RequestMapping(value = "/deleteTariff/{id}", method = RequestMethod.POST)
     public String deleteTariff(@PathVariable Integer id) {
+        LOGGER.info("Deleting tariff with id {}", id);
         tariffService.deleteTariff(id);
-        //tariffService.sendUpdateMessageToJmsServer();
+        tariffService.sendUpdateMessageToJmsServer();
         return "redirect: ../tariffs";
     }
 
     @RequestMapping(value = "/addOption", method = RequestMethod.POST)
     public String addOption(@ModelAttribute("newOption") NewOptionHelper newOption) {
+        LOGGER.info("Adding new option");
         OptionDto optionDto = new OptionDto();
         optionDto.setName(newOption.getName());
         optionDto.setDescription(newOption.getDescription());
         optionDto.setPrice(newOption.getPrice());
         optionDto.setConnectionCost(newOption.getConnectionCost());
-        /*Set<TariffDto> tariffDtos = new HashSet<>();
-        for (Integer tariffId : newOption.getCompatibleTariffsIds()) {
-            tariffDtos.add(tariffService.getTariff(tariffId));
-            *//*TariffDto tariffDto = tariffService.getTariff(tariffId);
-            tariffDto.getAvailableOptions().add(optionDto);
-            tariffService.update(tariffDto);*//*
-            //tariffService.sendUpdateMessageToJmsServer();
+        Set<OptionDto> dependentOptions = new HashSet<>();
+        for (Integer dependentOptionId : newOption.getDependentIds()) {
+            dependentOptions.add(optionService.getOption(dependentOptionId));
         }
-        optionDto.setTariffs(tariffDtos);*/
+        Set<OptionDto> conflictedOptions = new HashSet<>();
+        for (Integer conflictedOptionId : newOption.getConflictedIds()) {
+            conflictedOptions.add(optionService.getOption(conflictedOptionId));
+        }
+        optionDto.setDependentFirst(dependentOptions);
+        optionDto.setConflictedFirst(conflictedOptions);
         optionService.addOption(optionDto);
         return "redirect: /adminPanel";
     }
