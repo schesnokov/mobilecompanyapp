@@ -27,4 +27,5 @@ public interface ContractService {
     BigDecimal getOrderResult(Integer tariffId, List<Integer> selectedOptionsIds);
 
     void delete(ContractDto contract);
+
 }

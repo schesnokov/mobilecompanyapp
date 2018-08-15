@@ -66,12 +66,12 @@
 
             <form-login login-processing-url="/login"
                         login-page="/login" default-target-url="/"
-                        authentication-failure-url="/error"
+                        authentication-failure-url="/login?error"
                         username-parameter="email" password-parameter="password"/>
 
-            <logout logout-success-url="/login"/>
+            <logout logout-success-url="/login?logout"/>
 
-            <csrf disabled="true"/>
+            <csrf/>
         </http>
 
         <authentication-manager alias="authenticationManager">

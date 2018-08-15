@@ -10,6 +10,7 @@ public class TariffDto implements Serializable {
     private String tariffName;
     private BigDecimal tariffPrice;
     private String tariffDescription;
+    private int isBlocked;
     private Set<OptionDto> availableOptions;
 
     public TariffDto() {
@@ -55,6 +56,14 @@ public class TariffDto implements Serializable {
 
     public void setTariffDescription(String tariffDescription) {
         this.tariffDescription = tariffDescription;
+    }
+
+    public int getIsBlocked() {
+        return isBlocked;
+    }
+
+    public void setIsBlocked(int isBlocked) {
+        this.isBlocked = isBlocked;
     }
 
     public Set<OptionDto> getAvailableOptions() {

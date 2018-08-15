@@ -16,4 +16,6 @@ public interface TariffService {
     void sendUpdateMessageToJmsServer();
 
     void update(TariffDto tariff);
+
+    void changeTariffStatus(Integer tariffId);
 }

@@ -83,4 +83,13 @@ public class TariffServiceImpl implements TariffService {
             return msg;
         });
     }
+
+    @Override
+    @Transactional
+    public void changeTariffStatus(Integer tariffId) {
+        LOGGER.info("Blocking tariff with id {}", tariffId);
+        Tariff tariff = tariffDao.read(tariffId);
+        tariff.setIsBlocked(1);
+        tariffDao.update(tariff);
+    }
 }

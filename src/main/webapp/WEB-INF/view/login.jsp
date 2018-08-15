@@ -95,11 +95,19 @@
                     <div class="info-blocks-in">
                         <form action="/login" method='POST'>
                             <h2>Sign in</h2>
+
+                            <c:if test="${not empty error}">
+                                <div class="error">${error}</div>
+                            </c:if>
+                            <c:if test="${not empty msg}">
+                                <div class="msg">${msg}</div>
+                            </c:if>
+
                             <dt>
                                 E-mail
                             </dt>
                             <dd>
-                                <input name="email" id="email" placeholder="E-mail">
+                                <input type="email" name="email" id="email" placeholder="E-mail" required>
                                 <p>Enter email.</p>
                             </dd>
                             <dt>
@@ -107,9 +115,11 @@
                             </dt>
                             <dd>
                                 <input type="password" name="password" id="password"
-                                       placeholder="Password*">
+                                       placeholder="Password*" required pattern="[a-z0-9_-]{1,32}">
                                 <p>Enter password.</p>
                             </dd>
+                            <input type="hidden" name="${_csrf.parameterName}"
+                                   value="${_csrf.token}" />
                             <input type='submit' value='Sign in'>
                         </form>
                     </div>

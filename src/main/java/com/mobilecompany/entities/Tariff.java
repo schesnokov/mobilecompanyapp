@@ -22,6 +22,9 @@ public class Tariff {
     @Column(name = "tariffDescription")
     private String tariffDescription;
 
+    @Column(name = "isBlocked")
+    private int isBlocked;
+
     @JoinTable(name = "availableoptions", joinColumns = {
             @JoinColumn(name = "tariffId", referencedColumnName = "id", nullable = false)},
             inverseJoinColumns = {
@@ -74,6 +77,14 @@ public class Tariff {
 
     public Set<Option> getAvailableOptions() {
         return availableOptions;
+    }
+
+    public int getIsBlocked() {
+        return isBlocked;
+    }
+
+    public void setIsBlocked(int isBlocked) {
+        this.isBlocked = isBlocked;
     }
 
     public void setAvailableOptions(Set<Option> availableOptions) {

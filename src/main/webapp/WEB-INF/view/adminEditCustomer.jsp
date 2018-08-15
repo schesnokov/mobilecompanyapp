@@ -192,6 +192,11 @@
                                         <p>Select tariff options</p>
                                     </dd>
                                 </spring:bind></dl>
+                            <c:if test="${phoneError!=null}">
+                                <div class="error">
+                                    <span>${phoneError}</span>
+                                </div>
+                            </c:if>
                             <input type='submit' value='Confirm'>
                         </form:form>
                     </div>

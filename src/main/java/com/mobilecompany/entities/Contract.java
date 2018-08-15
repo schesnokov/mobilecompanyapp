@@ -26,7 +26,7 @@ public class Contract {
     @JoinColumn(name = "clientId")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "tariffId")
     private Tariff tariff;
 

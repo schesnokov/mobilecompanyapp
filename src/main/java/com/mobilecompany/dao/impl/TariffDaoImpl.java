@@ -44,9 +44,7 @@ public class TariffDaoImpl implements TariffDao {
 
     public List<Tariff> findAllTariffs() {
         LOGGER.info("Reading all tariff");
-        return entityManager.createQuery("from Tariff c").getResultList();
+        return entityManager.createQuery("from Tariff as tariff where tariff.isBlocked = 0").getResultList();
     }
 
 }
-
-

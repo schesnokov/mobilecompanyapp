@@ -12,16 +12,19 @@ import com.mobilecompany.services.api.ContractService;
 import com.mobilecompany.services.api.OptionService;
 import com.mobilecompany.services.api.TariffService;
 import com.mobilecompany.services.api.UserService;
+import com.mobilecompany.validators.MainValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,53 +40,99 @@ public class AdminController {
     private TariffService tariffService;
     private OptionService optionService;
     private ContractService contractService;
+    private MainValidator mainValidator;
 
     @Autowired
-    public AdminController(UserService userService, TariffService tariffService, OptionService optionService, ContractService contractService) {
+    public AdminController(UserService userService, TariffService tariffService, OptionService optionService,
+                           ContractService contractService, MainValidator mainValidator) {
         this.userService = userService;
         this.tariffService = tariffService;
         this.optionService = optionService;
         this.contractService = contractService;
+        this.mainValidator = mainValidator;
     }
 
     @RequestMapping(value = "/adminPanel", method = RequestMethod.GET)
     public String tariffs(Model model) {
         LOGGER.info("Returning admin panel");
-        model.addAttribute("customerList", userService.getAllUsers());
         model.addAttribute("userDto", new UserDto());
         model.addAttribute("tariffDto", new TariffDto());
         model.addAttribute("newOption", new NewOptionHelper());
-        model.addAttribute("tariffList", tariffService.getAllTariffs());
         model.addAttribute("optionsList", optionService.getAllOptions());
         return "/adminPanel";
     }
 
     @RequestMapping(value = "/findByPhone", method = RequestMethod.GET)
     public String findCustomerByPhone(HttpServletRequest request, Model model) {
-        LOGGER.info("Getting customer by phone number");
-        Contract contract = contractService.getContractByPhone(request.getParameter("phone"));
-        User customer = contract.getUser();
-        Set<Contract> contracts = customer.getContracts();
-        model.addAttribute("customer", customer);
-        model.addAttribute("contractList", contracts);
-        model.addAttribute("newContract", new NewContractHelper());
-        model.addAttribute("tariffList", tariffService.getAllTariffs());
-        model.addAttribute("availableOptions", tariffService.getAllTariffs().get(0).getAvailableOptions());
-        return "/adminEditCustomer";
+        try {
+            Contract contract = contractService.getContractByPhone(request.getParameter("phone"));
+            LOGGER.info("Getting customer by phone number");
+            User customer = contract.getUser();
+            Set<Contract> contracts = customer.getContracts();
+            model.addAttribute("customer", customer);
+            model.addAttribute("contractList", contracts);
+            model.addAttribute("newContract", new NewContractHelper());
+            model.addAttribute("tariffList", tariffService.getAllTariffs());
+            model.addAttribute("availableOptions", tariffService.getAllTariffs().get(0).getAvailableOptions());
+            return "/adminEditCustomer";
+        } catch (NoResultException e) {
+            model.addAttribute("findContractByPhoneError", "No contract with this phone");
+            model.addAttribute("userDto", new UserDto());
+            model.addAttribute("tariffDto", new TariffDto());
+            model.addAttribute("newOption", new NewOptionHelper());
+            model.addAttribute("optionsList", optionService.getAllOptions());
+            return "/adminPanel";
+        }
     }
 
     @RequestMapping(value = "/adminPanel", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userDto") UserDto userDto) {
+    public String registration(@ModelAttribute("userDto") UserDto userDto, BindingResult bindingResult, Model model) {
+        mainValidator.validateDateOfBirth(userDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("registrationError", "Date of birth is incorrect");
+            model.addAttribute("userDto", new UserDto());
+            model.addAttribute("tariffDto", new TariffDto());
+            model.addAttribute("newOption", new NewOptionHelper());
+            model.addAttribute("optionsList", optionService.getAllOptions());
+            return "/adminPanel";
+        }
+        mainValidator.validatePassport(userDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("registrationError", "Passport number is incorrect");
+            model.addAttribute("userDto", new UserDto());
+            model.addAttribute("tariffDto", new TariffDto());
+            model.addAttribute("newOption", new NewOptionHelper());
+            model.addAttribute("optionsList", optionService.getAllOptions());
+            return "/adminPanel";
+        }
+        mainValidator.validateEmail(userDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("registrationError","Email is incorrect");
+            model.addAttribute("userDto", new UserDto());
+            model.addAttribute("tariffDto", new TariffDto());
+            model.addAttribute("newOption", new NewOptionHelper());
+            model.addAttribute("optionsList", optionService.getAllOptions());
+            return "/adminPanel";
+        }
+        mainValidator.validatePwSet(userDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("registrationError", "Invalid password");
+            model.addAttribute("userDto", new UserDto());
+            model.addAttribute("tariffDto", new TariffDto());
+            model.addAttribute("newOption", new NewOptionHelper());
+            model.addAttribute("optionsList", optionService.getAllOptions());
+            return "/adminPanel";
+        }
         LOGGER.info("Registration of user");
         userService.createUser(userDto);
         return "redirect: /adminPanel";
     }
 
     @RequestMapping(value = "/addTariff", method = RequestMethod.POST)
-    public String addTariff(@ModelAttribute("tariffDto") TariffDto tariffDto) {
+    public String addTariff(@ModelAttribute("tariffDto") TariffDto tariffDto, BindingResult bindingResult, Model model) {
         LOGGER.info("Adding new tariff {}", tariffDto);
         tariffService.addTariff(tariffDto);
-        tariffService.sendUpdateMessageToJmsServer();
+        //tariffService.sendUpdateMessageToJmsServer();
         return "redirect: /adminPanel";
     }
 
@@ -112,7 +161,7 @@ public class AdminController {
             tariffDto.setAvailableOptions(availableOptions);
             tariffService.update(tariffDto);
         }
-        tariffService.sendUpdateMessageToJmsServer();
+        //tariffService.sendUpdateMessageToJmsServer();
         return "redirect: /adminPanel";
     }
 
@@ -128,15 +177,15 @@ public class AdminController {
         }
         tariffDto.setAvailableOptions(availableOptions);
         tariffService.update(tariffDto);
-        tariffService.sendUpdateMessageToJmsServer();
+        //tariffService.sendUpdateMessageToJmsServer();
         return "redirect: /adminPanel";
     }
 
     @RequestMapping(value = "/deleteTariff/{id}", method = RequestMethod.POST)
     public String deleteTariff(@PathVariable Integer id) {
-        LOGGER.info("Deleting tariff with id {}", id);
-        tariffService.deleteTariff(id);
-        tariffService.sendUpdateMessageToJmsServer();
+        LOGGER.info("Blocking tariff with id {}", id);
+        tariffService.changeTariffStatus(id);
+        //tariffService.sendUpdateMessageToJmsServer();
         return "redirect: ../tariffs";
     }
 

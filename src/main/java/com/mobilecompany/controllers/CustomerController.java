@@ -64,7 +64,19 @@ public class CustomerController {
 
     @RequestMapping(value = "/customer/addContract/{customerId}", method = RequestMethod.POST)
     public String addNewContract(@PathVariable(name = "customerId") Integer customerId,
-                                 @ModelAttribute("newContract") NewContractHelper newContract){
+                                 @ModelAttribute("newContract") NewContractHelper newContract, Model model){
+        if (contractService.getContractByPhone(newContract.getNumber()) != null) {
+            UserDto customer = userService.getUser(customerId);
+            List<TariffDto> tariffList = tariffService.getAllTariffs();
+            Set<ContractDto> contracts = customer.getContracts();
+            model.addAttribute("phoneError", "There is another contract with this phone number");
+            model.addAttribute("customer", customer);
+            model.addAttribute("contractList", contracts);
+            model.addAttribute("newContract", new NewContractHelper());
+            model.addAttribute("tariffList", tariffList);
+            model.addAttribute("availableOptions", tariffList.get(0).getAvailableOptions());
+            return "/adminEditCustomer";
+        }
         LOGGER.info("New contract creation started");
         UserDto customer = userService.getUser(customerId);
         ContractDto contract = new ContractDto();

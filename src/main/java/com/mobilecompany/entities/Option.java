@@ -40,14 +40,14 @@ public class Option {
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     private Set<Option> conflictedFirst = new HashSet<>();
 
-    @ManyToMany(mappedBy = "availableOptions", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "availableOptions", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     private Set<Tariff> availableTariffOption = new HashSet<>();
 
     @JoinTable(name = "selectedoptions", joinColumns = {
             @JoinColumn(name = "optionId", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "contractId", referencedColumnName = "id", nullable = false)
     })
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     private Set<Contract> contracts = new HashSet<>();
 
     public Option() {
@@ -169,12 +169,6 @@ public class Option {
         if (connectionCost != null ? !connectionCost.equals(option.connectionCost) : option.connectionCost != null)
             return false;
         if (description != null ? !description.equals(option.description) : option.description != null) return false;
-/*        if (dependentFirst != null ? !dependentFirst.equals(option.dependentFirst) : option.dependentFirst != null)
-            return false;
-        if (conflictedFirst != null ? !conflictedFirst.equals(option.conflictedFirst) : option.conflictedFirst != null)
-            return false;
-        if (availableTariffOption != null ? !availableTariffOption.equals(option.availableTariffOption) : option.availableTariffOption != null)
-            return false;*/
         return contracts != null ? contracts.equals(option.contracts) : option.contracts == null;
     }
 
@@ -185,10 +179,6 @@ public class Option {
         result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + (connectionCost != null ? connectionCost.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
-//      result = 31 * result + (dependentFirst != null ? dependentFirst.hashCode() : 0);
-//      result = 31 * result + (conflictedFirst != null ? conflictedFirst.hashCode() : 0);
-//      result = 31 * result + (availableTariffOption != null ? availableTariffOption.hashCode() : 0);
-//      result = 31 * result + (contracts != null ? contracts.hashCode() : 0);
         return result;
     }
 

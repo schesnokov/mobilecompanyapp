@@ -54,4 +54,5 @@ public class ContractDaoImpl implements ContractDao {
         LOGGER.info("Finding all contracts");
         return entityManager.createQuery("from Contract c").getResultList();
     }
+
 }

@@ -110,6 +110,11 @@
                             <h2>Find customer by phone number</h2> <br/>
                             <input name="phone" type="text"/>
                             <input type="submit" value="Find">
+                            <c:if test="${findContractByPhoneError!=null}">
+                                <div class="error">
+                                    <span>${findContractByPhoneError}</span>
+                                </div>
+                            </c:if>
                         </form:form>
                     </div>
                 </div>
@@ -256,7 +261,7 @@
                                     <dd>
                                         <form:input type='text' path="dateOfBirth"
                                                     placeholder="yyyy-mm-dd"/>
-                                        <p>Enter your birth date</p>
+                                        <p>Enter your birth date in YYYY-MM-DD format</p>
                                     </dd>
                                 </spring:bind>
                                 <spring:bind path="passportNumber">
@@ -300,6 +305,11 @@
                                     </dd>
                                 </spring:bind>
                             </dl>
+                            <c:if test="${registrationError!=null}">
+                                <div class="error">
+                                    <span>${registrationError}</span>
+                                </div>
+                            </c:if>
                             <input type='submit' value='Confirm'>
                         </form:form>
                     </div>
