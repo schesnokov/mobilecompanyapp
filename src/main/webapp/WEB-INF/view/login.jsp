@@ -82,50 +82,45 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="pageTitle">Login</h2>
+                    <h2 class="pageTitle">LOGIN</h2>
                 </div>
             </div>
         </div>
     </section>
-    <section id="content">
-        <div class="container content">
-            <hr class="margin-bottom-50">
+    <section id="content" class="login-content">
             <div class="row">
-                <div class="col-sm-4 info-blocks">
-                    <div class="info-blocks-in">
-                        <form action="/login" method='POST'>
-                            <h2>Sign in</h2>
+                <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 info-blocks">
+                    <form  action="/login" method='POST'>
+                        <h2 style=" margin-top: 80px;">Sign in</h2>
 
-                            <c:if test="${not empty error}">
-                                <div class="error">${error}</div>
-                            </c:if>
-                            <c:if test="${not empty msg}">
-                                <div class="msg">${msg}</div>
-                            </c:if>
+                        <c:if test="${not empty error}">
+                            <div class="error"><p>${error}</p></div>
+                        </c:if>
+                        <c:if test="${not empty msg}">
+                            <div class="error"><p>${msg}</p></div>
+                        </c:if>
 
-                            <dt>
-                                E-mail
-                            </dt>
-                            <dd>
-                                <input type="email" name="email" id="email" placeholder="E-mail" required>
-                                <p>Enter email.</p>
-                            </dd>
-                            <dt>
-                                Password
-                            </dt>
-                            <dd>
-                                <input type="password" name="password" id="password"
-                                       placeholder="Password*" required pattern="[a-z0-9_-]{1,32}">
-                                <p>Enter password.</p>
-                            </dd>
-                            <input type="hidden" name="${_csrf.parameterName}"
-                                   value="${_csrf.token}" />
-                            <input type='submit' value='Sign in'>
-                        </form>
-                    </div>
+                        <dt>
+                            E-mail
+                        </dt>
+                        <dd>
+                            <input class="form-control" type="email" name="email" id="email" placeholder="E-mail" required>
+                            <p>Enter email.</p>
+                        </dd>
+                        <dt>
+                            Password
+                        </dt>
+                        <dd>
+                            <input class="form-control" type="password" name="password" id="password"
+                                   placeholder="Password*" required pattern="[a-z0-9_-]{1,32}">
+                            <p>Enter password.</p>
+                        </dd>
+                        <input type="hidden" name="${_csrf.parameterName}"
+                               value="${_csrf.token}"/>
+                        <input class="btn btn-danger" type='submit' value='Sign in'>
+                    </form>
                 </div>
             </div>
-        </div>
     </section>
 
     <div id="sub-footer">

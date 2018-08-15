@@ -96,9 +96,9 @@
         <div class="container content">
             <hr class="margin-bottom-50">
             <div class="row">
-                <div class="col-sm-4 info-blocks" style="width:800px;">
+                <div class="col-sm-12 col-md-12 info-blocks">
                     <div class="info-blocks-in">
-                        <table class="table table-light table-hover text-center m-2">
+                        <table class="table table-hover text-center m-2">
                             <thead>
                             <tr>
                                 <th scope="col">Name</th>

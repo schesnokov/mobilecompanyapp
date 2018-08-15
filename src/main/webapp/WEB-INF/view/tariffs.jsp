@@ -100,9 +100,9 @@
             <div class="row">
                 <c:forEach var="tariffVar" items="#{tariffList}">
                     <div class="col-sm-4 info-blocks">
-                        <i class="icon-info-blocks fa fa-bell-o"></i>
+                        <i class="icon-info-blocks fa fa-mobile-phone"></i>
                         <div class="info-blocks-in">
-                            <h3><c:out value="${tariffVar.tariffName}"/></h3>
+                            <h3 ><c:out value="${tariffVar.tariffName}"/></h3>
                             <p><c:out value="${tariffVar.tariffDescription}"/></p>
                             <p>Price: <c:out value="${tariffVar.tariffPrice}"/></p>
                             <p>Available options: <br/>
@@ -122,13 +122,15 @@
                             </c:otherwise>
                             </c:choose>
                             <security:authorize access="hasRole('ROLE_ADMIN')">
+                                <div class="buttons">
                                 <form action="/deleteTariff/${tariffVar.id}" method="POST">
                                     <input type="hidden" name="tariff" value="${tariffVar.id}">
-                                    <input type='submit' value='Delete'>
+                                    <input class="btn btn-danger dbutton" type='submit' value='Delete'>
                                 </form>
                                 <form action="/editTariff/${tariffVar.id}" method="GET">
-                                    <input type="submit" value="Edit">
+                                    <input class="btn btn-success dbutton" type="submit" value="Edit">
                                 </form>
+                                </div>
                             </security:authorize>
                             </p>
                         </div>
