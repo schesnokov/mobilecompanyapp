@@ -41,16 +41,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">
-                    <img style="margin-left:15px;" src="/res/img/fsociety-logo1.png" alt="logo"> </a>
+                <%--<a class="navbar-brand" href="/">
+                    <img style="margin-left:15px;" src="/res/img/fsociety-logo1.png" alt="logo"> </a>--%>
             </div>
             <div class="navbar-collapse collapse ">
                 <ul class="nav navbar-nav">
                     <li>
                         <a href="/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/about">About Us</a>
                     </li>
                     <li>
                         <a href="/tariffs">Our Tariffs</a>
@@ -96,67 +93,100 @@
         <div class="container content">
             <hr class="margin-bottom-50">
             <div class="row">
-                <div class="col-sm-4 info-blocks" style="width:400px;">
-                    <div class="info-blocks-in">
-                        <h2> Tariff name: </h2>
-                        <h3>${tariff.tariffName}</h3> <br/>
-                        <h2> Description: </h2>
-                        <h3>${tariff.tariffDescription}</h3> <br/>
-                        <h2> Available options:</h2>
-                        <c:forEach var="optionVar" items="${tariff.availableOptions}">
-                            <h3>${optionVar.name}</h3> <br />
-                        </c:forEach>
+                <div class="col-sm-12 col-md-12 info-blocks">
+                    <div class="panel  panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Tariff name: <c:out value="${tariff.tariffName}"/></h3>
+                            <h3 class="panel-title"><c:out value="${tariff.tariffDescription}"/></h3>
+                            <h3 class="panel-title">Price: <c:out value="${tariff.tariffPrice}"/></h3>
+                        </div>
+                        <div class="panel-body">
+                            <h4 class="panel-body">Available options</h4>
+                            <c:choose>
+                                <c:when test="${not empty tariff.availableOptions}">
+                                    <div class="row">
+                                        <c:forEach var="optionsVar" items="#{tariff.availableOptions}">
+                                            <div class="col-sm-6 col-md-6 info-blocks">
+                                                <div class="panel  panel-success">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">Option name: <c:out
+                                                                value="${optionsVar.name}"/></h3>
+                                                        <h4 class="panel-body">Option description: <c:out
+                                                                value="${optionsVar.description}"/></h4>
+                                                        <h4 class="panel-body">Option connection cost: <c:out
+                                                                value="${optionsVar.connectionCost}"/></h4>
+                                                        <h4 class="panel-body">Option price: <c:out
+                                                                value="${optionsVar.price}"/></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <h4 class="panel-body">There is no available options for this tariff</h4>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-4 info-blocks" style="width:800px;">
-                    <div class="info-blocks-in">
-                        <h2>Select options to delete from this tariff:</h2>
-                        <form:form method="POST" modelAttribute="options"
-                        action="/deleteOptionsSubmit/${tariff.id}">
-                            <spring:bind path="optionsIds1">
-                                <form:checkboxes path="optionsIds1" items="${tariff.availableOptions}"
-                                                 itemValue="id" id="id" itemLabel="name"/>
-                            </spring:bind>
-                            <input type="submit" value="Delete options"/>
-                        </form:form>
-                        <form:form method="POST" modelAttribute="options"
-                        action="/addOptionsSubmit/${tariff.id}">
-                            <spring:bind path="optionsIds2">
-                                <form:checkboxes path="optionsIds2" items="${allOptionsList}"
-                                                 itemValue="id" id="id" itemLabel="name"/>
-                            </spring:bind>
-                            <input type="submit" value="Add options">
-                        </form:form>
+                <div class="col-sm-12 col-md-12 info-blocks">
+                    <div class="panel  panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Select options to add or delete from this tariff:</h3>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 info-blocks">
+                                <div class="panel  panel-success">
+                                    <div class="panel-heading">
+                                        <form:form method="POST" modelAttribute="options"
+                                                   action="/deleteOptionsSubmit/${tariff.id}">
+                                            <spring:bind path="optionsIds1">
+                                                <form:checkboxes path="optionsIds1" items="${tariff.availableOptions}"
+                                                                 itemValue="id" id="id" itemLabel="name"/>
+                                            </spring:bind>
+                                            <input type="submit" value="Delete options" class="btn btn-danger dbutton"/>
+                                        </form:form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 info-blocks">
+                                <div class="panel  panel-success">
+                                    <div class="panel-heading">
+                                        <form:form method="POST" modelAttribute="options"
+                                                   action="/addOptionsSubmit/${tariff.id}">
+                                            <spring:bind path="optionsIds2">
+                                                <form:checkboxes path="optionsIds2" items="${allOptionsList}"
+                                                                 itemValue="id" id="id" itemLabel="name"/>
+                                            </spring:bind>
+                                            <input type="submit" value="Add options" class="btn btn-success dbutton"/>
+                                        </form:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <div id="sub-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="copyright">
-                        <p>
-                            <span>&copy; Creative Bee 2015 All right reserved. By </span><a href="http://webthemez.com"
-                                                                                            target="_blank">WebThemez</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <ul class="social-network">
-                        <li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Google plus"><i class="fa fa-google-plus"></i></a>
-                        </li>
-                    </ul>
-                </div>
+</div>
+</section>
+<div id="sub-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+
+            </div>
+            <div class="col-lg-6">
+
             </div>
         </div>
     </div>
-    </footer>
+</div>
+</footer>
 </div>
 <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
 <!-- javascript

@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page isELIgnored="false" %>
 
 <!DOCTYPE html>
@@ -35,16 +37,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">
-                    <img style="margin-left:15px;" src="/res/img/fsociety-logo1.png" alt="logo"> </a>
+                <%--<a class="navbar-brand" href="/">
+                    <img style="margin-left:15px;" src="/res/img/fsociety-logo1.png" alt="logo"> </a>--%>
             </div>
             <div class="navbar-collapse collapse ">
                 <ul class="nav navbar-nav">
                     <li>
                         <a href="/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/about">About Us</a>
                     </li>
                     <li>
                         <a href="/tariffs">Our Tariffs</a>
@@ -91,37 +90,35 @@
         <div class="container content">
             <hr class="margin-bottom-50">
             <div class="row">
-            <div class="col-sm-4 col-md-4 info-blocks">
-
-                <div class="panel  panel-success">
-                    <div class="panel-heading"><h3 class="panel-title">First name:</h3></div>
-                    <div class="panel-body">
-                        <h4 class="panel-body">${customer.firstName}</h4>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4 col-md-4 info-blocks">
-                <div class="panel  panel-success">
-                    <div class="panel-heading"><h3 class="panel-title">Second name:</h3></div>
-                    <div class="panel-body">
-                        <h4 class="panel-body">${customer.secondName}</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="row">
-                <div class="col-sm-4 col-md-4 info-blocks">
-
+                <div class="col-sm-4 col-md-6 info-blocks">
                     <div class="panel  panel-success">
-                    <div class="panel-heading"><h3 class="panel-title">E-mail:</h3></div>
-                    <div class="panel-body">
-                    <h4 class="panel-body">${customer.email}</h4>
+                        <div class="panel-heading"><h3 class="panel-title">First name:</h3></div>
+                        <div class="panel-body">
+                            <h4 class="panel-body">${customer.firstName}</h4>
+                        </div>
                     </div>
-                    </div>
-
                 </div>
-                <div class="col-sm-4 col-md-4 info-blocks">
+                <div class="col-sm-4 col-md-6 info-blocks">
+                    <div class="panel  panel-success">
+                        <div class="panel-heading"><h3 class="panel-title">Second name:</h3></div>
+                        <div class="panel-body">
+                            <h4 class="panel-body">${customer.secondName}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-6 info-blocks">
+                    <div class="panel  panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">E-mail:</h3>
+                        </div>
+                        <div class="panel-body">
+                            <h4 class="panel-body">${customer.email}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-6 info-blocks">
                     <div class="panel  panel-success">
                         <div class="panel-heading"><h3 class="panel-title"> Date of birth:</h3></div>
                         <div class="panel-body">
@@ -129,85 +126,123 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4 col-md-4 info-blocks">
-                    <c:if test="${not empty contractList}">
-                    <c:forEach var="contractVar" items="#{contractList}">
-                    <div class="panel-group" id="accordion-alt3" style="width:400px;">
-                        <div class="panel">
-                            <!-- Panel heading -->
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-6 info-blocks">
+                    <security:authorize access="hasRole('ROLE_ADMIN')">
+                        <div class="panel  panel-success">
                             <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion-alt3"
-                                       href="#collapse<c:out value="${contractVar.id}"/>-alt3">
-                                        <h3>
-                                            <c:out value="${contractVar.number}"/></h3></a>
+                                <h3 class="panel-title">Add new contract</h3>
+                            </div>
+                            <div class="panel-body">
+                                <h4 class="panel-body">
+                                    <form:form method='POST' modelAttribute="newContract"
+                                               action="/customer/addContract/${customer.id}">
+                                        <dl class="dl_class">
+                                            <spring:bind path="number">
+                                                <dt>
+                                                    Phone number
+                                                </dt>
+                                                <dd>
+                                                    <form:input class="form-control" type='text' path="number"
+                                                                placeholder="+7XXXXXXXXXX" required="required"
+                                                                pattern="[0-9_-+]{12}"/>
+                                                </dd>
+                                            </spring:bind>
+                                            <spring:bind path="balance">
+                                                <dt>
+                                                    Start balance
+                                                </dt>
+                                                <dd>
+                                                    <form:input class="form-control" type='text' path="balance"
+                                                                required="required"/>
+                                                </dd>
+                                            </spring:bind>
+                                            <spring:bind path="tariffId">
+                                                <dt>
+                                                    Select tariff
+                                                </dt>
+                                                <dd>
+                                                    <form:select class="form-control" path="tariffId"
+                                                                 onchange="tariffChanged()">
+                                                        <form:options items="${tariffList}" itemValue="id"
+                                                                      itemLabel="tariffName"/>
+                                                    </form:select>
+                                                </dd>
+                                            </spring:bind>
+                                            <spring:bind path="optionsIds">
+                                                <dt>
+                                                    Choose tariff options
+                                                </dt>
+                                                <dd>
+                                                    <div id="optionCheckboxes">
+                                                        <form:checkboxes cssClass="optionCheckbox" path="optionsIds"
+                                                                         items="${availableOptions}" itemLabel="name"
+                                                                         itemValue="id" id="id"/>
+                                                    </div>
+                                                </dd>
+                                            </spring:bind></dl>
+                                        <c:if test="${phoneError!=null}">
+                                            <div class="error">
+                                                <span>${phoneError}</span>
+                                            </div>
+                                        </c:if>
+                                        <input class="btn btn-success dbutton" type='submit' value='Confirm'>
+                                    </form:form>
                                 </h4>
                             </div>
-                            <div id="collapse<c:out value="${contractVar.id}"/>-alt3"
-                                 class="panel-collapse collapse">
-                                <!-- Panel body -->
-                                <div class="panel-body"><h5>Tariff: </h5> <c:out
-                                        value="${contractVar.tariff.tariffName}"/> <br/>
-                                    <h5>Balance: </h5><c:out value="${contractVar.balance}"/>
-                                    <form action="/contractPage/${contractVar.id}" method="GET">
-                                        <input type="hidden" name="contract" value="${contractVar.id}">
-                                        <input type='submit' value='Edit contract'>
-                                    </form>
-                                </div>
-                                <br/>
-                            </div>
-                            </c:forEach>
-                            </c:if>
                         </div>
+                    </security:authorize>
+                </div>
+                <div class="col-sm-4 col-md-6 info-blocks">
+                    <div class="panel-group" id="accordion-alt3">
+                        <c:if test="${not empty contractList}">
+                            <c:forEach var="contractVar" items="#{contractList}">
+                                <%--
+                                                                <div class="panel">
+                                --%>
+                                <div class="panel  panel-success">
+                                    <div class="panel-heading">
+                                        <a data-toggle="collapse" data-parent="#accordion-alt3"
+                                           href="#collapse<c:out value="${contractVar.id}"/>-alt3">
+                                            <h3 class="panel-title"><c:out value="${contractVar.number}"/></h3></a>
+                                    </div>
+                                    <div id="collapse<c:out value="${contractVar.id}"/>-alt3"
+                                         class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <h4 class="panel-body">
+                                                Tariff: <c:out value="${contractVar.tariff.tariffName}"/>
+                                                Balance: <c:out value="${contractVar.balance}"/>
+                                                <form action="/contractPage/${contractVar.id}" method="GET">
+                                                    <input type="hidden" name="contract" value="${contractVar.id}">
+                                                    <input class="btn btn-success dbutton" type='submit'
+                                                           value='Edit contract'>
+                                                </form>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </c:if>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+</div>
 
-    <div id="sub-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="copyright">
-                        <p>
-                            <span>© Creative Bee 2015 All right reserved. By </span>
-                            <a href="http://webthemez.com" target="_blank">WebThemez</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <ul class="social-network">
-                        <li>
-                            <a href="#" data-placement="top" title="Facebook">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-placement="top" title="Twitter">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-placement="top" title="Linkedin">
-                                <i class="fa fa-linkedin"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-placement="top" title="Pinterest">
-                                <i class="fa fa-pinterest"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-placement="top" title="Google plus">
-                                <i class="fa fa-google-plus"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+<div id="sub-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+
+            </div>
+            <div class="col-lg-6">
+
             </div>
         </div>
     </div>
+</div>
 </div>
 <a href="#" class="scrollup">
     <i class="fa fa-angle-up active"></i>
@@ -226,6 +261,7 @@
 <script src="/res/js/animate.js"></script>
 <script src="/res/js/custom.js"></script>
 <script src="/res/js/owl-carousel/owl.carousel.js"></script>
+<script src="/res/js/script.js"></script>
 </body>
 
 </html>

@@ -36,16 +36,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">
-                    <img style="margin-left:15px;" src="/res/img/fsociety-logo1.png" alt="logo"> </a>
+                <%--<a class="navbar-brand" href="/">
+                    <img style="margin-left:15px;" src="/res/img/fsociety-logo1.png" alt="logo"> </a>--%>
             </div>
             <div class="navbar-collapse collapse ">
                 <ul class="nav navbar-nav">
                     <li>
                         <a href="/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/about">About Us</a>
                     </li>
                     <li>
                         <a href="/tariffs">Our Tariffs</a>
@@ -92,61 +89,62 @@
         <div class="container content">
             <hr class="margin-bottom-50">
             <div class="row">
-                <div class="col-sm-4 info-blocks" style="width:400px;">
-                    <h2>Your cart:</h2> <br/>
-                    Choosed tariff: ${requestScope.bucket.tariff.tariffName} <br/>
-                    Choosed options: <br/> <c:forEach var="option" items="${requestScope.bucket.options}">
-                                             ${option.name} <br/>
-                                           </c:forEach> <br/>
-                    Sum for changing you tariff and options is ${orderResult}. <br/>
-                    Your balance is ${contract.balance}.
-                    <form:form modelAttribute="contractChanges" action="/changeTariff/${requestScope.bucket.contractId}" method="POST">
-                        <input type='submit' value='Submit changes'/>
-                    </form:form>
+                <div class="col-sm-12 col-md-12 info-blocks">
+                    <div class="panel  panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Your cart</h3>
+                        </div>
+                        <div class="panel-body">
+                            <h4 class="panel-body">Choosed tariff: ${requestScope.bucket.tariff.tariffName}</h4>
+                            <c:choose>
+                                <c:when test="${not empty requestScope.bucket.options}">
+                                    <div class="row">
+                                        <c:forEach var="optionsVar" items="#{requestScope.bucket.options}">
+                                            <div class="col-sm-6 col-md-6 info-blocks">
+                                                <div class="panel  panel-success">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">Option name: <c:out
+                                                                value="${optionsVar.name}"/></h3>
+                                                        <h4 class="panel-body">Option description: <c:out
+                                                                value="${optionsVar.description}"/></h4>
+                                                        <h4 class="panel-body">Option connection cost: <c:out
+                                                                value="${optionsVar.connectionCost}"/></h4>
+                                                        <h4 class="panel-body">Option price: <c:out
+                                                                value="${optionsVar.price}"/></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <h4 class="panel-body">There is no selected options for new tariff</h4>
+                                </c:otherwise>
+                            </c:choose>
+                            <h4 class="panel-body">Your balance is ${contract.balance}</h4>
+                            <div class="panel  panel-success">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Sum for changing you tariff and options
+                                        is ${orderResult}</h3>
+                                    <form:form modelAttribute="contractChanges"
+                                               action="/changeTariff/${requestScope.bucket.contractId}" method="POST">
+                                        <input class="btn btn-success" type='submit' value='Submit changes'/>
+                                    </form:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
     </section>
 
     <div id="sub-footer">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="copyright">
-                        <p>
-                            <span>© Creative Bee 2015 All right reserved. By </span>
-                            <a href="http://webthemez.com" target="_blank">WebThemez</a>
-                        </p>
-                    </div>
+
                 </div>
                 <div class="col-lg-6">
-                    <ul class="social-network">
-                        <li>
-                            <a href="#" data-placement="top" title="Facebook">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-placement="top" title="Twitter">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-placement="top" title="Linkedin">
-                                <i class="fa fa-linkedin"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-placement="top" title="Pinterest">
-                                <i class="fa fa-pinterest"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-placement="top" title="Google plus">
-                                <i class="fa fa-google-plus"></i>
-                            </a>
-                        </li>
-                    </ul>
+
                 </div>
             </div>
         </div>

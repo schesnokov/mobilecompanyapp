@@ -34,6 +34,7 @@ body {
 }
 .buttons{
     display: inline-flex;
+    justify-content: center;
 }
 .dbutton{
     margin:0 5px;

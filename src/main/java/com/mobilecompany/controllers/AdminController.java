@@ -74,7 +74,7 @@ public class AdminController {
             model.addAttribute("newContract", new NewContractHelper());
             model.addAttribute("tariffList", tariffService.getAllTariffs());
             model.addAttribute("availableOptions", tariffService.getAllTariffs().get(0).getAvailableOptions());
-            return "/adminEditCustomer";
+            return "/account";
         } catch (NoResultException e) {
             model.addAttribute("findContractByPhoneError", "No contract with this phone");
             model.addAttribute("userDto", new UserDto());
@@ -87,8 +87,7 @@ public class AdminController {
 
     @RequestMapping(value = "/adminPanel", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userDto") UserDto userDto, BindingResult bindingResult, Model model) {
-        mainValidator.validateDateOfBirth(userDto, bindingResult);
-        if (bindingResult.hasErrors()) {
+        if (userDto.getDateOfBirth() == null) {
             model.addAttribute("registrationError", "Date of birth is incorrect");
             model.addAttribute("userDto", new UserDto());
             model.addAttribute("tariffDto", new TariffDto());
@@ -129,7 +128,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/addTariff", method = RequestMethod.POST)
-    public String addTariff(@ModelAttribute("tariffDto") TariffDto tariffDto, BindingResult bindingResult, Model model) {
+    public String addTariff(@ModelAttribute("tariffDto") TariffDto tariffDto) {
         LOGGER.info("Adding new tariff {}", tariffDto);
         tariffService.addTariff(tariffDto);
         //tariffService.sendUpdateMessageToJmsServer();

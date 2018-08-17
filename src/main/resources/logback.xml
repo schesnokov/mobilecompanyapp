@@ -17,8 +17,20 @@
         </encoder>
     </appender>
 
+    <appender name="securityFileAppender" class="ch.qos.logback.core.FileAppender">
+        <file>d:/securityLogs.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <logger name="com.mobilecompany" level="INFO" additivity="false">
         <appender-ref ref="fileAppender" />
+    </logger>
+
+    <logger name="org.springframework.security" level="DEBUG" additivity="false">
+        <appender-ref ref="securityFileAppender" />
     </logger>
 
     <root level="INFO">

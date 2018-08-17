@@ -14,7 +14,18 @@
 		http://www.springframework.org/schema/mvc
 		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <import resource="dispatcher-servlet.xml"/>
+
+    <mvc:annotation-driven/>
+    <context:component-scan base-package="com.mobilecompany.controllers"/>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix">
+            <value>/WEB-INF/view</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+    </bean>
+
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
     <context:component-scan base-package="com.mobilecompany"/>
@@ -73,7 +84,7 @@
 
             <logout logout-success-url="/login?logout"/>
 
-            <csrf disabled="true"/>
+            <csrf/>
         </http>
 
         <authentication-manager alias="authenticationManager">

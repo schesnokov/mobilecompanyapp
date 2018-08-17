@@ -40,16 +40,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">
-                    <img style="margin-left:15px;" src="/res/img/fsociety-logo1.png" alt="logo"> </a>
+                <%--<a class="navbar-brand" href="/">
+                    <img style="margin-left:15px;" src="/res/img/fsociety-logo1.png" alt="logo"> </a>--%>
             </div>
             <div class="navbar-collapse collapse ">
                 <ul class="nav navbar-nav">
                     <li>
                         <a href="/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/about">About Us</a>
                     </li>
                     <li class="active">
                         <a href="/tariff">Our Tariffs</a>
@@ -95,44 +92,39 @@
     <section id="content">
         <div class="container content">
             <hr class="margin-bottom-50">
-
-            <!-- Info Blcoks -->
             <div class="row">
                 <c:forEach var="tariffVar" items="#{tariffList}">
-                    <div class="col-sm-4 info-blocks">
-                        <i class="icon-info-blocks fa fa-mobile-phone"></i>
-                        <div class="info-blocks-in">
-                            <h3 ><c:out value="${tariffVar.tariffName}"/></h3>
-                            <p><c:out value="${tariffVar.tariffDescription}"/></p>
-                            <p>Price: <c:out value="${tariffVar.tariffPrice}"/></p>
-                            <p>Available options: <br/>
+                    <div class="col-sm-4 col-md-4 info-blocks">
+                        <div class="panel  panel-success">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><c:out value="${tariffVar.tariffName}"/></h3>
+                                <h3 class="panel-title"><c:out value="${tariffVar.tariffDescription}"/></h3>
+                                <h3 class="panel-title">Price: <c:out value="${tariffVar.tariffPrice}"/></h3>
+                            </div>
+                            <div class="panel-body">
+                                <h4 class="panel-body">Available options:</h4>
                                 <c:choose>
-                                <c:when test="${not empty tariffVar.availableOptions}">
-                                <c:forEach var="optionsVar" items="#{tariffVar.availableOptions}">
-                            <p>
-                                <c:out value="${optionsVar.name}"/> <br/>
-                                <c:out value="${optionsVar.description}"/> <br/>
-                                <c:out value="${optionsVar.connectionCost}"/> <br/>
-                                <c:out value="${optionsVar.price}"/> <br/>
-                            </p>
-                            </c:forEach>
-                            </c:when>
-                            <c:otherwise>
-                                <p>There is no available options for this tariff <br/></p>
-                            </c:otherwise>
-                            </c:choose>
-                            <security:authorize access="hasRole('ROLE_ADMIN')">
-                                <div class="buttons">
-                                <form action="/deleteTariff/${tariffVar.id}" method="POST">
-                                    <input type="hidden" name="tariff" value="${tariffVar.id}">
-                                    <input class="btn btn-danger dbutton" type='submit' value='Delete'>
-                                </form>
-                                <form action="/editTariff/${tariffVar.id}" method="GET">
-                                    <input class="btn btn-success dbutton" type="submit" value="Edit">
-                                </form>
-                                </div>
-                            </security:authorize>
-                            </p>
+                                    <c:when test="${not empty tariffVar.availableOptions}">
+                                        <c:forEach var="optionsVar" items="#{tariffVar.availableOptions}">
+                                            <h4 class="panel-body"><c:out value="${optionsVar.name}"/></h4>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>There is no available options for this tariff <br/></p>
+                                    </c:otherwise>
+                                </c:choose>
+                                <security:authorize access="hasRole('ROLE_ADMIN')">
+                                    <div class="buttons">
+                                        <form action="/deleteTariff/${tariffVar.id}" method="POST">
+                                            <input type="hidden" name="tariff" value="${tariffVar.id}">
+                                            <input type='submit' value='Delete' class="btn btn-danger dbutton"/>
+                                        </form>
+                                        <form action="/editTariff/${tariffVar.id}" method="GET">
+                                            <input type="submit" value='Edit' class="btn btn-success dbutton"/>
+                                        </form>
+                                    </div>
+                                </security:authorize>
+                            </div>
                         </div>
                     </div>
                 </c:forEach>
@@ -143,22 +135,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="copyright">
-                        <p>
-                            <span>&copy; Creative Bee 2015 All right reserved. By </span><a href="http://webthemez.com"
-                                                                                            target="_blank">WebThemez</a>
-                        </p>
-                    </div>
+
                 </div>
                 <div class="col-lg-6">
-                    <ul class="social-network">
-                        <li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Google plus"><i class="fa fa-google-plus"></i></a>
-                        </li>
-                    </ul>
+
                 </div>
             </div>
         </div>

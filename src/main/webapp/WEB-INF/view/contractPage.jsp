@@ -39,16 +39,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">
-                    <img style="margin-left:15px;" src="/res/img/fsociety-logo1.png" alt="logo"> </a>
+                <%--<a class="navbar-brand" href="/">
+                    <img style="margin-left:15px;" src="/res/img/fsociety-logo1.png" alt="logo"> </a>--%>
             </div>
             <div class="navbar-collapse collapse ">
                 <ul class="nav navbar-nav">
                     <li>
                         <a href="/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/about">About Us</a>
                     </li>
                     <li>
                         <a href="/tariffs">Our Tariffs</a>
@@ -98,76 +95,102 @@
         <div class="container content">
             <hr class="margin-bottom-50">
             <div class="row">
-                <div class="col-sm-4 info-blocks" style="width:400px;">
-                    <div class="info-blocks-in">
-                        <h2>Contract's number: <h3>${contractDto.number}</h3></h2>
-                        <h2>Contract's tariff: <h3>${contractDto.tariff.tariffName}</h3></h2>
-                        <h2>Tariff's options: <br/>
-                            <h3>
-                                <c:forEach var="optionsVar" items="#{contractDto.selectedOptions}">
-                                    <p>
-                                        <c:out value="${optionsVar.name}"/> <br/>
-                                        <c:out value="${optionsVar.description}"/> <br/>
-                                        <c:out value="${optionsVar.connectionCost}"/> <br/>
-                                        <c:out value="${optionsVar.price}"/> <br/>
-                                    </p>
-                                </c:forEach>
-                            </h3>
-                        </h2>
-                        <td>
-                            <c:if test="${contractDto.isBlocked == 0}">
-                                <form:form action="/changeStatus/${contractDto.id}" method="POST">
-                                    <input type='submit' value='Block Contract'/>
-                                </form:form>
-                            </c:if>
-                            <c:if test="${contractDto.isBlocked == 1}">
-                                <form:form action="/changeStatus/${contractDto.id}" method="POST">
-                                    <input type='submit' value='Unblock Contract'/>
-                                </form:form>
-                            </c:if>
-                            <c:if test="${contractDto.isBlocked == 2}">
-                                <security:authorize access="hasRole('ROLE_ADMIN')">
-                                    <form:form action="/changeStatus/${contractDto.id}" method="POST">
-                                        <input type='submit' value='Unblock Contract'/>
-                                    </form:form>
-                                </security:authorize>
-                                <security:authorize access="hasRole('ROLE_USER')">
-                                    <h3>Your contract is blocked by operator.</h3>
-                                </security:authorize>
-                            </c:if>
-                        </td>
-                    </div>
-                </div>
-                <div class="col-sm-4 info-blocks" style="width:400px;">
-                    <div class="info-blocks-in">
-                        <c:choose>
-                            <c:when test="${contractDto.isBlocked == 0}">
-                                <h2>Choose new tariff: <br/></h2>
-                                <form:form modelAttribute="contractChanges" action="/bucket/product/${contractDto.id}"
-                                           method="POST">
-                                    <form:select path="tariffId" onchange="tariffChanged()">
-                                        <form:options items="${tariffList}" itemValue="id" itemLabel="tariffName"/>
-                                    </form:select>
-                                    <br/>
-                                    <td>
-                                        <div id="optionCheckboxes">
-                                            <form:checkboxes cssClass="optionCheckbox" path="optionsIds"
-                                                             items="${availableOptions}" itemLabel="name"
-                                                             itemValue="id" id="id"/>
+                <div class="col-sm-12 col-md-12 info-blocks">
+                    <div class="panel  panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Contract's number: <c:out value="${contractDto.number}"/></h3>
+                            <h3 class="panel-title">Contract's tariff: <c:out
+                                    value="${contractDto.tariff.tariffName}"/></h3>
+                        </div>
+                        <div class="panel-body">
+                            <h4 class="panel-body">Selected options:</h4>
+                            <c:choose>
+                                <c:when test="${not empty contractDto.selectedOptions}">
+                                    <div class="row">
+                                        <c:forEach var="optionsVar" items="#{contractDto.selectedOptions}">
+                                            <div class="col-sm-6 col-md-6 info-blocks">
+                                                <div class="panel  panel-success">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">Option name: <c:out
+                                                                value="${optionsVar.name}"/></h3>
+                                                        <h4 class="panel-body">Option description: <c:out
+                                                                value="${optionsVar.description}"/></h4>
+                                                        <h4 class="panel-body">Option connection cost: <c:out
+                                                                value="${optionsVar.connectionCost}"/></h4>
+                                                        <h4 class="panel-body">Option price: <c:out
+                                                                value="${optionsVar.price}"/></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <h4 class="panel-body">There is no selected options for this contract</h4>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <c:choose>
+                                <c:when test="${contractDto.isBlocked == 0}">
+                                    <div class="col-sm-6 col-md-6 info-blocks">
+                                        <div class="panel  panel-success">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Choose new tariff: </h3>
+                                            </div>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <input type='submit' value='Add to cart'/>
-                                    </td>
-                                </form:form>
-                            </c:when>
-                            <c:when test="${contractDto.isBlocked == 1}">
-                                <h3>Unblock your contract</h3>
-                            </c:when>
-                            <c:otherwise>
-                                <h3>Your's contract is blocked by operator!</h3>
-                            </c:otherwise>
-                        </c:choose>
+                                        <div class="panel-body">
+                                            <h4 class="panel-body">
+                                                <form:form modelAttribute="contractChanges"
+                                                           action="/bucket/product/${contractDto.id}"
+                                                           method="POST">
+                                                    <dl class="dl_class">
+                                                        <form:select class="form-control" path="tariffId"
+                                                                     onchange="tariffChanged()">
+                                                            <form:options items="${tariffList}" itemValue="id"
+                                                                          itemLabel="tariffName"/>
+                                                        </form:select>
+                                                        <td>
+                                                            <div id="optionCheckboxes">
+                                                                <form:checkboxes cssClass="optionCheckbox"
+                                                                                 path="optionsIds"
+                                                                                 items="${availableOptions}"
+                                                                                 itemLabel="name"
+                                                                                 itemValue="id" id="id"/>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <input type='submit' value='Add to cart'
+                                                                   class="btn btn-success dbutton"/>
+                                                        </td>
+                                                    </dl>
+                                                </form:form>
+                                                <td>
+                                                    <form:form action="/changeStatus/${contractDto.id}" method="POST">
+                                                        <input type='submit' value='Block Contract'
+                                                               class="btn btn-danger dbutton"/>
+                                                    </form:form>
+                                                </td>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </c:when>
+                                <c:when test="${contractDto.isBlocked == 1}">
+                                    <h3>Unblock your contract</h3>
+                                    <form:form action="/changeStatus/${contractDto.id}" method="POST">
+                                        <input type='submit' value='Unblock Contract' class="btn btn-success dbutton"/>
+                                    </form:form>
+                                </c:when>
+                                <c:otherwise>
+                                    <h3>Your's contract is blocked by operator!</h3>
+                                    <security:authorize access="hasRole('ROLE_ADMIN')">
+                                        <form:form action="/changeStatus/${contractDto.id}" method="POST">
+                                            <input type='submit' value='Unblock Contract'
+                                                   class="btn btn-success dbutton"/>
+                                        </form:form>
+                                    </security:authorize>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -178,41 +201,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="copyright">
-                        <p>
-                            <span>© Creative Bee 2015 All right reserved. By </span>
-                            <a href="http://webthemez.com" target="_blank">WebThemez</a>
-                        </p>
-                    </div>
+
                 </div>
                 <div class="col-lg-6">
-                    <ul class="social-network">
-                        <li>
-                            <a href="#" data-placement="top" title="Facebook">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-placement="top" title="Twitter">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-placement="top" title="Linkedin">
-                                <i class="fa fa-linkedin"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-placement="top" title="Pinterest">
-                                <i class="fa fa-pinterest"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-placement="top" title="Google plus">
-                                <i class="fa fa-google-plus"></i>
-                            </a>
-                        </li>
-                    </ul>
+
                 </div>
             </div>
         </div>
