@@ -32,8 +32,7 @@ public class OptionDaoImpl implements OptionDao {
     }
 
     @Override
-    public void update(Integer id) {
-        Option option = entityManager.find(Option.class, id);
+    public void update(Option option) {
         entityManager.merge(option);
         LOGGER.info("{} have been updated", option);
     }
@@ -48,6 +47,6 @@ public class OptionDaoImpl implements OptionDao {
     @Override
     public List<Option> findAllOptions() {
         LOGGER.info("Reading all options");
-        return entityManager.createQuery("from Option c").getResultList();
+        return entityManager.createQuery("from Option as option where option.isBlocked = 0").getResultList();
     }
 }

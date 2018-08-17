@@ -11,7 +11,7 @@ public class OptionDto implements Serializable {
     private BigDecimal price;
     private BigDecimal connectionCost;
     private String description;
-    private Set<TariffDto> tariffs;
+    private int isBlocked;
     private Set<OptionDto> dependentFirst;
     private Set<OptionDto> conflictedFirst;
 
@@ -66,12 +66,12 @@ public class OptionDto implements Serializable {
         this.description = description;
     }
 
-    public Set<TariffDto> getTariffs() {
-        return tariffs;
+    public int getIsBlocked() {
+        return isBlocked;
     }
 
-    public void setTariffs(Set<TariffDto> tariffs) {
-        this.tariffs = tariffs;
+    public void setIsBlocked(int isBlocked) {
+        this.isBlocked = isBlocked;
     }
 
     public Set<OptionDto> getDependentFirst() {
@@ -105,7 +105,6 @@ public class OptionDto implements Serializable {
             return false;
         if (description != null ? !description.equals(optionDto.description) : optionDto.description != null)
             return false;
-        if (tariffs != null ? !tariffs.equals(optionDto.tariffs) : optionDto.tariffs != null) return false;
         if (dependentFirst != null ? !dependentFirst.equals(optionDto.dependentFirst) : optionDto.dependentFirst != null)
             return false;
         return conflictedFirst != null ? conflictedFirst.equals(optionDto.conflictedFirst) : optionDto.conflictedFirst == null;
@@ -118,7 +117,6 @@ public class OptionDto implements Serializable {
         result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + (connectionCost != null ? connectionCost.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (tariffs != null ? tariffs.hashCode() : 0);
         result = 31 * result + (dependentFirst != null ? dependentFirst.hashCode() : 0);
         result = 31 * result + (conflictedFirst != null ? conflictedFirst.hashCode() : 0);
         return result;

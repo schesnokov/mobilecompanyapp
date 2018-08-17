@@ -1,6 +1,7 @@
 package com.mobilecompany.services.api;
 
 import com.mobilecompany.controllers.model.ContractChanges;
+import com.mobilecompany.controllers.model.NewContractHelper;
 import com.mobilecompany.dto.ContractDto;
 import com.mobilecompany.entities.Contract;
 
@@ -12,7 +13,7 @@ public interface ContractService {
 
     List<ContractDto> getAllContracts();
 
-    void create(ContractDto contract);
+    void create(NewContractHelper newContract, Integer customerId);
 
     void update(ContractDto contract);
 

@@ -26,6 +26,9 @@ public class Option {
     @Column(name = "optionDescription")
     private String description;
 
+    @Column(name = "isBlocked")
+    private int isBlocked;
+
     @JoinTable(name = "dependentoptions", joinColumns = {
             @JoinColumn(name = "firstOption", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "secondOption", referencedColumnName = "id")
@@ -120,6 +123,14 @@ public class Option {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getIsBlocked() {
+        return isBlocked;
+    }
+
+    public void setIsBlocked(int isBlocked) {
+        this.isBlocked = isBlocked;
     }
 
     public Set<Option> getDependentFirst() {

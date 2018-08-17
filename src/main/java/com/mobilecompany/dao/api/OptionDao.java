@@ -9,7 +9,7 @@ public interface OptionDao {
 
     Option read(Integer id);
 
-    void update(Integer id);
+    void update(Option option);
 
     void delete(Integer id);
 

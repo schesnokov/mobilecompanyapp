@@ -1,14 +1,19 @@
 package com.mobilecompany.services.impl;
 
 import com.mobilecompany.controllers.model.ContractChanges;
+import com.mobilecompany.controllers.model.NewContractHelper;
 import com.mobilecompany.dao.api.ContractDao;
 import com.mobilecompany.dao.api.OptionDao;
 import com.mobilecompany.dto.ContractDto;
+import com.mobilecompany.dto.OptionDto;
+import com.mobilecompany.dto.UserDto;
 import com.mobilecompany.entities.Contract;
 import com.mobilecompany.entities.Option;
 import com.mobilecompany.entities.Tariff;
 import com.mobilecompany.services.api.ContractService;
+import com.mobilecompany.services.api.OptionService;
 import com.mobilecompany.services.api.TariffService;
+import com.mobilecompany.services.api.UserService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,13 +35,18 @@ public class ContractServiceImpl implements ContractService {
     private ContractDao contractDao;
     private OptionDao optionDao;
     private TariffService tariffService;
+    private UserService userService;
+    private OptionService optionService;
     private ModelMapper mapper;
 
     @Autowired
-    public ContractServiceImpl(ContractDao contractDao, OptionDao optionDao, TariffService tariffService) {
+    public ContractServiceImpl(ContractDao contractDao, OptionDao optionDao, OptionService optionService,
+                               TariffService tariffService, UserService userService) {
         this.contractDao = contractDao;
         this.optionDao = optionDao;
         this.tariffService = tariffService;
+        this.userService = userService;
+        this.optionService = optionService;
         mapper = new ModelMapper();
     }
 
@@ -60,8 +70,21 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     @Transactional
-    public void create(ContractDto contract) {
+    public void create(NewContractHelper newContract, Integer customerId) {
         LOGGER.info("ContractDto mapped to Entity and passed to DAO");
+        UserDto customer = userService.getUser(customerId);
+        ContractDto contract = new ContractDto();
+        Set<OptionDto> optionDtos = new HashSet<>();
+        contract.setNumber(newContract.getNumber());
+        contract.setBalance(newContract.getBalance());
+        contract.setTariffDto(tariffService.getTariff(newContract.getTariffId()));
+        for (Integer optionId : newContract.getOptionsIds()) {
+            optionDtos.add(optionService.getOption(optionId));
+        }
+        contract.setSelectedOptions(optionDtos);
+        contract.setUserDto(customer);
+        customer.getContracts().add(contract);
+        userService.update(customer);
         contractDao.create(mapper.map(contract, Contract.class));
     }
 

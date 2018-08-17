@@ -121,34 +121,44 @@
                                     <h4 class="panel-body">There is no selected options for new tariff</h4>
                                 </c:otherwise>
                             </c:choose>
-                            <h4 class="panel-body">Your balance is ${contract.balance}</h4>
+                            <c:choose>
+                            <c:when test="${not empty requestScope.bucket.options}">
                             <div class="panel  panel-success">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Sum for changing you tariff and options
                                         is ${orderResult}</h3>
+
                                     <form:form modelAttribute="contractChanges"
                                                action="/changeTariff/${requestScope.bucket.contractId}" method="POST">
                                         <input class="btn btn-success" type='submit' value='Submit changes'/>
                                     </form:form>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a class="btn btn-block text-uppercase btn-danger"
+                                           href="<c:url value="/account"/>">Back to account</a>
+                                    </c:otherwise>
+                                    </c:choose>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
     </section>
+</div>
+<div id="sub-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
 
-    <div id="sub-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
+            </div>
+            <div class="col-lg-6">
 
-                </div>
-                <div class="col-lg-6">
-
-                </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <a href="#" class="scrollup">
     <i class="fa fa-angle-up active"></i>

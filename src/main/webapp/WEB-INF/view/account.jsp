@@ -146,7 +146,7 @@
                                                 <dd>
                                                     <form:input class="form-control" type='text' path="number"
                                                                 placeholder="+7XXXXXXXXXX" required="required"
-                                                                pattern="[0-9_-+]{12}"/>
+                                                                pattern="([+]{1}[7]{1}[0-9]{10})"/>
                                                 </dd>
                                             </spring:bind>
                                             <spring:bind path="balance">
@@ -155,7 +155,7 @@
                                                 </dt>
                                                 <dd>
                                                     <form:input class="form-control" type='text' path="balance"
-                                                                required="required"/>
+                                                                required="required" pattern="[1-9]{8}"/>
                                                 </dd>
                                             </spring:bind>
                                             <spring:bind path="tariffId">

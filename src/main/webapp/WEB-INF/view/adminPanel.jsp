@@ -95,14 +95,19 @@
         <div class="container content">
             <hr class="margin-bottom-50">
             <div class="row">
-                <div class="col-sm-6 col-md-6 info-blocks">
-                    <form action="customerPage" method="GET">
-                        <input type='submit' class="btn btn-success dbutton" value='All Customers'>
-                    </form>
-                </div>
-                <div class="col-sm-6 col-md-6 info-blocks">
+                <div class="col-sm-4 col-md-4 info-blocks">
                     <form action="tariffs" method="GET">
                         <input type='submit' class="btn btn-success dbutton" value='All tariffs'>
+                    </form>
+                </div>
+                <div class="col-sm-4 col-md-4 info-blocks">
+                    <form action="optionsPage" method="GET">
+                        <input type='submit' class="btn btn-success dbutton" value='All options'>
+                    </form>
+                </div>
+                <div class="col-sm-4 col-md-4 info-blocks">
+                    <form action="customerPage" method="GET">
+                        <input type='submit' class="btn btn-success dbutton" value='All Customers'>
                     </form>
                 </div>
             </div>
@@ -120,7 +125,7 @@
                                     </dt>
                                     <dd>
                                         <form:input class="form-control" type='text' path="tariffName"
-                                                    placeholder="Tariff name" required="required"/>
+                                                    placeholder="Tariff name" required="required" pattern="([a-zA-Z]{3,14})"/>
                                     </dd>
                                 </spring:bind>
                                 <spring:bind path="tariffPrice">
@@ -129,7 +134,7 @@
                                     </dt>
                                     <dd>
                                         <form:input class="form-control" type='text' path="tariffPrice"
-                                                    placeholder="Tariff price" required="required"/>
+                                                    placeholder="Tariff price" required="required" pattern="([0-9]{1,10})"/>
                                     </dd>
                                 </spring:bind>
                                 <spring:bind path="tariffDescription">
@@ -157,8 +162,8 @@
                                     Phone
                                 </dt>
                                 <dd>
-                                <input class="form-control" name="phone" type="text" required
-                                       placeholder="+7XXXXXXXXXX"/>
+                                    <input class="form-control" name="phone" type="text" required
+                                           placeholder="+7XXXXXXXXXX" pattern="([+]{1}[7]{1}[0-9]{10})"/>
                                 </dd>
                                 <c:if test="${findContractByPhoneError!=null}">
                                     <div class="error">
@@ -177,72 +182,72 @@
                         <h3 class="panel-title">Add new option</h3>
                     </div>
                     <div class="panel-body">
-                <form:form method='POST' modelAttribute="newOption" action="/addOption">
-                    <dl class="dl_class">
-                        <spring:bind path="name">
-                            <dt>
-                                Option name
-                            </dt>
-                            <dd>
-                                <form:input class="form-control" type='text' path="name"
-                                            placeholder="Option name" required="required"/>
-                            </dd>
-                        </spring:bind>
-                        <spring:bind path="description">
-                            <dt>
-                                Option Description
-                            </dt>
-                            <dd>
-                                <form:input class="form-control" type='text' path="description"
-                                            placeholder="Option description" required="required"/>
-                            </dd>
-                        </spring:bind>
-                        <spring:bind path="price">
-                            <dt>
-                                Option price
-                            </dt>
-                            <dd>
-                                <form:input class="form-control" type='text' path="price"
-                                            placeholder="Option price" required="required"/>
-                            </dd>
-                        </spring:bind>
-                        <spring:bind path="connectionCost">
-                            <dt>
-                                Connection cost
-                            </dt>
-                            <dd>
-                                <form:input class="form-control" type='text' path="connectionCost"
-                                            placeholder="Option connection cost" required="required"/>
-                            </dd>
-                        </spring:bind>
-                        <spring:bind path="dependentIds">
-                            <dt>
-                                Choose dependent options:
-                            </dt>
-                            <dd>
-                                <div class="id="optionCheckboxes1">
-                                    <form:checkboxes cssClass="optionCheckbox" path="dependentIds"
-                                                     items="${optionsList}" itemLabel="name"
-                                                     itemValue="id" id="id"/>
-                                </div>
-                            </dd>
-                        </spring:bind>
-                        <spring:bind path="conflictedIds">
-                            <dt>
-                                Choose conflicted options:
-                            </dt>
-                            <dd>
-                                <div id="optionCheckboxes2">
-                                    <form:checkboxes cssClass="optionCheckbox" path="conflictedIds"
-                                                     items="${optionsList}" itemLabel="name"
-                                                     itemValue="id" id="id"/>
-                                </div>
-                            </dd>
-                        </spring:bind>
-                    </dl>
-                    <input class="btn btn-success dbutton" type='submit' value='Add new option'>
-                </form:form>
-            </div>
+                        <form:form method='POST' modelAttribute="newOption" action="/addOption">
+                            <dl class="dl_class">
+                                <spring:bind path="name">
+                                    <dt>
+                                        Option name
+                                    </dt>
+                                    <dd>
+                                        <form:input class="form-control" type='text' path="name"
+                                                    placeholder="Option name" required="required" pattern="([a-zA-Z]{1,14})"/>
+                                    </dd>
+                                </spring:bind>
+                                <spring:bind path="description">
+                                    <dt>
+                                        Option Description
+                                    </dt>
+                                    <dd>
+                                        <form:input class="form-control" type='text' path="description"
+                                                    placeholder="Option description" required="required"/>
+                                    </dd>
+                                </spring:bind>
+                                <spring:bind path="price">
+                                    <dt>
+                                        Option price
+                                    </dt>
+                                    <dd>
+                                        <form:input class="form-control" type='text' path="price"
+                                                    placeholder="Option price" required="required" pattern="([0-9]{1,10})"/>
+                                    </dd>
+                                </spring:bind>
+                                <spring:bind path="connectionCost">
+                                    <dt>
+                                        Connection cost
+                                    </dt>
+                                    <dd>
+                                        <form:input class="form-control" type='text' path="connectionCost"
+                                                    placeholder="Option connection cost" required="required" pattern="([0-9]{1,10})"/>
+                                    </dd>
+                                </spring:bind>
+                                <spring:bind path="dependentIds">
+                                    <dt>
+                                        Choose dependent options:
+                                    </dt>
+                                    <dd>
+                                        <div id="optionCheckboxes1">
+                                            <form:checkboxes cssClass="optionCheckbox" path="dependentIds"
+                                                             items="${optionsList}" itemLabel="name"
+                                                             itemValue="id" id="id"/>
+                                        </div>
+                                    </dd>
+                                </spring:bind>
+                                <spring:bind path="conflictedIds">
+                                    <dt>
+                                        Choose conflicted options:
+                                    </dt>
+                                    <dd>
+                                        <div id="optionCheckboxes2">
+                                            <form:checkboxes cssClass="optionCheckbox" path="conflictedIds"
+                                                             items="${optionsList}" itemLabel="name"
+                                                             itemValue="id" id="id"/>
+                                        </div>
+                                    </dd>
+                                </spring:bind>
+                            </dl>
+                            <input class="btn btn-success dbutton" type='submit' value='Add new option'>
+                        </form:form>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-4 col-md-4 info-blocks">
@@ -251,83 +256,84 @@
                         <h3 class="panel-title">Registration of new customer</h3>
                     </div>
                     <div class="panel-body">
-                <form:form method='POST' modelAttribute="userDto">
-                    <dl class="dl_class">
-                        <spring:bind path="firstName">
-                            <dt>
-                                First Name
-                            </dt>
-                            <dd>
-                                <form:input class="form-control" type='text' path="firstName"
-                                            placeholder="First Name" required="required"/>
-                            </dd>
-                        </spring:bind>
-                        <spring:bind path="secondName">
-                            <dt>
-                                Second Name
-                            </dt>
-                            <dd>
-                                <form:input class="form-control" type='text' path="secondName"
-                                            placeholder="Second Name" required="required"/>
-                            </dd>
-                        </spring:bind>
-                        <spring:bind path="dateOfBirth">
-                            <dt>
-                                Date of birth
-                            </dt>
-                            <dd>
-                                <form:input class="form-control" type='text' path="dateOfBirth"
-                                            placeholder="YYYY-MM-DD" required="required"/>
-                            </dd>
-                        </spring:bind>
-                        <spring:bind path="passportNumber">
-                            <dt>
-                                Passport Number
-                            </dt>
-                            <dd>
-                                <form:input class="form-control" type='text' path="passportNumber"
-                                            placeholder="passport" required="required"/>
-                            </dd>
-                        </spring:bind>
-                        <spring:bind path="adress">
-                            <dt>
-                                Address
-                            </dt>
-                            <dd>
-                                <form:input class="form-control" type='text' path="adress"
-                                            placeholder="Address" required="required"/>
-                            </dd>
-                        </spring:bind>
-                        <spring:bind path="email">
-                            <dt>
-                                Email
-                            </dt>
-                            <dd>
-                                <form:input class="form-control" type='text' path="email"
-                                            placeholder="xxxxx@xxx.xxx" required="required"/>
-                            </dd>
-                        </spring:bind>
-                        <spring:bind path="password">
-                            <dt>
-                                Password
-                            </dt>
-                            <dd>
-                                <form:input class="form-control" type='text' path="password"
-                                            placeholder="Password" required="required"/>
-                            </dd>
-                        </spring:bind>
-                    </dl>
-                    <c:if test="${registrationError!=null}">
-                        <div class="error">
-                            <span>${registrationError}</span>
-                        </div>
-                    </c:if>
-                    <input class="btn btn-success register" type='submit' value='Confirm'>
-                </form:form>
+                        <form:form method='POST' modelAttribute="userDto">
+                            <dl class="dl_class">
+                                <spring:bind path="firstName">
+                                    <dt>
+                                        First Name
+                                    </dt>
+                                    <dd>
+                                        <form:input class="form-control" type='text' path="firstName"
+                                                    placeholder="First Name" required="required" pattern="([a-zA-Z]{2,14})"/>
+                                    </dd>
+                                </spring:bind>
+                                <spring:bind path="secondName">
+                                    <dt>
+                                        Second Name
+                                    </dt>
+                                    <dd>
+                                        <form:input class="form-control" type='text' path="secondName"
+                                                    placeholder="Second Name" required="required" pattern="([a-zA-Z]{2,14})"/>
+                                    </dd>
+                                </spring:bind>
+                                <spring:bind path="dateOfBirth">
+                                    <dt>
+                                        Date of birth
+                                    </dt>
+                                    <dd>
+                                        <form:input class="form-control" type='text' path="dateOfBirth"
+                                                    placeholder="YYYY-MM-DD" required="required" pattern="(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])"/>
+                                    </dd>
+                                </spring:bind>
+                                <spring:bind path="passportNumber">
+                                    <dt>
+                                        Passport Number
+                                    </dt>
+                                    <dd>
+                                        <form:input class="form-control" type='text' path="passportNumber"
+                                                    placeholder="passport" required="required" pattern="([0-9]{10})"/>
+                                    </dd>
+                                </spring:bind>
+                                <spring:bind path="adress">
+                                    <dt>
+                                        Address
+                                    </dt>
+                                    <dd>
+                                        <form:input class="form-control" type='text' path="adress"
+                                                    placeholder="Address" required="required"/>
+                                    </dd>
+                                </spring:bind>
+                                <spring:bind path="email">
+                                    <dt>
+                                        Email
+                                    </dt>
+                                    <dd>
+                                        <form:input class="form-control" type='text' path="email"
+                                                    placeholder="xxxxx@xxx.xxx" required="required" pattern="([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z\.]{2,6})"/>
+                                    </dd>
+                                </spring:bind>
+                                <spring:bind path="password">
+                                    <dt>
+                                        Password
+                                    </dt>
+                                    <dd>
+                                        <form:input class="form-control" type='text' path="password"
+                                                    placeholder="Password" required="required" pattern="([a-z0-9_-]{5,32})"/>
+                                    </dd>
+                                </spring:bind>
+                            </dl>
+                            <c:if test="${registrationError!=null}">
+                                <div class="error">
+                                    <span>${registrationError}</span>
+                                </div>
+                            </c:if>
+                            <input class="btn btn-success register" type='submit' value='Confirm'>
+                        </form:form>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-</div>
 </div>
 <div id="sub-footer">
     <div class="container">
@@ -340,8 +346,6 @@
             </div>
         </div>
     </div>
-</div>
-</footer>
 </div>
 <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
 <!-- javascript

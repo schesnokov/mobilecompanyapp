@@ -1,10 +1,13 @@
 function tariffChanged() {
     var tariffId = $('#tariffId').val();
+    console.log("script started");
 
     $.get("/options/" + tariffId, null, function (data, textStatus, jqXHR) {
+        console.log("continue1");
         var container = $('#optionCheckboxes');
         container.find('*').remove();
         var newOptions = "";
+        console.log("continue2");
         data.forEach(function (item, i, arr) {
             newOptions += '<span>\n' +
                 '    <input class="optionCheckbox" data-id="' + i + '" id="optionsIds' + i + '" name="optionsIds" type="checkbox" value="' + item.id + '">\n' +
@@ -12,6 +15,7 @@ function tariffChanged() {
                 '</span> <br />';
         });
         newOptions += '<input type="hidden" name="_optionsIds" value="on">';
+        console.log("continue3")
         container.html(newOptions);
     });
 }

@@ -2,8 +2,9 @@ package com.mobilecompany.controllers;
 
 import com.mobilecompany.controllers.model.ContractChanges;
 import com.mobilecompany.dto.ContractDto;
-import com.mobilecompany.dto.OptionDto;
-import com.mobilecompany.services.api.*;
+import com.mobilecompany.services.api.ContractService;
+import com.mobilecompany.services.api.SecurityService;
+import com.mobilecompany.services.api.TariffService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @SessionAttributes(value = {"contractDto", "tariffList"})
 @Controller
@@ -24,16 +22,14 @@ public class ContractController {
 
     private ContractService contractService;
     private TariffService tariffService;
-    private OptionService optionService;
     private SecurityService securityService;
 
 
     @Autowired
-    public ContractController(ContractService contractService, TariffService tariffService, OptionService optionService,
+    public ContractController(ContractService contractService, TariffService tariffService,
                               SecurityService securityService) {
         this.contractService = contractService;
         this.tariffService = tariffService;
-        this.optionService = optionService;
         this.securityService = securityService;
     }
 
@@ -65,7 +61,8 @@ public class ContractController {
 
     @RequestMapping(value = "/changeTariff/{contractId}", method = RequestMethod.POST)
     public String changeTariff(@ModelAttribute("contractChanges") ContractChanges contractChanges,
-                               @PathVariable(name = "contractId") Integer contractId, Model model, HttpServletRequest request) {
+                               @PathVariable(name = "contractId") Integer contractId,
+                               Model model, HttpServletRequest request) {
         LOGGER.info("Change tariff of contract with id {}", contractId);
         ContractChanges contractChanges1 = (ContractChanges) request.getSession().getAttribute("contractChanges");
         contractService.changeTariff(contractChanges1, contractId);
@@ -75,38 +72,5 @@ public class ContractController {
         request.getSession().setAttribute("bucket", null);
         request.getSession().setAttribute("orderResult", null);
         return "/contractPage";
-    }
-
-    @RequestMapping(value = "/options/{tariffId}", method = RequestMethod.GET)
-    @ResponseBody
-    public Set<OptionDto> getOptionsByTariff(@PathVariable(name = "tariffId") Integer tariffId) {
-        LOGGER.info("Getting all available options for tariff with id {}", tariffId);
-        Set<OptionDto> availableOptions;
-        availableOptions = tariffService.getTariff(tariffId).getAvailableOptions();
-        return availableOptions;
-    }
-
-    @RequestMapping(value = "/options/conflict/{optionId}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Integer> getConflictedOptions(@PathVariable(name = "optionId") Integer optionId) {
-        LOGGER.info("Getting conflicted options for option with id {}", optionId);
-        List<OptionDto> conflictedOptions = new ArrayList<>(optionService.getOption(optionId).getConflictedFirst());
-        List<Integer> conflictedOptionsIds = new ArrayList<>();
-        for (OptionDto optionDto : conflictedOptions) {
-            conflictedOptionsIds.add(optionDto.getId());
-        }
-        return conflictedOptionsIds;
-    }
-
-    @RequestMapping(value = "/options/dependent/{optionId}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Integer> getDependentOptions(@PathVariable(name = "optionId") Integer optionId) {
-        LOGGER.info("Getting dependent options for option with id {}", optionId);
-        List<OptionDto> dependentOptions = new ArrayList<>(optionService.getOption(optionId).getDependentFirst());
-        List<Integer> dependentOptionsIds = new ArrayList<>();
-        for (OptionDto optionDto : dependentOptions) {
-            dependentOptionsIds.add(optionDto.getId());
-        }
-        return dependentOptionsIds;
     }
 }

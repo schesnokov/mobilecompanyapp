@@ -17,21 +17,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class CartController {
+public class BucketController {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(CartController.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(BucketController.class);
 
     private CartService cartService;
     private ContractService contractService;
 
     @Autowired
-    public CartController(CartService cartService, ContractService contractService) {
+    public BucketController(CartService cartService, ContractService contractService) {
         this.cartService = cartService;
         this.contractService = contractService;
     }
 
     @RequestMapping(value = "/bucket", method = RequestMethod.GET)
-    public String getCart(HttpServletRequest request, Model model) {
+    public String getBucket(HttpServletRequest request, Model model) {
         LOGGER.info("Returning bucket page");
         model.addAttribute("bucket", request.getSession().getAttribute("bucket"));
         model.addAttribute("contractChanges", request.getSession().getAttribute("contractChanges"));
