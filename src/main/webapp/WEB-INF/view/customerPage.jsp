@@ -90,7 +90,7 @@
         </div>
     </section>
     <section id="content">
-        <div class="container content">
+        <div class="container content login-content">
             <hr class="margin-bottom-50">
             <div class="row">
                 <div class="col-sm-12 col-md-12 info-blocks">

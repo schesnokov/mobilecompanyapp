@@ -90,7 +90,7 @@
         <div class="container content">
             <hr class="margin-bottom-50">
             <div class="row">
-                <div class="col-sm-4 col-md-6 info-blocks">
+                <div class="col-sm-6 col-md-6 info-blocks">
                     <div class="panel  panel-success">
                         <div class="panel-heading"><h3 class="panel-title">First name:</h3></div>
                         <div class="panel-body">
@@ -98,7 +98,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4 col-md-6 info-blocks">
+                <div class="col-sm-6 col-md-6 info-blocks">
                     <div class="panel  panel-success">
                         <div class="panel-heading"><h3 class="panel-title">Second name:</h3></div>
                         <div class="panel-body">
@@ -108,7 +108,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4 col-md-6 info-blocks">
+                <div class="col-sm-6 col-md-6 info-blocks">
                     <div class="panel  panel-success">
                         <div class="panel-heading">
                             <h3 class="panel-title">E-mail:</h3>
@@ -118,7 +118,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4 col-md-6 info-blocks">
+                <div class="col-sm-6 col-md-6 info-blocks">
                     <div class="panel  panel-success">
                         <div class="panel-heading"><h3 class="panel-title"> Date of birth:</h3></div>
                         <div class="panel-body">
@@ -128,15 +128,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4 col-md-6 info-blocks">
+                <div class="col-sm-6 col-md-6 info-blocks">
                     <security:authorize access="hasRole('ROLE_ADMIN')">
                         <div class="panel  panel-success">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Add new contract</h3>
                             </div>
                             <div class="panel-body">
-                                <h4 class="panel-body">
-                                    <form:form method='POST' modelAttribute="newContract"
+                                <%--<h4 class="panel-body"></h4>--%>
+                                    <form:form cssClass="center" method='POST' modelAttribute="newContract"
                                                action="/customer/addContract/${customer.id}">
                                         <dl class="dl_class">
                                             <spring:bind path="number">
@@ -146,7 +146,7 @@
                                                 <dd>
                                                     <form:input class="form-control" type='text' path="number"
                                                                 placeholder="+7XXXXXXXXXX" required="required"
-                                                                pattern="([+]{1}[7]{1}[0-9]{10})"/>
+                                                                pattern="([+]{1}[7]{1}[0-9]{10})" title="Format"/>
                                                 </dd>
                                             </spring:bind>
                                             <spring:bind path="balance">
@@ -155,7 +155,7 @@
                                                 </dt>
                                                 <dd>
                                                     <form:input class="form-control" type='text' path="balance"
-                                                                required="required" pattern="[1-9]{8}"/>
+                                                                required="required" pattern="[0-9]{1,8}"/>
                                                 </dd>
                                             </spring:bind>
                                             <spring:bind path="tariffId">
@@ -187,14 +187,13 @@
                                                 <span>${phoneError}</span>
                                             </div>
                                         </c:if>
-                                        <input class="btn btn-success dbutton" type='submit' value='Confirm'>
+                                        <input class="btn btn-success" style="margin-top: 10px" type='submit' value='Confirm'>
                                     </form:form>
-                                </h4>
                             </div>
                         </div>
                     </security:authorize>
                 </div>
-                <div class="col-sm-4 col-md-6 info-blocks">
+                <div class="col-sm-6 col-md-6 info-blocks">
                     <div class="panel-group" id="accordion-alt3">
                         <c:if test="${not empty contractList}">
                             <c:forEach var="contractVar" items="#{contractList}">
@@ -210,15 +209,13 @@
                                     <div id="collapse<c:out value="${contractVar.id}"/>-alt3"
                                          class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            <h4 class="panel-body">
-                                                Tariff: <c:out value="${contractVar.tariff.tariffName}"/>
-                                                Balance: <c:out value="${contractVar.balance}"/>
-                                                <form action="/contractPage/${contractVar.id}" method="GET">
+                                            <h4 class="panel-body">Tariff: <c:out value="${contractVar.tariff.tariffName}"/></h4>
+                                            <h4 class="panel-body">Balance: <c:out value="${contractVar.balance}"/></h4>
+                                                <form class="center" action="/contractPage/${contractVar.id}" method="GET">
                                                     <input type="hidden" name="contract" value="${contractVar.id}">
-                                                    <input class="btn btn-success dbutton" type='submit'
+                                                    <input class="btn btn-success" type='submit'
                                                            value='Edit contract'>
                                                 </form>
-                                            </h4>
                                         </div>
                                     </div>
                                 </div>

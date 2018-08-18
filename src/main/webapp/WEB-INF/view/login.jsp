@@ -87,8 +87,8 @@
     <section id="content" class="login-content">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 info-blocks">
-                    <form  action="/login" method='POST'>
-                        <h2 style=" margin-top: 80px;">Sign in</h2>
+                    <form class="center" action="/login" method='POST'>
+                        <h2 style=" margin-top: 40px;">Sign in</h2>
 
                         <c:if test="${not empty error}">
                             <div class="error"><p>${error}</p></div>
@@ -114,7 +114,7 @@
                         </dd>
                         <input type="hidden" name="${_csrf.parameterName}"
                                value="${_csrf.token}"/>
-                        <input class="btn btn-danger" type='submit' value='Sign in'>
+                        <input class="btn btn-danger bcenter" type='submit' value='Sign in'>
                     </form>
                 </div>
             </div>

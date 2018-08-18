@@ -97,27 +97,27 @@
             <div class="row">
                 <div class="col-sm-4 col-md-4 info-blocks">
                     <form action="tariffs" method="GET">
-                        <input type='submit' class="btn btn-success dbutton" value='All tariffs'>
+                        <input type='submit' class="btn btn-success" value='All tariffs'>
                     </form>
                 </div>
                 <div class="col-sm-4 col-md-4 info-blocks">
                     <form action="optionsPage" method="GET">
-                        <input type='submit' class="btn btn-success dbutton" value='All options'>
+                        <input type='submit' class="btn btn-success" value='All options'>
                     </form>
                 </div>
                 <div class="col-sm-4 col-md-4 info-blocks">
                     <form action="customerPage" method="GET">
-                        <input type='submit' class="btn btn-success dbutton" value='All Customers'>
+                        <input type='submit' class="btn btn-success" value='All Customers'>
                     </form>
                 </div>
             </div>
             <div class="col-sm-4 col-md-4 info-blocks">
                 <div class="panel  panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Add new tariff</h3>
+                        <h3 class="panel-title"><i class="fa fa-bug"></i><a href="/tariffs">All tariffs</a></h3>
                     </div>
                     <div class="panel-body">
-                        <form:form method='POST' modelAttribute="tariffDto" action="/addTariff">
+                        <form:form cssClass="center" method='POST' modelAttribute="tariffDto" action="/addTariff">
                             <dl class="dl_class">
                                 <spring:bind path="tariffName">
                                     <dt>
@@ -147,7 +147,7 @@
                                     </dd>
                                 </spring:bind>
                             </dl>
-                            <input class="btn btn-success dbutton" type='submit' value='Add new tariff'>
+                            <input class="btn btn-success" type='submit' value='Add new tariff'>
                         </form:form>
                     </div>
                 </div>
@@ -156,7 +156,7 @@
                         <h3 class="panel-title">Find customer by phone number</h3>
                     </div>
                     <div class="panel-body">
-                        <form:form method='GET' action="/findByPhone">
+                        <form:form cssClass="center" method='GET' action="/findByPhone">
                             <dl class="dl_class">
                                 <dt>
                                     Phone
@@ -171,7 +171,7 @@
                                     </div>
                                 </c:if>
                             </dl>
-                            <input class="btn btn-success dbutton" type="submit" value="Find">
+                            <input class="btn btn-success" type="submit" value="Find">
                         </form:form>
                     </div>
                 </div>
@@ -182,7 +182,7 @@
                         <h3 class="panel-title">Add new option</h3>
                     </div>
                     <div class="panel-body">
-                        <form:form method='POST' modelAttribute="newOption" action="/addOption">
+                        <form:form cssClass="center" method='POST' modelAttribute="newOption" action="/addOption">
                             <dl class="dl_class">
                                 <spring:bind path="name">
                                     <dt>
@@ -245,7 +245,7 @@
                                     </dd>
                                 </spring:bind>
                             </dl>
-                            <input class="btn btn-success dbutton" type='submit' value='Add new option'>
+                            <input class="btn btn-success " type='submit' value='Add new option'>
                         </form:form>
                     </div>
                 </div>
@@ -256,7 +256,7 @@
                         <h3 class="panel-title">Registration of new customer</h3>
                     </div>
                     <div class="panel-body">
-                        <form:form method='POST' modelAttribute="userDto">
+                        <form:form cssClass="center" method='POST' modelAttribute="userDto">
                             <dl class="dl_class">
                                 <spring:bind path="firstName">
                                     <dt>

@@ -38,10 +38,24 @@ body {
 }
 .dbutton{
     margin:0 5px;
+    width: 70px;
+}
+.center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.bcenter{
+    align-self: center;
 }
 h3.panel-title{
     margin: 5px;
     text-align: center;
+}
+.panel-body{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
 }
 h4.panel-body{
     margin: 5px;
@@ -124,7 +138,7 @@ img{
 width: 150px
 }
 .login-content{
-    height: 58vh;
+    height: 65vh;
 }
 .wraper{
     display: flex;

@@ -142,7 +142,7 @@
                                             <h4 class="panel-body">
                                                 <form:form modelAttribute="contractChanges"
                                                            action="/bucket/product/${contractDto.id}"
-                                                           method="POST">
+                                                           method="POST" id="changeContract">
                                                     <dl class="dl_class">
                                                         <form:select class="form-control" path="tariffId"
                                                                      onchange="tariffChanged()">
@@ -150,24 +150,26 @@
                                                                           itemLabel="tariffName"/>
                                                         </form:select>
                                                         <td>
-                                                            <div id="optionCheckboxes">
+                                                            <div id="optionCheckboxes" stylez="text-align: left;margin-left: 75px;">
                                                                 <form:checkboxes cssClass="optionCheckbox"
                                                                                  path="optionsIds"
                                                                                  items="${availableOptions}"
                                                                                  itemLabel="name"
-                                                                                 itemValue="id" id="id"/>
+                                                                                 itemValue="id"
+                                                                                 id="id"/>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <input type='submit' value='Add to cart'
-                                                                   class="btn btn-success dbutton"/>
+                                                            <input type='submit' id="addToCartBtn" value='Add to cart'
+                                                                   class="btn btn-success"/>
                                                         </td>
                                                     </dl>
+                                                    <input type="hidden" id="ids" name="ids"/>
                                                 </form:form>
                                                 <td>
                                                     <form:form action="/changeStatus/${contractDto.id}" method="POST">
                                                         <input type='submit' value='Block Contract'
-                                                               class="btn btn-danger dbutton"/>
+                                                               class="btn btn-danger"/>
                                                     </form:form>
                                                 </td>
                                             </h4>

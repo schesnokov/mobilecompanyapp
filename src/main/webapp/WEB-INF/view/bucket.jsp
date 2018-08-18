@@ -128,7 +128,7 @@
                                     <h3 class="panel-title">Sum for changing you tariff and options
                                         is ${orderResult}</h3>
 
-                                    <form:form modelAttribute="contractChanges"
+                                    <form:form cssClass="center" modelAttribute="contractChanges"
                                                action="/changeTariff/${requestScope.bucket.contractId}" method="POST">
                                         <input class="btn btn-success" type='submit' value='Submit changes'/>
                                     </form:form>

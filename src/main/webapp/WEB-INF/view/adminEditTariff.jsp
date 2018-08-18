@@ -147,7 +147,8 @@
                                                 <form:checkboxes path="optionsIds1" items="${tariff.availableOptions}"
                                                                  itemValue="id" id="id" itemLabel="name"/>
                                             </spring:bind>
-                                            <input type="submit" value="Delete options" class="btn btn-danger dbutton"/>
+                                            <br>
+                                            <input type="submit" value="Delete options" class="btn btn-danger"/>
                                         </form:form>
                                     </div>
                                 </div>
@@ -161,7 +162,8 @@
                                                 <form:checkboxes path="optionsIds2" items="${allOptionsList}"
                                                                  itemValue="id" id="id" itemLabel="name"/>
                                             </spring:bind>
-                                            <input type="submit" value="Add options" class="btn btn-success dbutton"/>
+                                            <br>
+                                            <input type="submit" value="Add options" class="btn btn-success"/>
                                         </form:form>
                                     </div>
                                 </div>

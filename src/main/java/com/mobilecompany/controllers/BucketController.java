@@ -41,9 +41,10 @@ public class BucketController {
     }
 
     @RequestMapping(value = "/bucket/product/{contractId}", method = RequestMethod.POST)
-    public String addProductToBucket(@ModelAttribute("contractChanges") ContractChanges contractChanges,
-                                   @PathVariable(name = "contractId") Integer contractId, HttpServletRequest request) {
+    public String addProductToBucket(@ModelAttribute("contractChanges") ContractChanges contractChanges, String ids,
+                                     @PathVariable(name = "contractId") Integer contractId, HttpServletRequest request) {
         LOGGER.info("Adding products to bucket");
+        LOGGER.info("qweqwe" + ids);
         Object bucket = request.getSession().getAttribute("bucket");
         if (bucket == null) {
             BucketChanges bucketChanges = new BucketChanges();
