@@ -22,8 +22,8 @@ public class Tariff {
     @Column(name = "tariffDescription")
     private String tariffDescription;
 
-    @Column(name = "isBlocked")
-    private int isBlocked;
+    @Column(name = "tariffIsBlocked")
+    private int tariffIsBlocked;
 
     @JoinTable(name = "availableoptions", joinColumns = {
             @JoinColumn(name = "tariffId", referencedColumnName = "id", nullable = false)},
@@ -79,12 +79,12 @@ public class Tariff {
         return availableOptions;
     }
 
-    public int getIsBlocked() {
-        return isBlocked;
+    public int getTariffIsBlocked() {
+        return tariffIsBlocked;
     }
 
-    public void setIsBlocked(int isBlocked) {
-        this.isBlocked = isBlocked;
+    public void setTariffIsBlocked(int isBlocked) {
+        this.tariffIsBlocked = isBlocked;
     }
 
     public void setAvailableOptions(Set<Option> availableOptions) {

@@ -11,7 +11,6 @@ public class OptionDto implements Serializable {
     private BigDecimal price;
     private BigDecimal connectionCost;
     private String description;
-    private int isBlocked;
     private Set<OptionDto> dependentFirst;
     private Set<OptionDto> conflictedFirst;
 
@@ -64,14 +63,6 @@ public class OptionDto implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getIsBlocked() {
-        return isBlocked;
-    }
-
-    public void setIsBlocked(int isBlocked) {
-        this.isBlocked = isBlocked;
     }
 
     public Set<OptionDto> getDependentFirst() {

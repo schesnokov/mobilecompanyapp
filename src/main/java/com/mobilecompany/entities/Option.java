@@ -26,8 +26,8 @@ public class Option {
     @Column(name = "optionDescription")
     private String description;
 
-    @Column(name = "isBlocked")
-    private int isBlocked;
+    @Column(name = "optionIsBlocked")
+    private int optionIsBlocked;
 
     @JoinTable(name = "dependentoptions", joinColumns = {
             @JoinColumn(name = "firstOption", referencedColumnName = "id")}, inverseJoinColumns = {
@@ -125,12 +125,12 @@ public class Option {
         this.description = description;
     }
 
-    public int getIsBlocked() {
-        return isBlocked;
+    public int getOptionIsBlocked() {
+        return optionIsBlocked;
     }
 
-    public void setIsBlocked(int isBlocked) {
-        this.isBlocked = isBlocked;
+    public void setOptionIsBlocked(int isBlocked) {
+        this.optionIsBlocked = isBlocked;
     }
 
     public Set<Option> getDependentFirst() {

@@ -5,7 +5,6 @@ import com.mobilecompany.dto.OptionDto;
 import com.mobilecompany.dto.TariffDto;
 import com.mobilecompany.services.api.OptionService;
 import com.mobilecompany.services.api.TariffService;
-import com.mobilecompany.validators.MainValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +25,11 @@ public class TariffController {
 
     private TariffService tariffService;
     private OptionService optionService;
-    private MainValidator mainValidator;
 
     @Autowired
-    public TariffController(TariffService tariffService, OptionService optionService,
-                            MainValidator mainValidator) {
+    public TariffController(TariffService tariffService, OptionService optionService) {
         this.tariffService = tariffService;
         this.optionService = optionService;
-        this.mainValidator = mainValidator;
     }
 
     @RequestMapping(value = "/tariffs", method = RequestMethod.GET)

@@ -94,27 +94,10 @@
     <section id="content">
         <div class="container content">
             <hr class="margin-bottom-50">
-            <div class="row">
-                <div class="col-sm-4 col-md-4 info-blocks">
-                    <form action="tariffs" method="GET">
-                        <input type='submit' class="btn btn-success" value='All tariffs'>
-                    </form>
-                </div>
-                <div class="col-sm-4 col-md-4 info-blocks">
-                    <form action="optionsPage" method="GET">
-                        <input type='submit' class="btn btn-success" value='All options'>
-                    </form>
-                </div>
-                <div class="col-sm-4 col-md-4 info-blocks">
-                    <form action="customerPage" method="GET">
-                        <input type='submit' class="btn btn-success" value='All Customers'>
-                    </form>
-                </div>
-            </div>
             <div class="col-sm-4 col-md-4 info-blocks">
                 <div class="panel  panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-bug"></i><a href="/tariffs">All tariffs</a></h3>
+                        <h3 class="panel-title"><a href="/tariffs"><i class="fa fa-cogs"></i>All tariffs</a></h3>
                     </div>
                     <div class="panel-body">
                         <form:form cssClass="center" method='POST' modelAttribute="tariffDto" action="/addTariff">
@@ -125,7 +108,7 @@
                                     </dt>
                                     <dd>
                                         <form:input class="form-control" type='text' path="tariffName"
-                                                    placeholder="Tariff name" required="required" pattern="([a-zA-Z]{3,14})"/>
+                                                    placeholder="Tariff name" required="required" pattern="([a-zA-Z 0-9]{3,14})"/>
                                     </dd>
                                 </spring:bind>
                                 <spring:bind path="tariffPrice">
@@ -153,7 +136,7 @@
                 </div>
                 <div class="panel  panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Find customer by phone number</h3>
+                        <h3 class="panel-title"><i class="fa fa-phone"></i>Find customer by phone number</h3>
                     </div>
                     <div class="panel-body">
                         <form:form cssClass="center" method='GET' action="/findByPhone">
@@ -179,7 +162,7 @@
             <div class="col-sm-4 col-md-4 info-blocks">
                 <div class="panel  panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Add new option</h3>
+                        <h3 class="panel-title"><a href="/optionsPage"><i class="fa fa-bolt"></i>All options</a></h3>
                     </div>
                     <div class="panel-body">
                         <form:form cssClass="center" method='POST' modelAttribute="newOption" action="/addOption">
@@ -253,7 +236,7 @@
             <div class="col-sm-4 col-md-4 info-blocks">
                 <div class="panel  panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Registration of new customer</h3>
+                        <h3 class="panel-title"><a href="/customerPage"><i class="fa fa-users"></i>All customers</a></h3>
                     </div>
                     <div class="panel-body">
                         <form:form cssClass="center" method='POST' modelAttribute="userDto">

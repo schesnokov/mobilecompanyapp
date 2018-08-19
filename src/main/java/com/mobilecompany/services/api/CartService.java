@@ -4,5 +4,5 @@ import com.mobilecompany.controllers.model.BucketChanges;
 import com.mobilecompany.controllers.model.ContractChanges;
 
 public interface CartService {
-    void addToCart(BucketChanges changes, Integer contractId, ContractChanges contractChanges);
+    void addToCart(BucketChanges changes, Integer contractId, ContractChanges contractChanges, String ids);
 }

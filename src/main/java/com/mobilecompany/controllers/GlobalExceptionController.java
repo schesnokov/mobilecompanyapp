@@ -17,4 +17,11 @@ public class GlobalExceptionController {
     public ModelAndView resetLogin() {
         return new ModelAndView("redirect: /");
     }
+
+    @ExceptionHandler(Exception.class)
+    public String pyatsotka(){
+        //todo 500
+        return "/404";
+    }
+
 }

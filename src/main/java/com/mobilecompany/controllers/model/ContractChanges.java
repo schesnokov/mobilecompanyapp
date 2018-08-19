@@ -16,14 +16,6 @@ public class ContractChanges {
         this.tariffId = tariffId;
     }
 
-    public List<Integer> getOptionsIds() {
-        return optionsIds1;
-    }
-
-    public void setOptionsIds(List<Integer> optionsIds1) {
-        this.optionsIds1 = optionsIds1;
-    }
-
     public List<Integer> getOptionsIds1() {
         return optionsIds1;
     }

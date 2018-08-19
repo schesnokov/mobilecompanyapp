@@ -81,7 +81,7 @@ public class OptionServiceImpl implements OptionService {
     public void changeOptionStatus(Integer optionId) {
         LOGGER.info("Blocking option with id {}", optionId);
         Option option = optionDao.read(optionId);
-        option.setIsBlocked(1);
+        option.setOptionIsBlocked(1);
         optionDao.update(option);
     }
 
@@ -105,7 +105,7 @@ public class OptionServiceImpl implements OptionService {
         TariffDto tariffDto = tariffService.getTariff(tariffId);
         Set<OptionDto> availableOptions = tariffDto.getAvailableOptions();
         Set<OptionDto> optionToRemove = new HashSet<>();
-        for (Integer optionId : contractChanges.getOptionsIds()) {
+        for (Integer optionId : contractChanges.getOptionsIds1()) {
             OptionDto optionDto = mapper.map(optionDao.read(optionId), OptionDto.class);
             optionToRemove.add(optionDto);
         }

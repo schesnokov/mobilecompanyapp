@@ -47,6 +47,6 @@ public class OptionDaoImpl implements OptionDao {
     @Override
     public List<Option> findAllOptions() {
         LOGGER.info("Reading all options");
-        return entityManager.createQuery("from Option as option where option.isBlocked = 0").getResultList();
+        return entityManager.createQuery("from Option as option where option.optionIsBlocked = 0").getResultList();
     }
 }

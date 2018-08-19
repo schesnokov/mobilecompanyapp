@@ -46,20 +46,21 @@ public class BucketController {
         LOGGER.info("Adding products to bucket");
         LOGGER.info("qweqwe" + ids);
         Object bucket = request.getSession().getAttribute("bucket");
+
         if (bucket == null) {
             BucketChanges bucketChanges = new BucketChanges();
-            cartService.addToCart(bucketChanges, contractId, contractChanges);
+            cartService.addToCart(bucketChanges, contractId, contractChanges, ids);
             request.getSession().setAttribute("bucket", bucketChanges);
             request.getSession().setAttribute("contractChanges", contractChanges);
             request.getSession().setAttribute("contract", contractService.getContract(contractId));
             request.getSession().setAttribute("orderResult", contractService.getOrderResult(contractChanges.getTariffId(),
-                    contractChanges.getOptionsIds()));
+                    contractChanges.getOptionsIds1()));
         } else {
-            cartService.addToCart((BucketChanges) bucket, contractId, contractChanges);
+            cartService.addToCart((BucketChanges) bucket, contractId, contractChanges, ids);
             request.getSession().setAttribute("contractChanges", contractChanges);
             request.getSession().setAttribute("contract", contractService.getContract(contractId));
             request.getSession().setAttribute("orderResult", contractService.getOrderResult(contractChanges.getTariffId(),
-                    contractChanges.getOptionsIds()));
+                    contractChanges.getOptionsIds1()));
         }
         return "redirect: /bucket";
     }

@@ -14,7 +14,7 @@ CREATE TABLE Users
   adress 			VARCHAR(255) 			NOT NULL,
   email 			VARCHAR(64) 			NOT NULL,
   password 			VARCHAR(64) 			NOT NULL,
-  isBlocked 		TINYINT(1) 				NOT NULL,
+  optionIsBlocked 		TINYINT(1) 				NOT NULL,
   role 				INT(32) 				NOT NULL,
 
   FOREIGN KEY (role) REFERENCES Roles(id)
@@ -42,7 +42,7 @@ CREATE TABLE Contracts
   tariff 			INT(32) 				NOT NULL,
   client 			INT(32) 				NOT NULL,
   balance 			DECIMAL(10,2) 			NOT NULL,
-  isBlocked 		TINYINT(1) 				NOT NULL,
+  optionIsBlocked 		TINYINT(1) 				NOT NULL,
   
   FOREIGN KEY (tariff) 		REFERENCES Tariffs(id),
   FOREIGN KEY (client) 		REFERENCES Users(id)

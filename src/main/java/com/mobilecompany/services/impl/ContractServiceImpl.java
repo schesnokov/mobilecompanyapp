@@ -102,14 +102,14 @@ public class ContractServiceImpl implements ContractService {
         LOGGER.info("Changing tariff of contract with id {}", contractId);
         Contract contract = contractDao.read(contractId);
         Set<Option> selectedOptions = new HashSet<>();
-        for (Integer optionId : contractChanges.getOptionsIds()) {
+        for (Integer optionId : contractChanges.getOptionsIds1()) {
             selectedOptions.add(optionDao.read(optionId));
         }
         contract.setSelectedOptions(selectedOptions);
         Integer tariffId = contractChanges.getTariffId();
         Tariff tariff = mapper.map(tariffService.getTariff(tariffId), Tariff.class);
         contract.setTariff(tariff);
-        contract.setBalance(contract.getBalance().subtract(getOrderResult(tariffId, contractChanges.getOptionsIds())));
+        contract.setBalance(contract.getBalance().subtract(getOrderResult(tariffId, contractChanges.getOptionsIds1())));
         contractDao.update(contract);
     }
 

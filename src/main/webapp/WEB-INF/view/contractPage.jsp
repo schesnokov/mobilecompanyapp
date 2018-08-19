@@ -152,7 +152,7 @@
                                                         <td>
                                                             <div id="optionCheckboxes" stylez="text-align: left;margin-left: 75px;">
                                                                 <form:checkboxes cssClass="optionCheckbox"
-                                                                                 path="optionsIds"
+                                                                                 path="optionsIds1"
                                                                                  items="${availableOptions}"
                                                                                  itemLabel="name"
                                                                                  itemValue="id"
@@ -179,7 +179,7 @@
                                 <c:when test="${contractDto.isBlocked == 1}">
                                     <h3>Unblock your contract</h3>
                                     <form:form action="/changeStatus/${contractDto.id}" method="POST">
-                                        <input type='submit' value='Unblock Contract' class="btn btn-success dbutton"/>
+                                        <input type='submit' value='Unblock Contract' class="btn btn-success dbutton" style="width: 130px;"/>
                                     </form:form>
                                 </c:when>
                                 <c:otherwise>
@@ -187,7 +187,7 @@
                                     <security:authorize access="hasRole('ROLE_ADMIN')">
                                         <form:form action="/changeStatus/${contractDto.id}" method="POST">
                                             <input type='submit' value='Unblock Contract'
-                                                   class="btn btn-success dbutton"/>
+                                                   class="btn btn-success dbutton" style="width: 130px;"/>
                                         </form:form>
                                     </security:authorize>
                                 </c:otherwise>
