@@ -11,6 +11,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
+/**
+ * The User dao.
+ */
 @Repository
 public class UserDaoImpl implements UserDao {
 
@@ -19,18 +22,34 @@ public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+    /**
+     * Create.
+     *
+     * @param user the user
+     */
     @Override
     public void create(User user) {
         entityManager.persist(user);
         LOGGER.info("{} have been created", user);
     }
 
+    /**
+     * Read user.
+     *
+     * @param id the id
+     * @return the user
+     */
     @Override
     public User read(Integer id) {
         LOGGER.info("Reading User by id {}", id);
         return entityManager.find(User.class, id);
     }
 
+    /**
+     * Update.
+     *
+     * @param id the id
+     */
     @Override
     public void update(Integer id) {
         User user = entityManager.find(User.class, id);
@@ -38,17 +57,33 @@ public class UserDaoImpl implements UserDao {
         LOGGER.info("{} have been updated", user);
     }
 
+    /**
+     * Delete.
+     *
+     * @param id the id
+     */
     @Override
     public void delete(Integer id) {
         entityManager.remove(entityManager.find(User.class, id));
         LOGGER.info("User with id {} have been deleted", id);
     }
 
+    /**
+     * Find all users list.
+     *
+     * @return the list of users
+     */
     public List<User> findAllUsers() {
         LOGGER.info("Finding all Users");
         return entityManager.createQuery("from User c").getResultList();
     }
 
+    /**
+     * Gets by email.
+     *
+     * @param email the email
+     * @return the User
+     */
     @Override
     public User getByEmail(String email) {
         LOGGER.info("Find user by email: {}", email);

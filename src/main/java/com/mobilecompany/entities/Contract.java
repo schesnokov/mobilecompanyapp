@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Set;
 
+/**
+ * The type Contract.
+ */
 @Entity(name = "Contract")
 @Table(name = "contracts")
 public class Contract {
@@ -38,9 +41,20 @@ public class Contract {
     @ManyToMany
     private Set<Option> selectedOptions;
 
+    /**
+     * Instantiates a new Contract.
+     */
     public Contract() {
     }
 
+    /**
+     * Instantiates a new Contract.
+     *
+     * @param id        the id
+     * @param number    the number
+     * @param balance   the balance
+     * @param isBlocked the is blocked
+     */
     public Contract(int id, String number, BigDecimal balance, byte isBlocked) {
         this.id = id;
         this.number = number;
@@ -48,58 +62,128 @@ public class Contract {
         this.isBlocked = isBlocked;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets number.
+     *
+     * @return the number
+     */
     public String getNumber() {
         return number;
     }
 
+    /**
+     * Sets number.
+     *
+     * @param number the number
+     */
     public void setNumber(String number) {
         this.number = number;
     }
 
+    /**
+     * Gets balance.
+     *
+     * @return the balance
+     */
     public BigDecimal getBalance() {
         return balance;
     }
 
+    /**
+     * Sets balance.
+     *
+     * @param balance the balance
+     */
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
+    /**
+     * Gets is blocked.
+     *
+     * @return the is blocked
+     */
     public int getIsBlocked() {
         return isBlocked;
     }
 
+    /**
+     * Sets is blocked.
+     *
+     * @param isBlocked the is blocked
+     */
     public void setIsBlocked(int isBlocked) {
         this.isBlocked = isBlocked;
     }
 
+    /**
+     * Gets user.
+     *
+     * @return the user
+     */
     public User getUser() {
         return this.user;
     }
 
+    /**
+     * Sets user.
+     *
+     * @param user the user
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
+    /**
+     * Gets tariff.
+     *
+     * @return the tariff
+     */
     public Tariff getTariff() {
         return tariff;
     }
 
+    /**
+     * Sets tariff.
+     *
+     * @param tariff the tariff
+     */
     public void setTariff(Tariff tariff) {
         this.tariff = tariff;
     }
 
+    /**
+     * Gets selected options.
+     *
+     * @return the selected options
+     */
     public Set<Option> getSelectedOptions() {
         return selectedOptions;
     }
 
+    /**
+     * Sets selected options.
+     *
+     * @param selectedOptions the selected options
+     */
     public void setSelectedOptions(Set<Option> selectedOptions) {
         this.selectedOptions = selectedOptions;
     }

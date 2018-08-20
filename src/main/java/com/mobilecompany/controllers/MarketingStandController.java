@@ -10,6 +10,9 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
+/**
+ * The Marketing stand controller.
+ */
 @RestController
 @RequestMapping("/marketing")
 public class MarketingStandController {
@@ -17,11 +20,21 @@ public class MarketingStandController {
     private final Set<SseEmitter> emitters = Collections.synchronizedSet(new HashSet<>());
     private TariffService tariffService;
 
+    /**
+     * Instantiates a new Marketing stand controller.
+     *
+     * @param tariffService the tariff service
+     */
     @Autowired
     public MarketingStandController(TariffService tariffService) {
         this.tariffService = tariffService;
     }
 
+    /**
+     * Gets stand information.
+     *
+     * @return the stand information
+     */
     @RequestMapping(value = "/stand")
     public List<TariffDto> getStandInformation() {
         List<TariffDto> tariffsDtos = tariffService.getAllTariffs();
@@ -34,6 +47,12 @@ public class MarketingStandController {
         return tariffsDtos;
     }
 
+    /**
+     * Open connection sse emitter.
+     *
+     * @param response the response
+     * @return the sse emitter
+     */
     @RequestMapping(value = "/stand/connection")
     public SseEmitter openConnection(HttpServletResponse response) {
         response.setCharacterEncoding("UTF-8");

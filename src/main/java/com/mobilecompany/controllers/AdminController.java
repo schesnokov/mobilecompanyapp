@@ -12,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * The Admin controller.
+ */
 @Controller
 public class AdminController {
 
@@ -19,11 +22,22 @@ public class AdminController {
 
     private OptionService optionService;
 
+    /**
+     * Instantiates a new Admin controller.
+     *
+     * @param optionService the option service
+     */
     @Autowired
     public AdminController(OptionService optionService) {
         this.optionService = optionService;
     }
 
+    /**
+     * Admin panel string.
+     *
+     * @param model the model
+     * @return the Administration Panel page
+     */
     @RequestMapping(value = "/adminPanel", method = RequestMethod.GET)
     public String adminPanel(Model model) {
         LOGGER.info("Returning admin panel");

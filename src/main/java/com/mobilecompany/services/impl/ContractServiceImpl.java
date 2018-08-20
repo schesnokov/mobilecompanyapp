@@ -27,6 +27,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The Contract service.
+ */
 @Service
 public class ContractServiceImpl implements ContractService {
 
@@ -39,6 +42,15 @@ public class ContractServiceImpl implements ContractService {
     private OptionService optionService;
     private ModelMapper mapper;
 
+    /**
+     * Instantiates a new Contract service.
+     *
+     * @param contractDao   the contract dao
+     * @param optionDao     the option dao
+     * @param optionService the option service
+     * @param tariffService the tariff service
+     * @param userService   the user service
+     */
     @Autowired
     public ContractServiceImpl(ContractDao contractDao, OptionDao optionDao, OptionService optionService,
                                TariffService tariffService, UserService userService) {
@@ -50,6 +62,12 @@ public class ContractServiceImpl implements ContractService {
         mapper = new ModelMapper();
     }
 
+    /**
+     * Gets contract.
+     *
+     * @param id the id
+     * @return the contract
+     */
     @Override
     @Transactional(readOnly = true)
     public ContractDto getContract(Integer id) {
@@ -57,6 +75,11 @@ public class ContractServiceImpl implements ContractService {
         return mapper.map(contractDao.read(id), ContractDto.class);
     }
 
+    /**
+     * Gets all contracts.
+     *
+     * @return the all contracts
+     */
     @Override
     @Transactional(readOnly = true)
     public List<ContractDto> getAllContracts() {
@@ -68,6 +91,12 @@ public class ContractServiceImpl implements ContractService {
         return contractDtoList;
     }
 
+    /**
+     * Create.
+     *
+     * @param newContract the new contract
+     * @param customerId  the customer id
+     */
     @Override
     @Transactional
     public void create(NewContractHelper newContract, Integer customerId) {
@@ -88,6 +117,11 @@ public class ContractServiceImpl implements ContractService {
         contractDao.create(mapper.map(contract, Contract.class));
     }
 
+    /**
+     * Update.
+     *
+     * @param contract the contract
+     */
     @Override
     @Transactional
     public void update(ContractDto contract) {
@@ -96,6 +130,12 @@ public class ContractServiceImpl implements ContractService {
         contractDao.update(updatedContract);
     }
 
+    /**
+     * Change tariff.
+     *
+     * @param contractChanges the contract changes
+     * @param contractId      the contract id
+     */
     @Override
     @Transactional
     public void changeTariff(ContractChanges contractChanges, Integer contractId) {
@@ -113,6 +153,13 @@ public class ContractServiceImpl implements ContractService {
         contractDao.update(contract);
     }
 
+    /**
+     * Calculates the price of changes for contract
+     *
+     * @param tariffId           the tariff id
+     * @param selectedOptionsIds the selected options ids
+     * @return the order result
+     */
     @Override
     public BigDecimal getOrderResult(Integer tariffId, List<Integer> selectedOptionsIds) {
         LOGGER.info("Calculation of price for tariff changes");
@@ -130,6 +177,11 @@ public class ContractServiceImpl implements ContractService {
         return changeCost;
     }
 
+    /**
+     * Change status of contract by User.
+     *
+     * @param contractId the contract id
+     */
     @Override
     @Transactional
     public void changeStatus(Integer contractId) {
@@ -143,6 +195,11 @@ public class ContractServiceImpl implements ContractService {
         contractDao.update(contract);
     }
 
+    /**
+     * Change status by admin.
+     *
+     * @param contractId the contract id
+     */
     @Override
     @Transactional
     public void changeStatusByAdmin(Integer contractId) {
@@ -155,6 +212,12 @@ public class ContractServiceImpl implements ContractService {
         }
     }
 
+    /**
+     * Gets contract by phone.
+     *
+     * @param phone the phone
+     * @return the contract by phone
+     */
     @Override
     @Transactional
     public Contract getContractByPhone(String phone) {
@@ -162,6 +225,11 @@ public class ContractServiceImpl implements ContractService {
         return contractDao.findByPhoneNumber(phone);
     }
 
+    /**
+     * Delete.
+     *
+     * @param contractDto the contract
+     */
     @Override
     @Transactional
     public void delete(ContractDto contractDto) {

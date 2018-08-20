@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The Bucket controller.
+ */
 @Controller
 public class BucketController {
 
@@ -24,12 +27,25 @@ public class BucketController {
     private CartService cartService;
     private ContractService contractService;
 
+    /**
+     * Instantiates a new Bucket controller.
+     *
+     * @param cartService     the cart service
+     * @param contractService the contract service
+     */
     @Autowired
     public BucketController(CartService cartService, ContractService contractService) {
         this.cartService = cartService;
         this.contractService = contractService;
     }
 
+    /**
+     * Gets bucket.
+     *
+     * @param request the request
+     * @param model   the model
+     * @return the bucket page
+     */
     @RequestMapping(value = "/bucket", method = RequestMethod.GET)
     public String getBucket(HttpServletRequest request, Model model) {
         LOGGER.info("Returning bucket page");
@@ -40,11 +56,19 @@ public class BucketController {
         return "/bucket";
     }
 
+    /**
+     * Add product to bucket.
+     *
+     * @param contractChanges the contract changes
+     * @param ids             the ids of new options
+     * @param contractId      the contract id
+     * @param request         the request
+     * @return the Bucket Page
+     */
     @RequestMapping(value = "/bucket/product/{contractId}", method = RequestMethod.POST)
     public String addProductToBucket(@ModelAttribute("contractChanges") ContractChanges contractChanges, String ids,
                                      @PathVariable(name = "contractId") Integer contractId, HttpServletRequest request) {
         LOGGER.info("Adding products to bucket");
-        LOGGER.info("qweqwe" + ids);
         Object bucket = request.getSession().getAttribute("bucket");
 
         if (bucket == null) {

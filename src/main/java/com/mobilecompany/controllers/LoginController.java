@@ -8,11 +8,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * The Login controller.
+ */
 @Controller
 public class LoginController {
 
     private static Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
+    /**
+     * Login.
+     *
+     * @param error  the error
+     * @param logout the logout
+     * @param model  the model
+     * @return page where redirect comes from of login page with error notification of succesfull logout page
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(
             @RequestParam(value = "error", required = false) String error,

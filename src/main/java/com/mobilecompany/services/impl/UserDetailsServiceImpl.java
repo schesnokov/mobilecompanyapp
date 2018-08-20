@@ -15,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The type User details service.
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -22,11 +25,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserDaoImpl usersDao;
 
+    /**
+     * Instantiates a new User details service.
+     *
+     * @param usersDao the users dao
+     */
     @Autowired
     public UserDetailsServiceImpl(UserDaoImpl usersDao) {
         this.usersDao = usersDao;
     }
 
+    /**
+     * Loads User by email
+     *
+     * @param email the users email
+     *
+     * @return User by email
+     */
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) {

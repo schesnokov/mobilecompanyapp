@@ -28,6 +28,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The Customer controller.
+ */
 @Controller
 public class CustomerController {
 
@@ -39,6 +42,15 @@ public class CustomerController {
     private ContractService contractService;
     private MainValidator mainValidator;
 
+    /**
+     * Instantiates a new Customer controller.
+     *
+     * @param userService     the user service
+     * @param tariffService   the tariff service
+     * @param optionService   the option service
+     * @param contractService the contract service
+     * @param mainValidator   the main validator
+     */
     @Autowired
     public CustomerController(UserService userService, TariffService tariffService, OptionService optionService,
                               ContractService contractService, MainValidator mainValidator) {
@@ -49,6 +61,12 @@ public class CustomerController {
         this.mainValidator = mainValidator;
     }
 
+    /**
+     * Customers string.
+     *
+     * @param model the model
+     * @return the All Customers Page
+     */
     @RequestMapping(value = "/customerPage", method = RequestMethod.GET)
     public String customers(Model model) {
         LOGGER.info("Returning page with all customers");
@@ -56,6 +74,14 @@ public class CustomerController {
         return "/customerPage";
     }
 
+    /**
+     * Registration of new User
+     *
+     * @param userDto       the user dto
+     * @param bindingResult the binding result
+     * @param model         the model
+     * @return the Admin Panel
+     */
     @RequestMapping(value = "/adminPanel", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userDto") UserDto userDto, BindingResult bindingResult, Model model) {
         if (userDto.getDateOfBirth() == null) {
@@ -82,6 +108,13 @@ public class CustomerController {
         return "redirect: /adminPanel";
     }
 
+    /**
+     * Edit customer.
+     *
+     * @param customerId the customer id
+     * @param model      the model
+     * @return the Account page
+     */
     @RequestMapping(value = "/admin/editCustomer/{customerId}")
     public String editCustomer(@PathVariable("customerId") Integer customerId, Model model) {
         LOGGER.info("Returning page for customer edit with id {}", customerId);
@@ -96,6 +129,13 @@ public class CustomerController {
         return "/account";
     }
 
+    /**
+     * Find customer by phone.
+     *
+     * @param request the request with phone
+     * @param model   the model
+     * @return the Account page or Admin Panel Page if no result found
+     */
     @RequestMapping(value = "/findByPhone", method = RequestMethod.GET)
     public String findCustomerByPhone(HttpServletRequest request, Model model) {
         try {
@@ -119,6 +159,14 @@ public class CustomerController {
         }
     }
 
+    /**
+     * Add new contract.
+     *
+     * @param customerId  the customer id
+     * @param newContract the new contract
+     * @param model       the model
+     * @return the Account page if the phone number is not unique or the All Customers Page
+     */
     @RequestMapping(value = "/customer/addContract/{customerId}", method = RequestMethod.POST)
     public String addNewContract(@PathVariable(name = "customerId") Integer customerId,
                                  @ModelAttribute("newContract") NewContractHelper newContract, Model model){

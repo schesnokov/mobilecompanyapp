@@ -18,6 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type User service.
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -28,6 +31,12 @@ public class UserServiceImpl implements UserService {
     private RoleDao roleDao;
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Instantiates a new User service.
+     *
+     * @param userDao the user dao
+     * @param roleDao the role dao
+     */
     @Autowired
     public UserServiceImpl(UserDao userDao, RoleDao roleDao) {
         this.userDao = userDao;
@@ -36,6 +45,12 @@ public class UserServiceImpl implements UserService {
         mapper = new ModelMapper();
     }
 
+    /**
+     * Gets user.
+     *
+     * @param id the id
+     * @return the user
+     */
     @Override
     @Transactional(readOnly = true)
     public UserDto getUser(Integer id) {
@@ -43,6 +58,11 @@ public class UserServiceImpl implements UserService {
         return mapper.map(userDao.read(id), UserDto.class);
     }
 
+    /**
+     * Gets all users.
+     *
+     * @return the all users
+     */
     @Override
     @Transactional(readOnly = true)
     public List<UserDto> getAllUsers() {
@@ -54,6 +74,11 @@ public class UserServiceImpl implements UserService {
         return userDtoList;
     }
 
+    /**
+     * Create user.
+     *
+     * @param user the user
+     */
     @Override
     @Transactional
     public void createUser(UserDto user) {
@@ -64,6 +89,12 @@ public class UserServiceImpl implements UserService {
         userDao.create(mapper.map(user, User.class));
     }
 
+    /**
+     * Find by email user dto.
+     *
+     * @param email the email
+     * @return the user dto
+     */
     @Override
     @Transactional
     public UserDto findByEmail(String email) {
@@ -71,6 +102,11 @@ public class UserServiceImpl implements UserService {
         return mapper.map(userDao.getByEmail(email), UserDto.class);
     }
 
+    /**
+     * Update.
+     *
+     * @param user the user
+     */
     @Override
     @Transactional
     public void update(UserDto user) {

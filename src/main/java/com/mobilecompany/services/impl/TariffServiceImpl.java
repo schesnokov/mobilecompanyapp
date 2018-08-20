@@ -16,6 +16,9 @@ import javax.jms.TextMessage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Tariff service.
+ */
 @Service
 public class TariffServiceImpl implements TariffService {
 
@@ -25,6 +28,12 @@ public class TariffServiceImpl implements TariffService {
     private JmsTemplate jmsTemplate;
     private ModelMapper mapper;
 
+    /**
+     * Instantiates a new Tariff service.
+     *
+     * @param tariffDao   the tariff dao
+     * @param jmsTemplate the jms template
+     */
     @Autowired
     public TariffServiceImpl(TariffDao tariffDao, JmsTemplate jmsTemplate) {
         this.tariffDao = tariffDao;
@@ -32,6 +41,12 @@ public class TariffServiceImpl implements TariffService {
         this.jmsTemplate = jmsTemplate;
     }
 
+    /**
+     * Gets tariff.
+     *
+     * @param id the id
+     * @return the tariff
+     */
     @Override
     @Transactional
     public TariffDto getTariff(Integer id) {
@@ -39,6 +54,11 @@ public class TariffServiceImpl implements TariffService {
         return mapper.map(tariffDao.read(id), TariffDto.class);
     }
 
+    /**
+     * Gets all tariffs.
+     *
+     * @return the all tariffs
+     */
     @Override
     @Transactional
     public List<TariffDto> getAllTariffs() {
@@ -50,6 +70,11 @@ public class TariffServiceImpl implements TariffService {
         return tariffDtoList;
     }
 
+    /**
+     * Update.
+     *
+     * @param tariff the tariff
+     */
     @Override
     @Transactional
     public void update(TariffDto tariff) {
@@ -57,6 +82,11 @@ public class TariffServiceImpl implements TariffService {
         tariffDao.update(mapper.map(tariff, Tariff.class));
     }
 
+    /**
+     * Delete tariff.
+     *
+     * @param id the id
+     */
     @Override
     @Transactional
     public void deleteTariff(Integer id) {
@@ -64,6 +94,11 @@ public class TariffServiceImpl implements TariffService {
         tariffDao.delete(id);
     }
 
+    /**
+     * Add tariff.
+     *
+     * @param tariff the tariff
+     */
     @Override
     @Transactional
     public void addTariff(TariffDto tariff) {
@@ -71,6 +106,9 @@ public class TariffServiceImpl implements TariffService {
         tariffDao.create(mapper.map(tariff, Tariff.class));
     }
 
+    /**
+     * Send update message to jms server.
+     */
     @Override
     public void sendUpdateMessageToJmsServer() {
         sendMessage();
@@ -84,6 +122,11 @@ public class TariffServiceImpl implements TariffService {
         });
     }
 
+    /**
+     * Change tariff status.
+     *
+     * @param tariffId the tariff id
+     */
     @Override
     @Transactional
     public void changeTariffStatus(Integer tariffId) {

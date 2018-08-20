@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
+/**
+ * The Account controller.
+ */
 @Controller
 public class AccountController {
 
@@ -24,6 +27,13 @@ public class AccountController {
     private SecurityService securityService;
     private TariffService tariffService;
 
+    /**
+     * Instantiates a new Account controller.
+     *
+     * @param userService     the user service
+     * @param securityService the security service
+     * @param tariffService   the tariff service
+     */
     @Autowired
     public AccountController(UserService userService, SecurityService securityService, TariffService tariffService) {
         this.securityService = securityService;
@@ -31,6 +41,12 @@ public class AccountController {
         this.tariffService = tariffService;
     }
 
+    /**
+     * Account string.
+     *
+     * @param model the model
+     * @return the Account page
+     */
     @RequestMapping(value = "/account", method = RequestMethod.GET)
     public String account(Model model) {
         LOGGER.info("Returning account page");

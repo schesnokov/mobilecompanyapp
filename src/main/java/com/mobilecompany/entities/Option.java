@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The type Option.
+ */
 @Entity(name = "Option")
 @Table(name = "options")
 public class Option {
@@ -53,6 +56,9 @@ public class Option {
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     private Set<Contract> contracts = new HashSet<>();
 
+    /**
+     * Instantiates a new Option.
+     */
     public Option() {
         dependentFirst = new HashSet<>();
         conflictedFirst = new HashSet<>();
@@ -60,6 +66,15 @@ public class Option {
         contracts = new HashSet<>();
     }
 
+    /**
+     * Instantiates a new Option.
+     *
+     * @param id             the id
+     * @param name           the name
+     * @param price          the price
+     * @param connectionCost the connection cost
+     * @param description    the description
+     */
     public Option(int id, String name, BigDecimal price, BigDecimal connectionCost, String description) {
         this.id = id;
         this.name = name;
@@ -68,101 +83,221 @@ public class Option {
         this.description = description;
     }
 
+    /**
+     * Add dependent first.
+     *
+     * @param option the option
+     */
     public void addDependentFirst(Option option) {
         this.getDependentFirst().add(option);
     }
 
+    /**
+     * Add conflicted.
+     *
+     * @param option the option
+     */
     public void addConflicted(Option option) {
         this.getConflictedFirst().add(option);
     }
 
+    /**
+     * Add dependent first.
+     *
+     * @param options the options
+     */
     public void addDependentFirst(Set<Option> options) {
         this.getDependentFirst().addAll(options);
     }
 
+    /**
+     * Add conflicted.
+     *
+     * @param options the options
+     */
     public void addConflicted(Set<Option> options) {
         this.getConflictedFirst().addAll(options);
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets price.
+     *
+     * @return the price
+     */
     public BigDecimal getPrice() {
         return price;
     }
 
+    /**
+     * Sets price.
+     *
+     * @param price the price
+     */
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
 
+    /**
+     * Gets connection cost.
+     *
+     * @return the connection cost
+     */
     public BigDecimal getConnectionCost() {
         return connectionCost;
     }
 
+    /**
+     * Sets connection cost.
+     *
+     * @param connectionCost the connection cost
+     */
     public void setConnectionCost(BigDecimal connectionCost) {
         this.connectionCost = connectionCost;
     }
 
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets description.
+     *
+     * @param description the description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Gets option is blocked.
+     *
+     * @return the option is blocked
+     */
     public int getOptionIsBlocked() {
         return optionIsBlocked;
     }
 
+    /**
+     * Sets option is blocked.
+     *
+     * @param isBlocked the is blocked
+     */
     public void setOptionIsBlocked(int isBlocked) {
         this.optionIsBlocked = isBlocked;
     }
 
+    /**
+     * Gets dependent first.
+     *
+     * @return the dependent first
+     */
     public Set<Option> getDependentFirst() {
         return dependentFirst;
     }
 
+    /**
+     * Sets dependent first.
+     *
+     * @param dependentFirst the dependent first
+     */
     public void setDependentFirst(Set<Option> dependentFirst) {
         this.dependentFirst = dependentFirst;
     }
 
 
+    /**
+     * Gets conflicted first.
+     *
+     * @return the conflicted first
+     */
     public Set<Option> getConflictedFirst() {
         return conflictedFirst;
     }
 
+    /**
+     * Sets conflicted first.
+     *
+     * @param conflictedFirst the conflicted first
+     */
     public void setConflictedFirst(Set<Option> conflictedFirst) {
         this.conflictedFirst = conflictedFirst;
     }
 
 
+    /**
+     * Gets available tariff option.
+     *
+     * @return the available tariff option
+     */
     public Set<Tariff> getAvailableTariffOption() {
         return availableTariffOption;
     }
 
+    /**
+     * Sets available tariff option.
+     *
+     * @param availableTariffOption the available tariff option
+     */
     public void setAvailableTariffOption(Set<Tariff> availableTariffOption) {
         this.availableTariffOption = availableTariffOption;
     }
 
+    /**
+     * Gets contracts.
+     *
+     * @return the contracts
+     */
     public Set<Contract> getContracts() {
         return contracts;
     }
 
+    /**
+     * Sets contracts.
+     *
+     * @param contracts the contracts
+     */
     public void setContracts(Set<Contract> contracts) {
         this.contracts = contracts;
     }

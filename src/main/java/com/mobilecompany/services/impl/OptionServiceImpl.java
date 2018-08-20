@@ -20,6 +20,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The type Option service.
+ */
 @Service
 public class OptionServiceImpl implements OptionService {
 
@@ -29,6 +32,12 @@ public class OptionServiceImpl implements OptionService {
     private TariffService tariffService;
     private ModelMapper mapper;
 
+    /**
+     * Instantiates a new Option service.
+     *
+     * @param optionDao     the option dao
+     * @param tariffService the tariff service
+     */
     @Autowired
     public OptionServiceImpl(OptionDao optionDao, TariffService tariffService) {
         this.optionDao = optionDao;
@@ -36,6 +45,12 @@ public class OptionServiceImpl implements OptionService {
         this.mapper = new ModelMapper();
     }
 
+    /**
+     * Gets option.
+     *
+     * @param id the id
+     * @return the option
+     */
     @Override
     @Transactional(readOnly = true)
     public OptionDto getOption(Integer id) {
@@ -43,6 +58,11 @@ public class OptionServiceImpl implements OptionService {
         return mapper.map(optionDao.read(id), OptionDto.class);
     }
 
+    /**
+     * Gets all options.
+     *
+     * @return the all options
+     */
     @Override
     @Transactional(readOnly = true)
     public List<OptionDto> getAllOptions() {
@@ -54,6 +74,11 @@ public class OptionServiceImpl implements OptionService {
         return optionDtoList;
     }
 
+    /**
+     * Add option.
+     *
+     * @param newOption the new option
+     */
     @Override
     @Transactional
     public void addOption(NewOptionHelper newOption) {
@@ -76,6 +101,11 @@ public class OptionServiceImpl implements OptionService {
         optionDao.create(mapper.map(optionDto, Option.class));
     }
 
+    /**
+     * Change option status.
+     *
+     * @param optionId the option id
+     */
     @Override
     @Transactional
     public void changeOptionStatus(Integer optionId) {
@@ -85,6 +115,13 @@ public class OptionServiceImpl implements OptionService {
         optionDao.update(option);
     }
 
+    /**
+     * Add available options to tariff.
+     *
+     * @param tariffId        the tariff id
+     * @param contractChanges the contract changes
+     * @return the tariff dto with new options
+     */
     @Override
     @Transactional
     public TariffDto addAvailableOptions(Integer tariffId, ContractChanges contractChanges) {
@@ -99,6 +136,13 @@ public class OptionServiceImpl implements OptionService {
         return tariffDto;
     }
 
+    /**
+     * Delete available options tariff dto.
+     *
+     * @param tariffId        the tariff id
+     * @param contractChanges the contract changes
+     * @return the tariff dto
+     */
     @Override
     @Transactional
     public TariffDto deleteAvailableOptions(Integer tariffId, ContractChanges contractChanges) {
@@ -114,6 +158,12 @@ public class OptionServiceImpl implements OptionService {
         return tariffDto;
     }
 
+    /**
+     * Gets conflicted options.
+     *
+     * @param optionId the option id
+     * @return the conflicted options
+     */
     @Override
     @Transactional
     public List<Integer> getConflictedOptions(Integer optionId) {
@@ -127,7 +177,12 @@ public class OptionServiceImpl implements OptionService {
         return conflictedOptionsIds;
     }
 
-
+    /**
+     * Gets dependent options.
+     *
+     * @param optionId the option id
+     * @return the dependent options
+     */
     @Override
     @Transactional
     public List<Integer> getDependentOptions(Integer optionId) {

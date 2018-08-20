@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Set;
 
 
+/**
+ * The type Cart service.
+ */
 @Service
 public class CartServiceImpl implements CartService {
 
@@ -25,12 +28,26 @@ public class CartServiceImpl implements CartService {
     private TariffService tariffService;
     private OptionService optionService;
 
+    /**
+     * Instantiates a new Cart service.
+     *
+     * @param tariffService the tariff service
+     * @param optionService the option service
+     */
     @Autowired
     public CartServiceImpl(TariffService tariffService, OptionService optionService) {
         this.tariffService = tariffService;
         this.optionService = optionService;
     }
 
+    /**
+     * Add to cart.
+     *
+     * @param bucketChanges         the changes
+     * @param contractId      the contract id
+     * @param contractChanges the contract changes
+     * @param ids             the ids
+     */
     @Override
     public void addToCart(BucketChanges bucketChanges, Integer contractId, ContractChanges contractChanges, String ids) {
         contractChanges.setOptionsIds1(idsParse(ids));

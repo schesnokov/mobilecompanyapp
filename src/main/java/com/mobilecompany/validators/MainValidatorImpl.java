@@ -1,17 +1,23 @@
 package com.mobilecompany.validators;
 
 import com.mobilecompany.dto.ContractDto;
-import com.mobilecompany.dto.TariffDto;
 import com.mobilecompany.dto.UserDto;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
-import java.text.DecimalFormat;
-
+/**
+ * The type Main validator.
+ */
 @Component
 public class MainValidatorImpl implements MainValidator{
 
+    /**
+     * Validate email.
+     *
+     * @param userDto the user dto
+     * @param errors  the errors
+     */
     @Override
     public void validateEmail(UserDto userDto, Errors errors) {
         if(!ValidatorPatterns.emailPattern(userDto.getEmail())) {
@@ -19,6 +25,12 @@ public class MainValidatorImpl implements MainValidator{
         }
     }
 
+    /**
+     * Validate passport.
+     *
+     * @param userDto the user dto
+     * @param errors  the errors
+     */
     @Override
     public void validatePassport(UserDto userDto, Errors errors) {
         if(!ValidatorPatterns.passportPattern(userDto.getPassportNumber())) {
@@ -26,6 +38,12 @@ public class MainValidatorImpl implements MainValidator{
         }
     }
 
+    /**
+     * Validate date of birth.
+     *
+     * @param userDto the user dto
+     * @param errors  the errors
+     */
     @Override
     public void validateDateOfBirth(UserDto userDto, Errors errors) {
         if(!ValidatorPatterns.datePattern(userDto.getDateOfBirth().toString())) {
@@ -33,6 +51,12 @@ public class MainValidatorImpl implements MainValidator{
         }
     }
 
+    /**
+     * Validate pw set.
+     *
+     * @param userDto the user dto
+     * @param errors  the errors
+     */
     @Override
     public void validatePwSet(UserDto userDto, Errors errors) {
         if(!ValidatorPatterns.parolePattern(userDto.getPassword())) {
@@ -40,25 +64,16 @@ public class MainValidatorImpl implements MainValidator{
         }
     }
 
+    /**
+     * Validate phone.
+     *
+     * @param contractDto the contract dto
+     * @param errors      the errors
+     */
     @Override
     public void validatePhone(ContractDto contractDto, Errors errors) {
         if(!ValidatorPatterns.phonenumberPattern(contractDto.getNumber())) {
             errors.rejectValue("phone", "Invalid phone number");
-        }
-    }
-
-    @Override
-    public void validateTariffOrOption(TariffDto tariffDto, Errors errors) {
-        if(!ValidatorPatterns.tariffOrOptionNamePattern(tariffDto.getTariffName())) {
-            errors.rejectValue("tariffName", "Invalid tariff name");
-        }
-        DecimalFormat df = new DecimalFormat();
-        df.setMaximumFractionDigits(2);
-        df.setMinimumFractionDigits(0);
-        df.setGroupingUsed(false);
-        String price = df.format(tariffDto.getTariffPrice());
-        if(!ValidatorPatterns.pricePattern(price)) {
-            errors.rejectValue("tariffPrice", "Invalid tariff price");
         }
     }
 

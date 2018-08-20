@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The Contract controller.
+ */
 @SessionAttributes(value = {"contractDto", "tariffList"})
 @Controller
 public class ContractController {
@@ -25,6 +28,13 @@ public class ContractController {
     private SecurityService securityService;
 
 
+    /**
+     * Instantiates a new Contract controller.
+     *
+     * @param contractService the contract service
+     * @param tariffService   the tariff service
+     * @param securityService the security service
+     */
     @Autowired
     public ContractController(ContractService contractService, TariffService tariffService,
                               SecurityService securityService) {
@@ -33,6 +43,13 @@ public class ContractController {
         this.securityService = securityService;
     }
 
+    /**
+     * Contract string.
+     *
+     * @param id    the id of Contract
+     * @param model the model
+     * @return the Contract Page
+     */
     @RequestMapping(value = "/contractPage/{id}", method = RequestMethod.GET)
     public String contract(@PathVariable Integer id, Model model) {
         LOGGER.info("Returning contract page for contract with id {}", id);
@@ -44,6 +61,13 @@ public class ContractController {
         return "/contractPage";
     }
 
+    /**
+     * Change status of Contract
+     *
+     * @param contractId the contract id
+     * @param model      the model
+     * @return the Contract Page
+     */
     @RequestMapping(value = "/changeStatus/{contractId}", method = RequestMethod.POST)
     public String changeStatus(@PathVariable(name = "contractId") Integer contractId, Model model) {
         LOGGER.info("Changing status of contract with id {}", contractId);
@@ -59,6 +83,15 @@ public class ContractController {
         return "/contractPage";
     }
 
+    /**
+     * Change tariff of contract.
+     *
+     * @param contractChanges the contract changes
+     * @param contractId      the contract id
+     * @param model           the model
+     * @param request         the request
+     * @return the Contract Page
+     */
     @RequestMapping(value = "/changeTariff/{contractId}", method = RequestMethod.POST)
     public String changeTariff(@ModelAttribute("contractChanges") ContractChanges contractChanges,
                                @PathVariable(name = "contractId") Integer contractId,

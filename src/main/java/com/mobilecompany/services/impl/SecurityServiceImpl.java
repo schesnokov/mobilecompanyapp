@@ -11,6 +11,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+/**
+ * The Security service.
+ */
 @Service
 public class SecurityServiceImpl implements SecurityService {
 
@@ -19,12 +22,23 @@ public class SecurityServiceImpl implements SecurityService {
     private AuthenticationManager authenticationManager;
     private UserDetailsService userDetailsService;
 
+    /**
+     * Instantiates a new Security service.
+     *
+     * @param authenticationManager the authentication manager
+     * @param userDetailsService    the user details service
+     */
     @Autowired
     public SecurityServiceImpl(AuthenticationManager authenticationManager, UserDetailsService userDetailsService) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
     }
 
+    /**
+     * Find logged in email string.
+     *
+     * @return the email
+     */
     @Override
     public String findLoggedInEmail() {
         LOGGER.info("Finding logged in user");
@@ -36,6 +50,12 @@ public class SecurityServiceImpl implements SecurityService {
         return null;
     }
 
+    /**
+     * Auto login.
+     *
+     * @param email    the email
+     * @param parole the password
+     */
     @Override
     public void autoLogin(String email, String parole) {
 
